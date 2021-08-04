@@ -10,6 +10,7 @@ import UIKit
 class MenuView: UIView {
     var titleLabel:UILabel!
     var scoreLabel:UILabel!
+    var warningLabel:UILabel!
     let playButton = Buttons().getPlayButton()
     let leaderboardButton = Buttons().getLeaderboardButton()
     let achievmentsButton = Buttons().getAchievmentButton()
@@ -18,6 +19,10 @@ class MenuView: UIView {
     init() {
         super.init(frame: .zero)
         self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
+        
+        self.warningLabel = self.newLabel(sizeFont: 15, w: .semibold)
+        self.warningLabel.textColor = .systemRed
+        self.addSubview(self.warningLabel)
         
         self.titleLabel = self.newLabel(sizeFont: 40, w: .bold)
         self.addSubview(self.titleLabel)
@@ -47,6 +52,8 @@ class MenuView: UIView {
     public func setTitleLabel(text: String) -> Void{self.titleLabel.text = text}
     
     public func setScoreLabel(text: String) ->Void{self.scoreLabel.text = "Best " + text}
+    
+    public func setWarningLabel(text: String) ->Void{self.warningLabel.text = text}
         
     
     /* MARK: Funções de criação */
@@ -63,6 +70,10 @@ class MenuView: UIView {
     
     override func layoutSubviews() {
         let safeArea:CGFloat = 114
+        
+        self.warningLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea/2).isActive = true
+        self.warningLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        
         
         self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: safeArea+20).isActive = true
         self.titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true

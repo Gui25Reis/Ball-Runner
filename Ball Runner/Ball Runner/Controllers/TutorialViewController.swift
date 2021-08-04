@@ -9,6 +9,7 @@ import UIKit
 
 class TutorialViewController: UIViewController {
     let myView:TutorialView = TutorialView()
+    let gameCenter = ManegerGameCenter()
     
     let subtitlesTexts:[String] = ["Objective", "Controls", "Specials"]
     let descriptionTexts:[String] = [
@@ -31,8 +32,11 @@ class TutorialViewController: UIViewController {
         self.view = self.myView
         
         self.myView.getObjectsToAnimate()[1][0].center.x += 150
-        
-        //self.controlsAnimation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.gameCenter.showAvatarGameCenter(isVisible: false)
     }
     
     @objc func exitAction(){
@@ -40,22 +44,4 @@ class TutorialViewController: UIViewController {
     }
     
     
-//    private func moveRight(view:UIView) ->Void{
-//        view.center.x  += 150
-//    }
-//
-//    private func controlsAnimation() {
-//        let list = self.myView.getObjectsToAnimate()[1]
-//
-//        UIView.animate(withDuration: self.duration, delay: 0, options: .repeat, animations: {
-//            print("Estou na animação")
-//            for x in list{
-//                print("Entrei no loop")
-//                x.backgroundColor = .cyan
-//                self.moveRight(view: x)
-//            }
-//        })
-//
-//        //self.myView.layoutIfNeeded()
-//    }
 }

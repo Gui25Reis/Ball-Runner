@@ -9,13 +9,11 @@ import UIKit
 
 class EndgameViewController: UIViewController {
     let myView:EndgameView = EndgameView()
+    let gameCenter = ManegerGameCenter()
     var score:Int!
     
     init(score:Int) {
         super.init(nibName: nil, bundle: nil)
-        
-        MenagerGameCenter.showAvatarGameCenter(isVisible: true)
-        
         self.score = score
     }
     
@@ -26,14 +24,13 @@ class EndgameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //self.gameCenter.getHighScore()
         self.myView.setTitleLabels(list: ["Game Over", "Score", "Best"])
         
         let defaults = UserDefaults.standard
         
         if (self.score > defaults.integer(forKey: "score")) {
-            let vc = MenagerGameCenter(state: .dashboard)
-            vc.setHighScore(score: self.score)
+            self.gameCenter.setHighScore(score: self.score)
             defaults.set(self.score, forKey: "score")
         }
         
@@ -46,6 +43,11 @@ class EndgameViewController: UIViewController {
         self.view = self.myView
     }
     
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.gameCenter.showAvatarGameCenter(isVisible: true)
+    }
     
     /* MARK: Ações do botões */
     
@@ -53,7 +55,7 @@ class EndgameViewController: UIViewController {
         let vc = MenuViewController()
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
-        
+
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -68,6 +70,7 @@ class EndgameViewController: UIViewController {
         
         // Chama o botão de compartilhar
         let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+        
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem     // Ipad
         present(vc, animated: true)
     }

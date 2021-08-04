@@ -11,6 +11,7 @@ class GameViewController: UIViewController{
         return UIRectEdge.bottom
     }
     // Atributos da classe
+    private let gameCenter = ManegerGameCenter()
     private let scene = GameScene()
     private let gameView = GameView()
     private let pauseView = PauseView()
@@ -25,7 +26,7 @@ class GameViewController: UIViewController{
     public override func viewDidLoad() {
         super.viewDidLoad()                                 // Chama a função original
         
-        MenagerGameCenter.showAvatarGameCenter(isVisible: false)
+        //self.gameCenter.showAvatarGameCenter(isVisible: false)
         
         self.gameView.setScene(scene: self.scene)           // Mostra a cena criada
         self.gameView.getPauseButton().addTarget(self, action: #selector(self.pauseAction), for: .touchDown)
@@ -49,6 +50,16 @@ class GameViewController: UIViewController{
         self.view = self.gameView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.gameCenter.showAvatarGameCenter(isVisible: false)
+    }
+    
+//    override func didMove(toParent parent: UIViewController?) {
+//        super.didMove(toParent: parent)
+//
+//        self.gameCenter.showAvatarGameCenter(isVisible: false)
+//    }
+    
     
     /* MARK: Drag & Drop */
     
@@ -57,16 +68,16 @@ class GameViewController: UIViewController{
         Ação de quando clica na tela.
     */
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) ->Void{
-        self.scene.startDrag()
-        //if let touch = touches.first {
-            //let location = touch.location(in: self.scene)        // Pega a localização atual do click
-            
+        
+        if let touch = touches.first {
+            let location = touch.location(in: self.scene)        // Pega a localização atual do click
+            self.scene.startDrag([location.x, location.y])
             
 //            let touchesNodes = self.scene.nodes(at: location)    // Pega os nodes que foram clicados
 //            for _ in touchesNodes {
 //                self.scene.startDrag([location.x, location.y])   // Manda a localização pra cena
 //            }
-//        }
+        }
     }
     
     
@@ -134,11 +145,13 @@ class GameViewController: UIViewController{
     }
     
     @objc func homeAction() {
+        self.gameCenter.showAvatarGameCenter(isVisible: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func achievementsAction() {
-        self.present(MenagerGameCenter(state: .achievements), animated: true, completion: nil)
+        
+        //self.present(MenagerGameCenter(state: .achievements), animated: true, completion: nil)
 //        let vc = GKGameCenterViewController(state: .achievements)
 //        //vc.gameCenterDelegate = self
 //        present(vc, animated: true, completion: nil)

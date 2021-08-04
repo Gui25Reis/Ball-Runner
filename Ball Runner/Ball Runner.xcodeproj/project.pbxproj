@@ -24,8 +24,8 @@
 		22F48DAD26A7661500AD2418 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F48DAC26A7661500AD2418 /* GameScene.swift */; };
 		22F48DB226A7667F00AD2418 /* Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F48DB126A7667F00AD2418 /* Particle.swift */; };
 		22FADC3326B9CED600903717 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FADC3226B9CED600903717 /* GameKit.framework */; };
-		22FADC3726BA63D800903717 /* GKGameCenterControllerDelegate+DidFinished.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3626BA63D800903717 /* GKGameCenterControllerDelegate+DidFinished.swift */; };
-		22FADC3926BA66E800903717 /* MenagerGameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3826BA66E800903717 /* MenagerGameCenter.swift */; };
+		22FADC3726BA63D800903717 /* UIActivityViewController+ShowAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */; };
+		22FADC3926BA66E800903717 /* ManegerGameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3826BA66E800903717 /* ManegerGameCenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,8 +49,8 @@
 		22F48DB126A7667F00AD2418 /* Particle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Particle.swift; sourceTree = "<group>"; };
 		22FADC3226B9CED600903717 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		22FADC3426BA3F8900903717 /* Ball Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Ball Runner.entitlements"; sourceTree = "<group>"; };
-		22FADC3626BA63D800903717 /* GKGameCenterControllerDelegate+DidFinished.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GKGameCenterControllerDelegate+DidFinished.swift"; sourceTree = "<group>"; };
-		22FADC3826BA66E800903717 /* MenagerGameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenagerGameCenter.swift; sourceTree = "<group>"; };
+		22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityViewController+ShowAvatar.swift"; sourceTree = "<group>"; };
+		22FADC3826BA66E800903717 /* ManegerGameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManegerGameCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +152,7 @@
 				22C93A3826A7610F00838E44 /* GameViewController.swift */,
 				22359F0026AA0FCA00126268 /* TutorialViewController.swift */,
 				220A8B8226B4B97E007D0EA6 /* EndgameViewController.swift */,
-				22FADC3826BA66E800903717 /* MenagerGameCenter.swift */,
+				22FADC3826BA66E800903717 /* ManegerGameCenter.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -168,7 +168,7 @@
 		22FADC3526BA639500903717 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				22FADC3626BA63D800903717 /* GKGameCenterControllerDelegate+DidFinished.swift */,
+				22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -249,8 +249,8 @@
 				22C93A3526A7610F00838E44 /* AppDelegate.swift in Sources */,
 				22C9F94326B40B1B00264CCC /* MenuViewController.swift in Sources */,
 				220A8B8526B4B98A007D0EA6 /* EndgameView.swift in Sources */,
-				22FADC3726BA63D800903717 /* GKGameCenterControllerDelegate+DidFinished.swift in Sources */,
-				22FADC3926BA66E800903717 /* MenagerGameCenter.swift in Sources */,
+				22FADC3726BA63D800903717 /* UIActivityViewController+ShowAvatar.swift in Sources */,
+				22FADC3926BA66E800903717 /* ManegerGameCenter.swift in Sources */,
 				22AE1ACA26A95D080031350D /* PauseView.swift in Sources */,
 				2254787426A768FD001BEB72 /* Buttons.swift in Sources */,
 				220A8B8326B4B97E007D0EA6 /* EndgameViewController.swift in Sources */,

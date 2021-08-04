@@ -10,6 +10,8 @@ import GameKit
 
 class MenuViewController: UIViewController{
     let myView:MenuView = MenuView()
+    let gameCenter = ManegerGameCenter()
+    var clicked:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,16 +27,24 @@ class MenuViewController: UIViewController{
         self.myView.getLeaderboardButton().addTarget(self, action: #selector(self.leaderboardAction), for: .touchDown)
         
         self.myView.getAchievmentsButton().addTarget(self, action: #selector(self.achievementsAction), for: .touchDown)
-        
-        self.view = self.myView
     
+        self.view = self.myView
         
-        self.present(MenagerGameCenter(state: .dashboard), animated: false, completion: nil)
-        MenagerGameCenter.showAvatarGameCenter(isVisible: true)
+
+        self.gameCenter.authenticateUser(from: self)
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.myView.setWarningLabel(text: "")
+    }
     
+    
+    override func didMove(toParent parent: UIViewController?) {
+        self.gameCenter.showAvatarGameCenter(isVisible: true)
+    }
     
     
     /* MARK: Ações do botões */
@@ -55,17 +65,19 @@ class MenuViewController: UIViewController{
     }
     
     @objc func leaderboardAction() {
-        self.present(MenagerGameCenter(state: .leaderboards), animated: false, completion: nil)
-//        let vc = GKGameCenterViewController(state: .leaderboards)
-//        //vc.gameCenterDelegate = self
-//        present(vc, animated: true, completion: nil)
+        if (!self.gameCenter.toSpecificPage(from: self, to: .leaderboards)) {
+            self.showWarningLabel()
+        }
     }
     
     @objc func achievementsAction() {
-        self.present(MenagerGameCenter(state: .achievements), animated: false, completion: nil)
-//        let vc = GKGameCenterViewController(state: .achievements)
-//        //vc.gameCenterDelegate = self
-//        present(vc, animated: true, completion: nil)
+        if (!self.gameCenter.toSpecificPage(from: self, to: .achievements)) {
+            self.showWarningLabel()
+        }
+    }
+    
+    func showWarningLabel() {
+        self.myView.setWarningLabel(text: "Game center not connected.")
     }
 }
 
