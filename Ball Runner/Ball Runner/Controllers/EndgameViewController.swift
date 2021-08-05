@@ -1,35 +1,38 @@
-//
-//  EndgameViewController.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 30/07/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import UIKit
 
+
 class EndgameViewController: UIViewController {
-    let myView:EndgameView = EndgameView()
-    //let gameCenter = ManegerGameCenter()
-    var score:Int!
+    private let myView:EndgameView = EndgameView()
+    private var parentVC: UIViewController!
+    private var score:Int!
     
-    init(score:Int) {
+    
+    init(parentVC:UIViewController, score:Int) {
         super.init(nibName: nil, bundle: nil)
         self.score = score
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.myView.setTitleLabels(list: ["Game Over", "Score", "Best"])
+        self.parentVC = parentVC
         
+        // ManegerGameCenter.showAvatarGameCenter(isVisible: true)
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    
+    /* MARK: Ciclos de Vida */
+    
+    public override func viewDidLoad() -> Void {
+        super.viewDidLoad()
+        
+        let texts:[String] = ["Game Over".localized(), "Score".localized(), "Best".localized()]
+        self.myView.setTitleLabels(list: texts)
+                
         let defaults = UserDefaults.standard
         
         if (self.score > defaults.integer(forKey: "score")) {
-            //self.gameCenter.setHighScore(score: self.score)
+            ManegerGameCenter.setHighScore(score: self.score)
             defaults.set(self.score, forKey: "score")
         }
         
@@ -43,24 +46,14 @@ class EndgameViewController: UIViewController {
     }
     
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.gameCenter.showAvatarGameCenter(isVisible: true)
-//    }
-    
-
     /* MARK: Ações do botões */
     
-    @objc func restartAction() {
-        let vc = MenuViewController()
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .crossDissolve
-        
-        //self.navigationController?.pushViewController(vc, animated: true)
-        self.present(vc, animated: true, completion: nil)
+    @objc func restartAction() -> Void {
+        self.dismiss(animated: false, completion: nil)
+        self.parentVC.dismiss(animated: false, completion: nil)
     }
     
-    @objc func shareAction() {
+    @objc func shareAction() -> Void {
         // Cria o print
         UIGraphicsBeginImageContext(view.frame.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -74,6 +67,4 @@ class EndgameViewController: UIViewController {
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem     // Ipad
         self.present(vc, animated: true)
     }
-    
-    
 }

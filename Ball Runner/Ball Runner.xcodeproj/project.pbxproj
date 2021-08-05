@@ -26,6 +26,8 @@
 		22FADC3326B9CED600903717 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FADC3226B9CED600903717 /* GameKit.framework */; };
 		22FADC3726BA63D800903717 /* UIActivityViewController+ShowAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */; };
 		22FADC3926BA66E800903717 /* ManegerGameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3826BA66E800903717 /* ManegerGameCenter.swift */; };
+		22FADC3B26BC5DE700903717 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3A26BC5DE700903717 /* String+Localized.swift */; };
+		22FADC3F26BC616F00903717 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22FADC4126BC616F00903717 /* Localization.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,9 @@
 		22FADC3426BA3F8900903717 /* Ball Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Ball Runner.entitlements"; sourceTree = "<group>"; };
 		22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityViewController+ShowAvatar.swift"; sourceTree = "<group>"; };
 		22FADC3826BA66E800903717 /* ManegerGameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManegerGameCenter.swift; sourceTree = "<group>"; };
+		22FADC3A26BC5DE700903717 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
+		22FADC4026BC616F00903717 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
+		22FADC4426BC623900903717 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localization.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +70,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		229BA19526BC9DF200E3B593 /* Game Center */ = {
+			isa = PBXGroup;
+			children = (
+				22FADC3826BA66E800903717 /* ManegerGameCenter.swift */,
+			);
+			path = "Game Center";
+			sourceTree = "<group>";
+		};
 		22AE1AC626A8E9060031350D /* Modal */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,11 +109,13 @@
 			isa = PBXGroup;
 			children = (
 				22FADC3426BA3F8900903717 /* Ball Runner.entitlements */,
+				229BA19526BC9DF200E3B593 /* Game Center */,
 				22F48DB026A7663A00AD2418 /* Controllers */,
 				22F48DAF26A7663400AD2418 /* View */,
 				22AE1AC626A8E9060031350D /* Modal */,
 				22FADC3526BA639500903717 /* Extensions */,
 				22F48DAE26A7662900AD2418 /* Complements */,
+				22FADC3C26BC5EED00903717 /* Lenguages */,
 			);
 			path = "Ball Runner";
 			sourceTree = "<group>";
@@ -152,7 +167,6 @@
 				22C93A3826A7610F00838E44 /* GameViewController.swift */,
 				22359F0026AA0FCA00126268 /* TutorialViewController.swift */,
 				220A8B8226B4B97E007D0EA6 /* EndgameViewController.swift */,
-				22FADC3826BA66E800903717 /* ManegerGameCenter.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -169,8 +183,17 @@
 			isa = PBXGroup;
 			children = (
 				22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */,
+				22FADC3A26BC5DE700903717 /* String+Localized.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		22FADC3C26BC5EED00903717 /* Lenguages */ = {
+			isa = PBXGroup;
+			children = (
+				22FADC4126BC616F00903717 /* Localization.strings */,
+			);
+			path = Lenguages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +237,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = 22C93A2826A7610F00838E44;
 			productRefGroup = 22C93A3226A7610F00838E44 /* Products */;
@@ -232,6 +256,7 @@
 			files = (
 				22C93A4126A7611100838E44 /* LaunchScreen.storyboard in Resources */,
 				22C93A3E26A7611100838E44 /* Assets.xcassets in Resources */,
+				22FADC3F26BC616F00903717 /* Localization.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +278,7 @@
 				22FADC3926BA66E800903717 /* ManegerGameCenter.swift in Sources */,
 				22AE1ACA26A95D080031350D /* PauseView.swift in Sources */,
 				2254787426A768FD001BEB72 /* Buttons.swift in Sources */,
+				22FADC3B26BC5DE700903717 /* String+Localized.swift in Sources */,
 				220A8B8326B4B97E007D0EA6 /* EndgameViewController.swift in Sources */,
 				22F48DAD26A7661500AD2418 /* GameScene.swift in Sources */,
 				22C93A3726A7610F00838E44 /* SceneDelegate.swift in Sources */,
@@ -272,6 +298,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		22FADC4126BC616F00903717 /* Localization.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22FADC4026BC616F00903717 /* en */,
+				22FADC4426BC623900903717 /* pt-BR */,
+			);
+			name = Localization.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -279,6 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -340,6 +376,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

@@ -8,14 +8,14 @@
 //import class GameKit.GKGameCenterViewController
 //import protocol GameKit.GKGameCenterControllerDelegate
 
-import GameKit
+import class UIKit.UIActivityViewController
 
 extension UIActivityViewController {
     open override func viewWillAppear(_ animated: Bool) {
-        ManegerGameCenter().showAvatarGameCenter(isVisible: false)
+        //ManegerGameCenter.showAvatarGameCenter(isVisible: false)
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
-        ManegerGameCenter().showAvatarGameCenter(isVisible: true)
+        //ManegerGameCenter.showAvatarGameCenter(isVisible: true)
     }
 }

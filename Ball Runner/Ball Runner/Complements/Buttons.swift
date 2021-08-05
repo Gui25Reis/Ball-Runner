@@ -1,10 +1,6 @@
-//
-//  Buttons.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 20/07/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import UIKit
 
 

@@ -1,33 +1,30 @@
-//
-//  MenuView.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 30/07/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import UIKit
 
+
 class MenuView: UIView {
-    var titleLabel:UILabel!
-    var scoreLabel:UILabel!
-    var warningLabel:UILabel!
-    let playButton = Buttons().getPlayButton()
-    let leaderboardButton = Buttons().getLeaderboardButton()
-    let achievmentsButton = Buttons().getAchievmentButton()
-    let tutorialButton = Buttons().getTutorialButton()
+    private var titleLabel:UILabel!
+    private var scoreLabel:UILabel!
+    private var warningLabel:UILabel!
+    private let playButton = Buttons().getPlayButton()
+    private let leaderboardButton = Buttons().getLeaderboardButton()
+    private let achievmentsButton = Buttons().getAchievmentButton()
+    private let tutorialButton = Buttons().getTutorialButton()
     
     init() {
         super.init(frame: .zero)
         self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
         
-        self.warningLabel = self.newLabel(sizeFont: 15, w: .semibold)
+        self.warningLabel = EndgameView.newLabel(sizeFont: 15, w: .semibold)
         self.warningLabel.textColor = .systemRed
         self.addSubview(self.warningLabel)
         
-        self.titleLabel = self.newLabel(sizeFont: 40, w: .bold)
+        self.titleLabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
         self.addSubview(self.titleLabel)
         
-        self.scoreLabel = self.newLabel(sizeFont: 20, w: .medium)
+        self.scoreLabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
         self.addSubview(self.scoreLabel)
         
         self.addSubview(self.playButton)
@@ -36,41 +33,25 @@ class MenuView: UIView {
         self.addSubview(self.tutorialButton)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     
     /* MARK: Encapsulamento */
     
-    public func getPlayButton() -> UIButton{return self.playButton}
-    public func getLeaderboardButton() -> UIButton{return self.leaderboardButton}
-    public func getAchievmentsButton() -> UIButton{return self.achievmentsButton}
-    public func getTutorialButton() -> UIButton{return self.tutorialButton}
+    public func getPlayButton() -> UIButton { return self.playButton }
+    public func getLeaderboardButton() -> UIButton { return self.leaderboardButton }
+    public func getAchievmentsButton() -> UIButton { return self.achievmentsButton }
+    public func getTutorialButton() -> UIButton { return self.tutorialButton }
 
-    public func setTitleLabel(text: String) -> Void{self.titleLabel.text = text}
-    
-    public func setScoreLabel(text: String) ->Void{self.scoreLabel.text = "Best " + text}
-    
-    public func setWarningLabel(text: String) ->Void{self.warningLabel.text = text}
+    public func setTitleLabel(text: String) -> Void { self.titleLabel.text = text }
+    public func setScoreLabel(text: String) ->Void { self.scoreLabel.text = text }
+    public func setWarningLabel(text: String) ->Void { self.warningLabel.text = text }
         
+        
+    /* MARK: Ciclo de Vida */
     
-    /* MARK: Funções de criação */
-    
-    private func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel{
-        let lbl:UILabel = UILabel()
-        lbl.font = .systemFont(ofSize: sizeFont, weight: w)
-        lbl.textColor =  #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.textAlignment = .center
-        return lbl
-    }
-    
-    
-    override func layoutSubviews() {
+    public override func layoutSubviews() -> Void {
         let safeArea:CGFloat = 114
-        
-        self.warningLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea/2).isActive = true
-        self.warningLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         
         
         self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: safeArea+20).isActive = true
@@ -95,5 +76,9 @@ class MenuView: UIView {
         
         self.scoreLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.scoreLabel.bottomAnchor.constraint(equalTo: self.achievmentsButton.topAnchor, constant: -50).isActive = true
+        
+        
+        self.warningLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea/2).isActive = true
+        self.warningLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
     }
 }

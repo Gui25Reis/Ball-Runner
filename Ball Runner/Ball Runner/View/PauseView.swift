@@ -1,19 +1,16 @@
-//
-//  PauseView.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 22/07/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import UIKit
 
+
 class PauseView: UIView {
-    var playButton: UIButton = Buttons().getPlayButton(60)
-    var homeButton: UIButton = Buttons().getHomeButton()
-    var achievmentsButton: UIButton = Buttons().getAchievmentButton()
-    var tutorialButton: UIButton = Buttons().getTutorialButton()
+    private let playButton: UIButton = Buttons().getPlayButton(60)
+    private let homeButton: UIButton = Buttons().getHomeButton()
+    private let achievmentsButton: UIButton = Buttons().getAchievmentButton()
+    private let tutorialButton: UIButton = Buttons().getTutorialButton()
     
-    let container: UIView = {
+    private let container: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
@@ -21,14 +18,9 @@ class PauseView: UIView {
         return v
     }()
     
-    var titleLabel:UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        label.textAlignment = .center
-        label.textColor = #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
-        return label
-    }()
+    private var titleLabel:UILabel!
+    private var warningLabel:UILabel!
+    
     
     init() {
         super.init(frame: .zero)
@@ -39,35 +31,37 @@ class PauseView: UIView {
         self.addSubview(container)
         
         // Labels
+        self.titleLabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
         self.container.addSubview(self.titleLabel)
+        
+        self.warningLabel = EndgameView.newLabel(sizeFont: 15, w: .semibold)
+        self.warningLabel.textColor = .systemRed
+        self.container.addSubview(self.warningLabel)
         
         // Botões
         self.container.addSubview(self.playButton)
-        
         self.container.addSubview(self.homeButton)
-        
         self.container.addSubview(self.achievmentsButton)
-        
         self.container.addSubview(self.tutorialButton)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     
     /* MARK: Encapsulamento */
-    public func getPlayButton() -> UIButton {return self.playButton}
     
-    public func getHomeButton() -> UIButton {return self.homeButton}
+    public func getPlayButton() -> UIButton { return self.playButton }
+    public func getHomeButton() -> UIButton { return self.homeButton }
+    public func getAchievmentsButton() -> UIButton { return self.achievmentsButton }
+    public func getTutorialButton() -> UIButton { return self.tutorialButton }
     
-    public func getAchievmentsButton() -> UIButton {return self.achievmentsButton}
+    public func setTitleLabel(text: String) { self.titleLabel.text = text }
+    public func setWarningLabel(text: String) { self.warningLabel.text = text }
     
-    public func getTutorialButton() -> UIButton {return self.tutorialButton}
     
-    public func setTitleLabel(text: String) {self.titleLabel.text = text}
+    /* MARK: Ciclo de Vida */
     
-
-    override func layoutSubviews() {
+    public override func layoutSubviews() -> Void {
         super.layoutSubviews()
         
         self.frame = (self.superview?.bounds)!
@@ -102,5 +96,10 @@ class PauseView: UIView {
         
         self.homeButton.topAnchor.constraint(equalTo: self.achievmentsButton.topAnchor, constant: -6).isActive = true
         self.homeButton.rightAnchor.constraint(equalTo: self.achievmentsButton.leftAnchor, constant: -10).isActive = true
+        
+        
+        // Warning label
+        self.warningLabel.bottomAnchor.constraint(equalTo: self.container.bottomAnchor, constant: -15).isActive = true
+        self.warningLabel.centerXAnchor.constraint(equalTo: self.container.centerXAnchor).isActive = true
     }
 }

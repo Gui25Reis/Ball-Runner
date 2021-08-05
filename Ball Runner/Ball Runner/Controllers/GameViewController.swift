@@ -1,42 +1,56 @@
 /* Gui Reis     -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-// Globais
 import SpriteKit
-import GameKit
+
 
 class GameViewController: UIViewController{
-    
     public override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
         return UIRectEdge.bottom
-    }
-    // Atributos da classe
-    //private var gameCenter = ManegerGameCenter()
+    }       // Barra embaixo de saída do app: puxa duas vezes pra sair
+
     private var scene = GameScene()
-    private var gameView = GameView()
-    private var pauseView = PauseView()
-    private var gamePause:Bool = false
+    private lazy var gameView = GameView()
+    private lazy var pauseView = PauseView()
+    private lazy var gamePause:Bool = false
+    private lazy var timer:Int = 0
+    private var countdown:Timer!
     
-    private var timer:Int = 0
     
+    /* MARK: Ciclos de Vida */
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.gameView.setScene(scene: self.scene)           // Mostra a cena criada
-    }
-    /**
-        # Método [lifecycle]:
-        Toda vez que a tela é carregada (inicializada) essas configuraçôes serão feitas.
-    */
-    public override func viewDidLoad() {
-        super.viewDidLoad()                                 // Chama a função original
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        //self.gameCenter.showAvatarGameCenter(isVisible: false)
-        self.gameView.getPauseButton().addTarget(self, action: #selector(self.pauseAction), for: .touchDown)
+        ManegerGameCenter.showAvatarGameCenter(isVisible: false)
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        ManegerGameCenter.showAvatarGameCenter(isVisible: true)
+//    }
+    
+    
+    public override func viewDidLayoutSubviews() -> Void {
+        super.viewDidLayoutSubviews()
+        self.view = self.gameView
+    }
+    
+
+    public override func viewDidLoad() -> Void {
+        super.viewDidLoad()
+        
+        // GameView
+        self.gameView.setScene(scene: self.scene)
+        
+        self.gameView.showInformations(is_: false)
         
         self.gameView.setTimeLabel(text: "0")
         
-        self.gameView.showInformations(is_: true)
+        self.gameView.getPauseButton().addTarget(self, action: #selector(self.pauseAction), for: .touchDown)
         
+        
+        // PauseView
+        self.pauseView.setTitleLabel(text: "Pause")
         
         self.pauseView.getPlayButton().addTarget(self, action: #selector(self.playAction), for: .touchDown)
         
@@ -47,70 +61,48 @@ class GameViewController: UIViewController{
         self.pauseView.getAchievmentsButton().addTarget(self, action: #selector(self.achievementsAction), for: .touchDown)
         
         
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-        
-        self.view = self.gameView
+        // Timer
+        self.countdown = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        //self.gameCenter.showAvatarGameCenter(isVisible: false)
-    }
     
     /* MARK: Drag & Drop */
     
-    /**
-        # Método:
-        Ação de quando clica na tela.
-    */
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) ->Void{
-        
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         if let touch = touches.first {
-            let location = touch.location(in: self.scene)        // Pega a localização atual do click
+            let location = touch.location(in: self.scene)
             self.scene.startDrag([location.x, location.y])
-            
-//            let touchesNodes = self.scene.nodes(at: location)    // Pega os nodes que foram clicados
-//            for _ in touchesNodes {
-//                self.scene.startDrag([location.x, location.y])   // Manda a localização pra cena
-//            }
         }
     }
     
-    
-    /**
-        # Método:
-        Ação de quando arrasta algo na tela.
-    */
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) ->Void{
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         if let touch = touches.first {
-            let location = touch.location(in: self.scene)        // Pega a localização
-            self.scene.drag([location.x, location.y])            // Manda a localização pra cena
+            let location = touch.location(in: self.scene)
+            self.scene.drag([location.x, location.y])
         }
     }
     
-    /**
-        # Método:
-        Ação de quando para de clicar na tela.
-    */
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) -> Void{
+
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         self.scene.drop()
     }
     
-//    override func didMove(toParent parent: UIViewController?) {
-//        self.navigationController?.popViewController(animated: false)
-//    }
     
     /* MARK: Ações dos botões */
     
     /* View: Game */
-    @objc func pauseAction() -> Void{
+    @objc func pauseAction() -> Void {
         self.gamePause = true
         self.scene.setStatuGame(is_: false)
-        self.pauseView.setTitleLabel(text: "Pause")
         self.view.addSubview(self.pauseView)
     }
     
-    @objc func updateTimer() {
-        if (self.scene.isGameOver()){self.endgameAction()}
+    @objc func updateTimer() -> Void {
+        if (self.scene.isGameOver()){
+            self.countdown.invalidate()
+            self.addView()
+            self.endgameAction()
+        }
         else if (!self.scene.isGameStart() && !self.gamePause){
             self.timer += 1
             self.gameView.setTimeLabel(text: String(self.timer))
@@ -118,38 +110,48 @@ class GameViewController: UIViewController{
         }
     }
     
-    @objc func endgameAction() -> Void{
-        let vc = EndgameViewController(score: self.timer)
+    @objc func endgameAction() -> Void {
+        let vc = EndgameViewController(parentVC: self, score: self.timer)
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
-        
-        //self.navigationController?.pushViewController(vc, animated: true)
+
         self.present(vc, animated: true, completion: nil)
     }
     
     
     /* View: Pause */
-    @objc func playAction() -> Void{
+    @objc func playAction() -> Void {
+        self.pauseView.setWarningLabel(text: "")
         self.pauseView.removeFromSuperview()
-        self.scene.setStatuGame(is_: true)
+        if (timer != 0){self.scene.setStatuGame(is_: true)}
         self.gamePause = false
     }
     
-    @objc func tutorialAction() {
-        let vc = TutorialViewController()
+    @objc func tutorialAction() -> Void {
+        let vc = TutorialViewController(from: self)
         vc.modalTransitionStyle = .coverVertical
         
-        self.navigationController?.pushViewController(vc, animated: true)
-        //self.present(vc, animated: true, completion: nil)
+        self.present(vc, animated: true, completion: nil)
     }
     
-    @objc func homeAction() {
-        //self.gameCenter.showAvatarGameCenter(isVisible: true)
-        //self.navigationController?.popViewController(animated: false)
+    @objc func homeAction() -> Void {
+        ManegerGameCenter.showAvatarGameCenter(isVisible: true)
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func achievementsAction() {
-        
+    @objc func achievementsAction() -> Void {
+        if (!ManegerGameCenter().toSpecificPage(from: self, to: .achievements)) {
+            self.pauseView.setWarningLabel(text: "Game center not connected.".localized())
+        }
+    }
+    
+    
+    /* MARK: Outros */
+    
+    private func addView() -> Void{
+        let v = UIView()
+        v.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
+        self.view.addSubview(v)
+        v.frame = (v.superview?.bounds)!
     }
 }

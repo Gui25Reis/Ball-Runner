@@ -1,26 +1,27 @@
-//
-//  MenuViewController.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 30/07/21.
-//
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import UIKit
-import GameKit
+
 
 class MenuViewController: UIViewController{
-    let myView:MenuView = MenuView()
-    let gameCenter = ManegerGameCenter()
-    var clicked:Bool = false
+    private let myView:MenuView = MenuView()
     
     
-    override func viewDidLoad() {
+    /* MARK: Ciclos de Vida */
+    
+    public override func viewDidLayoutSubviews() -> Void {
+        super.viewDidLayoutSubviews()
+        
+        self.view = self.myView
+    }
+        
+    public override func viewDidLoad() -> Void {
         super.viewDidLoad()
-                
+            
         self.myView.setTitleLabel(text: "Ball Runner")
         
-
-        
+        // Definindo as ações dos botões
         self.myView.getTutorialButton().addTarget(self, action: #selector(self.tutorialAction), for: .touchDown)
         
         self.myView.getPlayButton().addTarget(self, action: #selector(self.playAction), for: .touchDown)
@@ -28,58 +29,63 @@ class MenuViewController: UIViewController{
         self.myView.getLeaderboardButton().addTarget(self, action: #selector(self.leaderboardAction), for: .touchDown)
         
         self.myView.getAchievmentsButton().addTarget(self, action: #selector(self.achievementsAction), for: .touchDown)
-    
-        self.view = self.myView
         
-
-        self.gameCenter.authenticateUser(from: self)
-        
-        self.myView.setScoreLabel(text: String(UserDefaults.standard.integer(forKey: "score")))
+        // Autenticando com o Game Center
+        ManegerGameCenter.authenticateUser(from: self)
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) -> Void {
         super.viewWillDisappear(animated)
         
         self.myView.setWarningLabel(text: "")
     }
     
+    
+    public override func viewWillAppear(_ animated: Bool) -> Void {
+        super.viewWillAppear(animated)
+        
+        let text = "Best".localized() + " " + String(UserDefaults.standard.integer(forKey: "score"))
+        self.myView.setScoreLabel(text: text)
+        
+        ManegerGameCenter.showAvatarGameCenter(isVisible: true)
+    }
 
+    
     /* MARK: Ações do botões */
     
-    @objc func tutorialAction() {
-        let vc = TutorialViewController()
+    @objc func tutorialAction() ->Void {
+        let vc = TutorialViewController(from: self)
         vc.modalTransitionStyle = .coverVertical
         
-        //self.navigationController?.pushViewController(vc, animated: true)
         self.present(vc, animated: true, completion: nil)
     }
     
-    @objc func playAction() {
+    @objc func playAction() -> Void {
+        ManegerGameCenter.showAvatarGameCenter(isVisible: false)
         let vc = GameViewController()
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
 
-        //self.navigationController?.pushViewController(vc, animated: true)
         self.present(vc, animated: true, completion: nil)
-
     }
     
-    @objc func leaderboardAction() {
-//        if (!self.gameCenter.toSpecificPage(from: self, to: .leaderboards)) {
-//            self.showWarningLabel()
-//        }
+    @objc func leaderboardAction() -> Void {
+        if (!ManegerGameCenter().toSpecificPage(from: self, to: .leaderboards)) {
+            self.showWarningLabel()
+        }
     }
     
-    @objc func achievementsAction() {
-//        if (!self.gameCenter.toSpecificPage(from: self, to: .achievements)) {
-//            self.showWarningLabel()
-//        }
+    @objc func achievementsAction() -> Void {
+        if (!ManegerGameCenter().toSpecificPage(from: self, to: .achievements)) {
+            self.showWarningLabel()
+        }
     }
     
-    func showWarningLabel() {
-        self.myView.setWarningLabel(text: "Game center not connected.")
+    
+    /* MARK: Outros */
+    
+    private func showWarningLabel() -> Void {
+        self.myView.setWarningLabel(text: "Game center not connected.".localized())
     }
 }
-
-

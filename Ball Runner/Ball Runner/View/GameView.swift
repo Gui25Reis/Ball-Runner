@@ -1,17 +1,13 @@
-//
-//  GameView.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 21/07/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import SpriteKit
 
 
 class GameView: UIView {
-    var pauseButton: UIButton = Buttons().getPauseButton()
+    private var pauseButton: UIButton = Buttons().getPauseButton()
     
-    var gameScene: SKView = {
+    private var gameScene: SKView = {
         let v = SKView()
         v.layer.cornerRadius = 20
         v.layer.masksToBounds = true
@@ -19,14 +15,8 @@ class GameView: UIView {
         return v
     }()
     
-    var timeLabel:UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 40, weight: .semibold)
-        label.textAlignment = .center
-        label.textColor = #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
-        return label
-    }()
+    private var timeLabel:UILabel = EndgameView.newLabel(sizeFont: 40, w: .semibold)
+    
     
     init() {
         super.init(frame: .zero)
@@ -38,27 +28,24 @@ class GameView: UIView {
         self.addSubview(self.timeLabel)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     
-    public func getPauseButton() -> UIButton {return self.pauseButton}
+    /* MARK: Encapsulamento */
     
-    public func getTimeLabel() -> UILabel {return self.timeLabel}
+    public func getPauseButton() -> UIButton { return self.pauseButton }
     
-    public func setTimeLabel(text: String) -> Void {self.timeLabel.text = text}
+    public func setTimeLabel(text: String) -> Void { self.timeLabel.text = text }
     
-    public func setScene(scene: SKScene) {self.gameScene.presentScene(scene)}
+    public func setScene(scene: SKScene) -> Void { self.gameScene.presentScene(scene) }
     
     
-    public func showInformations(is_: Bool) {
-        self.gameScene.showsFPS = is_                                // Mostra o fps
-        self.gameScene.showsNodeCount = is_                          // Mostra a quantidade de nodes que tem
-    }
+    /* MARK: Cicloe de Vida */
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() -> Void {
         super.layoutSubviews()
+        
+        self.frame = (self.superview?.bounds)!
         
         let space: CGFloat = 15
         
@@ -75,5 +62,13 @@ class GameView: UIView {
         self.gameScene.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -space).isActive = true
         self.gameScene.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -space-3).isActive = true
         self.gameScene.topAnchor.constraint(equalTo: self.timeLabel.bottomAnchor, constant: space-3).isActive = true
+    }
+    
+    
+    /* MARK: Outros */
+    
+    public func showInformations(is_: Bool) -> Void {
+        self.gameScene.showsFPS = is_           // Mostra o fps
+        self.gameScene.showsNodeCount = is_     // Mostra a quantidade de nodes que tem
     }
 }

@@ -1,50 +1,55 @@
-//
-//  EndgameView.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 30/07/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import UIKit
 
+
 class EndgameView: UIView {
-    var titleLabel:UILabel!
-    var scoreTitleLabel:UILabel!
-    var scoreLabel:UILabel!
-    var bestTitleLabel:UILabel!
-    var bestLabel:UILabel!
+    private var titleLabel:UILabel!
+    private var scoreTitleLabel:UILabel!
+    private var scoreLabel:UILabel!
+    private var bestTitleLabel:UILabel!
+    private var bestLabel:UILabel!
     
-    let restartButton = Buttons().getRestartButton()
-    let shareButton = Buttons().getShareButton()
+    private let restartButton = Buttons().getRestartButton()
+    private let shareButton = Buttons().getShareButton()
     
     init() {
         super.init(frame: .zero)
         self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
         
-        self.titleLabel = self.newLabel(sizeFont: 40, w: .bold)
-        self.scoreTitleLabel = self.newLabel(sizeFont: 20, w: .medium)
-        self.scoreLabel = self.newLabel(sizeFont: 30, w: .semibold)
-        self.bestTitleLabel = self.newLabel(sizeFont: 20, w: .medium)
-        self.bestLabel = self.newLabel(sizeFont: 30, w: .semibold)
+        // Labels
+        self.titleLabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
+        self.addSubview(self.titleLabel)
+        
+        self.scoreTitleLabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
+        self.addSubview(self.scoreTitleLabel)
+        
+        self.scoreLabel = EndgameView.newLabel(sizeFont: 30, w: .semibold)
+        self.addSubview(self.scoreLabel)
+        
+        self.bestTitleLabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
+        self.addSubview(self.bestTitleLabel)
+        
+        self.bestLabel = EndgameView.newLabel(sizeFont: 30, w: .semibold)
+        self.addSubview(self.bestLabel)
 
+        // Botões
         self.addSubview(self.restartButton)
         self.addSubview(self.shareButton)
 
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
     /* MARK: Encapsulamento */
     
-    public func getRestartButton() -> UIButton{return self.restartButton}
-    public func getShareButton() -> UIButton{return self.shareButton}
+    public func getRestartButton() -> UIButton { return self.restartButton }
+    public func getShareButton() -> UIButton { return self.shareButton }
     
-    public func setScoreLabel(text: String) -> Void{self.scoreLabel.text = text}
-    public func setBestLabel(text: String) -> Void{self.bestLabel.text = text}
+    public func setScoreLabel(text: String) -> Void { self.scoreLabel.text = text }
+    public func setBestLabel(text: String) -> Void { self.bestLabel.text = text }
     public func setTitleLabels(list: [String]) -> Void {
         self.titleLabel.text = list[0]
         self.scoreTitleLabel.text = list[1]
@@ -52,23 +57,10 @@ class EndgameView: UIView {
     }
     
     
+    /* MARK: Ciclo de Vida */
     
-    /* MARK: Funções de criação */
-    
-    private func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel{
-        let lbl:UILabel = UILabel()
-        lbl.font = .systemFont(ofSize: sizeFont, weight: w)
-        lbl.textColor =  #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.textAlignment = .center
-        
-        self.addSubview(lbl)
-        return lbl
-    }
-    
-    
-    override func layoutSubviews() {
-        let safeArea:CGFloat = 114  // Popup game center
+    public override func layoutSubviews() -> Void {
+        let safeArea:CGFloat = 114      // Popup game center
         
         self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: safeArea+20).isActive = true
         self.titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -100,5 +92,17 @@ class EndgameView: UIView {
         
         self.shareButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.shareButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea-20).isActive = true
+    }
+    
+    
+    /* MARK: Funções de criação */
+    
+    static func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel {
+        let lbl:UILabel = UILabel()
+        lbl.font = .systemFont(ofSize: sizeFont, weight: w)
+        lbl.textColor =  #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.textAlignment = .center
+        return lbl
     }
 }

@@ -51,7 +51,7 @@ public class GameScene: SKScene {
     private var isDragging:Bool = false
     private let speedNode:CGFloat = 1.0
     private var startPosition:[[CGFloat]] = []
-    
+        
     /**
         # Método [lifecycle]:
         Toda vez que a tela é carregada (inicializada) essas configuraçôes serão feitas.
@@ -226,7 +226,7 @@ public class GameScene: SKScene {
     public func drag(_ pos_:[CGFloat]) -> Void {
         if ((self.gameOn && self.isDragging) || (self.gameStart)) {
             
-            let speed:CGFloat = 2
+            let speed:CGFloat = 1.8
             
             let angle = atan2(pos_[1]-self.startPosition[0][1], pos_[0]-self.startPosition[0][0])
             let dist = self.getDistance(pos_, self.startPosition[0])
@@ -235,33 +235,33 @@ public class GameScene: SKScene {
             let posY = self.startPosition[1][1] + dist * sin(angle) * speed
             
             
-            if (pos_[0] < 0 && pos_[1] < 0) {            // 3º Quadrante (x e y são negativos)
+            if (posX < 0 && posY < 0) {                 // 3º Quadrante (x e y são negativos)
                 self.userNode.setPositions(0, 0)
-            } else if (pos_[0] < 0) {                    // Canto esquerdo
-                if pos_[1] > self.size.height{
+            } else if (posX < 0) {                      // Canto esquerdo
+                if posY > self.size.height{
                     self.userNode.setPositions(0, self.size.height)
                 }else{
                     self.userNode.setPositions(0, posY)
                 }
-            } else if (pos_[1] < 0) {                    // Canto de baixo
-                if pos_[0] > self.size.width{
+            } else if (posY < 0) {                      // Canto de baixo
+                if posX > self.size.width{
                     self.userNode.setPositions(self.size.width, 0)
                 }else{
                     self.userNode.setPositions(posX, 0)
                 }
-            } else if (pos_[0] > self.size.width) {      // Canto direito
-                if pos_[1] > self.size.height{
+            } else if (posX > self.size.width) {        // Canto direito
+                if posY > self.size.height{
                     self.userNode.setPositions(self.size.width, self.size.height)
                 }else{
                     self.userNode.setPositions(self.size.width, posY)
                 }
-            } else if (pos_[1] > self.size.height) {     // Canto de cima
-                if pos_[0] > self.size.width{
+            } else if (posY > self.size.height) {       // Canto de cima
+                if posX > self.size.width{
                     self.userNode.setPositions(self.size.width, self.size.height)
                 }else{
                     self.userNode.setPositions(posX, self.size.height)
                 }
-            } else {                                     // Qualquer posição da tela
+            } else {                                    // Qualquer posição da tela
                 self.userNode.setPositions(posX, posY)
             }
         }
