@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        self.window = UIWindow(windowScene: windowScene)
 //        window?.rootViewController = navigationController
 //        window?.makeKeyAndVisible()
-        
+//
         self.window = UIWindow(windowScene: windowScene)
         window?.rootViewController = MenuViewController()
         window?.makeKeyAndVisible()

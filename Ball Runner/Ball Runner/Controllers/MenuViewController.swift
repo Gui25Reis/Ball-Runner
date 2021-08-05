@@ -13,11 +13,12 @@ class MenuViewController: UIViewController{
     let gameCenter = ManegerGameCenter()
     var clicked:Bool = false
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         self.myView.setTitleLabel(text: "Ball Runner")
-        self.myView.setScoreLabel(text: String(UserDefaults.standard.integer(forKey: "score")))
+        
 
         
         self.myView.getTutorialButton().addTarget(self, action: #selector(self.tutorialAction), for: .touchDown)
@@ -32,6 +33,8 @@ class MenuViewController: UIViewController{
         
 
         self.gameCenter.authenticateUser(from: self)
+        
+        self.myView.setScoreLabel(text: String(UserDefaults.standard.integer(forKey: "score")))
     }
     
     
@@ -41,18 +44,14 @@ class MenuViewController: UIViewController{
         self.myView.setWarningLabel(text: "")
     }
     
-    
-    override func didMove(toParent parent: UIViewController?) {
-        self.gameCenter.showAvatarGameCenter(isVisible: true)
-    }
-    
-    
+
     /* MARK: Ações do botões */
     
     @objc func tutorialAction() {
         let vc = TutorialViewController()
         vc.modalTransitionStyle = .coverVertical
-
+        
+        //self.navigationController?.pushViewController(vc, animated: true)
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -61,19 +60,21 @@ class MenuViewController: UIViewController{
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
 
+        //self.navigationController?.pushViewController(vc, animated: true)
         self.present(vc, animated: true, completion: nil)
+
     }
     
     @objc func leaderboardAction() {
-        if (!self.gameCenter.toSpecificPage(from: self, to: .leaderboards)) {
-            self.showWarningLabel()
-        }
+//        if (!self.gameCenter.toSpecificPage(from: self, to: .leaderboards)) {
+//            self.showWarningLabel()
+//        }
     }
     
     @objc func achievementsAction() {
-        if (!self.gameCenter.toSpecificPage(from: self, to: .achievements)) {
-            self.showWarningLabel()
-        }
+//        if (!self.gameCenter.toSpecificPage(from: self, to: .achievements)) {
+//            self.showWarningLabel()
+//        }
     }
     
     func showWarningLabel() {

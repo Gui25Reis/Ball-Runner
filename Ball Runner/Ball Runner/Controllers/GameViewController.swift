@@ -11,14 +11,18 @@ class GameViewController: UIViewController{
         return UIRectEdge.bottom
     }
     // Atributos da classe
-    private let gameCenter = ManegerGameCenter()
-    private let scene = GameScene()
-    private let gameView = GameView()
-    private let pauseView = PauseView()
+    //private var gameCenter = ManegerGameCenter()
+    private var scene = GameScene()
+    private var gameView = GameView()
+    private var pauseView = PauseView()
     private var gamePause:Bool = false
     
     private var timer:Int = 0
-        
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.gameView.setScene(scene: self.scene)           // Mostra a cena criada
+    }
     /**
         # Método [lifecycle]:
         Toda vez que a tela é carregada (inicializada) essas configuraçôes serão feitas.
@@ -27,8 +31,6 @@ class GameViewController: UIViewController{
         super.viewDidLoad()                                 // Chama a função original
         
         //self.gameCenter.showAvatarGameCenter(isVisible: false)
-        
-        self.gameView.setScene(scene: self.scene)           // Mostra a cena criada
         self.gameView.getPauseButton().addTarget(self, action: #selector(self.pauseAction), for: .touchDown)
         
         self.gameView.setTimeLabel(text: "0")
@@ -51,15 +53,8 @@ class GameViewController: UIViewController{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.gameCenter.showAvatarGameCenter(isVisible: false)
+        //self.gameCenter.showAvatarGameCenter(isVisible: false)
     }
-    
-//    override func didMove(toParent parent: UIViewController?) {
-//        super.didMove(toParent: parent)
-//
-//        self.gameCenter.showAvatarGameCenter(isVisible: false)
-//    }
-    
     
     /* MARK: Drag & Drop */
     
@@ -100,7 +95,9 @@ class GameViewController: UIViewController{
         self.scene.drop()
     }
     
-    
+//    override func didMove(toParent parent: UIViewController?) {
+//        self.navigationController?.popViewController(animated: false)
+//    }
     
     /* MARK: Ações dos botões */
     
@@ -121,11 +118,12 @@ class GameViewController: UIViewController{
         }
     }
     
-    private func endgameAction() -> Void{
+    @objc func endgameAction() -> Void{
         let vc = EndgameViewController(score: self.timer)
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
         
+        //self.navigationController?.pushViewController(vc, animated: true)
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -140,20 +138,18 @@ class GameViewController: UIViewController{
     @objc func tutorialAction() {
         let vc = TutorialViewController()
         vc.modalTransitionStyle = .coverVertical
-
-        self.present(vc, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        //self.present(vc, animated: true, completion: nil)
     }
     
     @objc func homeAction() {
-        self.gameCenter.showAvatarGameCenter(isVisible: true)
+        //self.gameCenter.showAvatarGameCenter(isVisible: true)
+        //self.navigationController?.popViewController(animated: false)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func achievementsAction() {
         
-        //self.present(MenagerGameCenter(state: .achievements), animated: true, completion: nil)
-//        let vc = GKGameCenterViewController(state: .achievements)
-//        //vc.gameCenterDelegate = self
-//        present(vc, animated: true, completion: nil)
     }
 }

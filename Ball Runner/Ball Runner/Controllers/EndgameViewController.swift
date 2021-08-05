@@ -9,7 +9,7 @@ import UIKit
 
 class EndgameViewController: UIViewController {
     let myView:EndgameView = EndgameView()
-    let gameCenter = ManegerGameCenter()
+    //let gameCenter = ManegerGameCenter()
     var score:Int!
     
     init(score:Int) {
@@ -24,13 +24,12 @@ class EndgameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.gameCenter.getHighScore()
         self.myView.setTitleLabels(list: ["Game Over", "Score", "Best"])
         
         let defaults = UserDefaults.standard
         
         if (self.score > defaults.integer(forKey: "score")) {
-            self.gameCenter.setHighScore(score: self.score)
+            //self.gameCenter.setHighScore(score: self.score)
             defaults.set(self.score, forKey: "score")
         }
         
@@ -44,18 +43,20 @@ class EndgameViewController: UIViewController {
     }
     
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.gameCenter.showAvatarGameCenter(isVisible: true)
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.gameCenter.showAvatarGameCenter(isVisible: true)
+//    }
     
+
     /* MARK: Ações do botões */
     
     @objc func restartAction() {
         let vc = MenuViewController()
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
-
+        
+        //self.navigationController?.pushViewController(vc, animated: true)
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -70,9 +71,8 @@ class EndgameViewController: UIViewController {
         
         // Chama o botão de compartilhar
         let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
-        
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem     // Ipad
-        present(vc, animated: true)
+        self.present(vc, animated: true)
     }
     
     

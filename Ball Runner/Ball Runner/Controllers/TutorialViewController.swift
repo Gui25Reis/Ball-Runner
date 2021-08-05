@@ -40,7 +40,8 @@ class TutorialViewController: UIViewController {
     }
     
     @objc func exitAction(){
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        // self.dismiss(animated: true, completion: nil)
     }
     
     
