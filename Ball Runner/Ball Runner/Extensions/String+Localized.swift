@@ -1,11 +1,8 @@
-//
-//  String+Localized.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 05/08/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import func Foundation.NSLocalizedString
+
 
 extension String {
     func localized() -> String {

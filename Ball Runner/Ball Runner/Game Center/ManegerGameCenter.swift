@@ -7,9 +7,7 @@ import GameKit
 class ManegerGameCenter: GKGameCenterViewController, GKGameCenterControllerDelegate {
     static func authenticateUser(from:UIViewController) ->Void {
         GKLocalPlayer.local.authenticateHandler = { vc, error in
-            let isGameCenterReady = (vc == nil) && (error == nil)
-            
-            if (isGameCenterReady) {
+            if (vc == nil && error == nil) {
                 self.showAvatarGameCenter(isVisible: true)
                 self.getHighScoreFromLeadboard()
                 return

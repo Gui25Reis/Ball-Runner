@@ -1,21 +1,17 @@
-//
-//  GKGameCenterControllerDelegate+DidFinished.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 04/08/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
-//import class GameKit.GKGameCenterViewController
-//import protocol GameKit.GKGameCenterControllerDelegate
-
+/* Bibliotecas necessárias: */
+/*
 import class UIKit.UIActivityViewController
+
 
 extension UIActivityViewController {
     open override func viewWillAppear(_ animated: Bool) {
-        //ManegerGameCenter.showAvatarGameCenter(isVisible: false)
+        ManegerGameCenter.showAvatarGameCenter(isVisible: false)
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
-        //ManegerGameCenter.showAvatarGameCenter(isVisible: true)
+        ManegerGameCenter.showAvatarGameCenter(isVisible: true)
     }
 }
+*/
