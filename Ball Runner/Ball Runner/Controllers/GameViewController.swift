@@ -5,11 +5,11 @@ import SpriteKit
 
 
 class GameViewController: UIViewController{
-    public override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
+    public override var preferredScreenEdgesDeferringSystemGestures:UIRectEdge {
         return UIRectEdge.bottom
     }       // Barra embaixo de saída do app: puxa duas vezes pra sair
 
-    private var scene = GameScene()
+    private var scene:GameScene!
     private lazy var gameView = GameView()
     private lazy var pauseView = PauseView()
     private lazy var gamePause:Bool = false
@@ -19,16 +19,20 @@ class GameViewController: UIViewController{
     
     /* MARK: Ciclos de Vida */
     
-    public override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) -> Void {
         super.viewWillAppear(animated)
         
         ManegerGameCenter.showAvatarGameCenter(isVisible: false)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pauseAction), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//        ManegerGameCenter.showAvatarGameCenter(isVisible: true)
-//    }
-    
+    public override func viewWillDisappear(_ animated: Bool) -> Void {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        
+        // ManegerGameCenter.showAvatarGameCenter(isVisible: true)
+    }
     
     public override func viewDidLayoutSubviews() -> Void {
         super.viewDidLayoutSubviews()
@@ -40,6 +44,7 @@ class GameViewController: UIViewController{
         super.viewDidLoad()
         
         // GameView
+        self.scene = GameScene()
         self.gameView.setScene(scene: self.scene)
         
         self.gameView.showInformations(is_: false)
@@ -148,7 +153,7 @@ class GameViewController: UIViewController{
     
     /* MARK: Outros */
     
-    private func addView() -> Void{
+    private func addView() -> Void {
         let v = UIView()
         v.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
         self.view.addSubview(v)

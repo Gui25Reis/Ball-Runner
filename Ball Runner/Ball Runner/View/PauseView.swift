@@ -5,21 +5,21 @@ import UIKit
 
 
 class PauseView: UIView {
-    private let playButton: UIButton = Buttons().getPlayButton(60)
-    private let homeButton: UIButton = Buttons().getHomeButton()
-    private let achievmentsButton: UIButton = Buttons().getAchievmentButton()
-    private let tutorialButton: UIButton = Buttons().getTutorialButton()
-    
-    private let container: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
-        v.layer.cornerRadius = 24
-        return v
-    }()
+    private let playButton:UIButton = Buttons.getPlayButton(60)
+    private let homeButton:UIButton = Buttons.getHomeButton()
+    private let achievmentsButton:UIButton = Buttons.getAchievmentButton()
+    private let tutorialButton:UIButton = Buttons.getTutorialButton()
     
     private var titleLabel:UILabel!
     private var warningLabel:UILabel!
+    
+    private let container: UIView = {
+        let v = UIView()
+        v.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
+        v.layer.cornerRadius = 24
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
     
     
     init() {

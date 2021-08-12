@@ -1,7 +1,6 @@
 /* Gui Reis     -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-// Globais
 import SpriteKit
 
 /**
@@ -49,9 +48,10 @@ public class GameScene: SKScene {
     private var gameOver:Bool = false
     private var specialTime:Int = 4
     private var isDragging:Bool = false
-    private let speedNode:CGFloat = 1.0
+    private let speedNode:CGFloat = 0.9 // CGFloat(UserDefaults.standard.double(forKey: "speed"))
     private var startPosition:[[CGFloat]] = []
-        
+    private var timer:Int = 0
+    
     /**
         # Método [lifecycle]:
         Toda vez que a tela é carregada (inicializada) essas configuraçôes serão feitas.
@@ -92,15 +92,17 @@ public class GameScene: SKScene {
     
     
     public func updadePerSecond(gameTime:Int) -> Void{
+        self.timer = gameTime
+        
         // Criando as bolinhas:
         for _ in 0..<abs(gameTime/2){
-            self.createNode(isSpecial_: false, gameTime: gameTime)
+            self.createNode(isSpecial_: false)
         }
         
         // Criando a bolinha especial
         if (gameTime == self.specialTime) {
             if (self.specialParticles.count != 3) {
-                self.createNode(isSpecial_: true, gameTime: gameTime)
+                self.createNode(isSpecial_: true)
             }
             self.specialTime += 4
         }
@@ -120,7 +122,7 @@ public class GameScene: SKScene {
         ## Parâmetro:
         `Bool` isSpecial_: `true` pra esepcial ou `false` para comum.
     */
-    private func createNode(isSpecial_:Bool, gameTime:Int) {
+    private func createNode(isSpecial_:Bool) {
         let p:Particle = Particle()
         // Define a posição da bolinha
         let x:CGFloat = CGFloat.random(in: 0...self.size.width)
@@ -128,7 +130,7 @@ public class GameScene: SKScene {
         p.setPositions(x, y)
         
         // Define o tempo da bolinha
-        p.setInitialTime(gameTime)
+        p.setInitialTime(self.timer)
         
         // Coloca na tela
         self.addChild(p.getNode())
@@ -177,6 +179,7 @@ public class GameScene: SKScene {
                     self.gameOver = true
                     return
                 }
+                
                 // Definindo uma nova direção
                 x = uPos[0]-pos[0]
                 y = uPos[1]-pos[1]
@@ -226,7 +229,7 @@ public class GameScene: SKScene {
     public func drag(_ pos_:[CGFloat]) -> Void {
         if ((self.gameOn && self.isDragging) || (self.gameStart)) {
             
-            let speed:CGFloat = 1.8
+            let speed:CGFloat = self.speedNode + 0.6
             
             let angle = atan2(pos_[1]-self.startPosition[0][1], pos_[0]-self.startPosition[0][0])
             let dist = self.getDistance(pos_, self.startPosition[0])

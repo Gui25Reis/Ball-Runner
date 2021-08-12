@@ -5,8 +5,8 @@ import UIKit
 
 
 class EndgameViewController: UIViewController {
-    private let myView:EndgameView = EndgameView()
-    private var parentVC: UIViewController!
+    private let myView = EndgameView()
+    private var parentVC:UIViewController!
     private var score:Int!
     
     

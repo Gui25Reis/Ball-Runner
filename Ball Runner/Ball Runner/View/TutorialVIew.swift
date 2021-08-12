@@ -5,7 +5,7 @@ import UIKit
 
 
 class TutorialView: UIView {
-    private let lineView: UIView = {
+    private let lineView:UIView = {
         let view = UIView(frame: .zero)
         view.layer.cornerRadius = 4
         view.backgroundColor = #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
@@ -14,14 +14,15 @@ class TutorialView: UIView {
         return view
     }()
     
-    private var titleLabel: UILabel!
-    private var viewGroups: [UIView] = []
-    private var subTitlelabels: [UILabel] = []
-    private var descriptionLabels: [UILabel] = []
-    private let exitButton: UIButton = Buttons().getExitButton()
+    private var titleLabel:UILabel!
+    private var viewGroups:[UIView] = []
+    private var subTitlelabels:[UILabel] = []
+    private var descriptionLabels:[UILabel] = []
     
     private var viewToAnimate:[[UIView]] = []
     private var powerSimbol:UIImageView!
+    
+    private let exitButton:UIButton = Buttons.getExitButton()
     
     
     init() {
@@ -34,6 +35,7 @@ class TutorialView: UIView {
         
         self.titleLabel = self.newLabel(sizeFont: 40, w: .bold)
         self.addSubview(self.titleLabel)
+        
         self.addSubview(self.exitButton)
         
         
@@ -66,7 +68,8 @@ class TutorialView: UIView {
                 list.append(self.newImageView(icon: "hand.point.up.left", isSFSymbol: true))
             default:
                 list.append(TutorialView.particle(color: 1))
-                list.append(self.newImageView(icon: "power06.svg", isSFSymbol: false))
+                list.append(TutorialView.particle(color: 2))
+                //list.append(self.newImageView(icon: "power06.svg", isSFSymbol: false))
             }
             
             for y in list {self.viewGroups[x].addSubview(y)}
@@ -79,13 +82,13 @@ class TutorialView: UIView {
     
     /* MARK: Encapsulamento */
     
-    public func getExitButton() -> UIButton { return self.exitButton }
-
     public func setTitleLabel(text: String) -> Void { self.titleLabel.text = text }
     
-    public func setSubTitleLabels(list: [String]) ->Void {for x in 0..<3 { self.subTitlelabels[x].text = list[x]} }
+    public func setSubTitleLabels(list: [String]) -> Void {for x in 0..<3 { self.subTitlelabels[x].text = list[x]} }
     
-    public func setDescriptionLabels(list: [String]) ->Void { for x in 0..<3 {self.descriptionLabels[x].text = list[x]} }
+    public func setDescriptionLabels(list: [String]) -> Void { for x in 0..<3 {self.descriptionLabels[x].text = list[x]} }
+    
+    public func getExitButton() -> UIButton { return self.exitButton }
     
     public func getObjectsToAnimate() -> [[UIView]] { return self.viewToAnimate }
     
@@ -155,7 +158,8 @@ class TutorialView: UIView {
                 list[1].topAnchor.constraint(equalTo: list[0].topAnchor).isActive = true
                 
                 list[2].centerXAnchor.constraint(equalTo: self.viewGroups[x].centerXAnchor, constant: 70).isActive = true
-                list[2].topAnchor.constraint(equalTo: list[0].topAnchor, constant: -5).isActive = true
+                list[2].topAnchor.constraint(equalTo: list[0].topAnchor, constant: 0).isActive = true
+                // constant: -5 -> com imagem do poder
             }
         }
     }
@@ -163,40 +167,41 @@ class TutorialView: UIView {
     
     /* MARK: Funções de criação */
     
-    static func particle(color: Int) -> UIView{
+    static func particle(color: Int) -> UIView {
         let v = UIView(frame: .zero)
         v.layer.cornerRadius = 7
         
         if (color == 1) {v.backgroundColor = #colorLiteral(red: 0.8296997547, green: 0.2501699328, blue: 0.2907564044, alpha: 1)}
+        else if (color == 2) {v.backgroundColor = #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)}
         else {v.backgroundColor = #colorLiteral(red: 0, green: 0.9089414477, blue: 0.4565228224, alpha: 1)}
         
         v.translatesAutoresizingMaskIntoConstraints = false
         v.heightAnchor.constraint(equalToConstant: 15).isActive = true
         v.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        
         return v
     }
     
-    private func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel{
+    private func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel {
         let lbl:UILabel = EndgameView.newLabel(sizeFont: sizeFont, w: w)
+        lbl.textAlignment = .left
         lbl.sizeToFit()
         lbl.numberOfLines = 0
         return lbl
     }
     
-    private func newImageView(icon: String, isSFSymbol: Bool) -> UIImageView{
+    private func newImageView(icon: String, isSFSymbol: Bool) -> UIImageView {
         var img:UIImage!
+        
         if (isSFSymbol) {
             let configIcon = UIImage.SymbolConfiguration(pointSize: 30, weight: .bold, scale: .medium)
             img = UIImage(systemName: icon, withConfiguration: configIcon)?.withRenderingMode(.alwaysTemplate)
         }else{
             img = UIImage(named: icon)?.withRenderingMode(.alwaysTemplate)
         }
+        
         let imgView = UIImageView(image: img)
         imgView.tintColor = #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
         imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }
-    
 }
-

@@ -3,8 +3,8 @@
 /* Bibliotecas necessárias: */
 // Globais
 import class SpriteKit.SKShapeNode
-import class SpriteKit.SKAction
 import struct SpriteKit.CGFloat
+// import SpriteKit
 
 /**
     # Criação das Partículas/Bolinhas.
@@ -46,7 +46,7 @@ import struct SpriteKit.CGFloat
 public class Particle {
     // Atributos da classe:
     private var node:SKShapeNode!
-    private var radius:CGFloat = 7
+    private var radius:CGFloat!
     private var initialTime:Int = 0
     private var lifeTime:Int = 0
     private var specialNode:Bool = false
@@ -55,12 +55,14 @@ public class Particle {
     
     /**
         # Construtor:
-            Configurações inicais da bolinha:
-            - Tira a borda;
-            - Coloca a cor padrão (vermelha);
-            - Define a escala inicial;
+     
+        Configurações inicais da bolinha:
+        - Tira a borda;
+        - Coloca a cor padrão (vermelha);
+        - Define a escala inicial;
     */
     init() {
+        self.radius = 7 // CGFloat(UserDefaults.standard.integer(forKey: "radius"))
         self.node = SKShapeNode(circleOfRadius: self.radius)
         self.node.lineWidth = 0
         self.node.fillColor = #colorLiteral(red: 0.8296997547, green: 0.2501699328, blue: 0.2907564044, alpha: 1)
@@ -70,7 +72,8 @@ public class Particle {
     
     /**
         # Destrutor:
-        Limpa os atributos da classe.
+     
+        Remove a bolinha onde foi adicionada
     */
     deinit {
         self.node.removeFromParent()
@@ -86,11 +89,13 @@ public class Particle {
     
     /**
      # Método especial:
+     
      Define as posições de x e y.
      
      ## Parâmetros:
-     `CGFloat` x_: posição em x.
-     `CGFloat` y_: posição em y.
+     
+     CGFloat x_: posição em x.
+     CGFloat y_: posição em y.
     */
     public func setPositions(_ x_:CGFloat, _ y_:CGFloat) -> Void {
         self.node.position.x = x_

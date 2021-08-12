@@ -5,8 +5,6 @@ import SpriteKit
 
 
 class GameView: UIView {
-    private var pauseButton: UIButton = Buttons().getPauseButton()
-    
     private var gameScene: SKView = {
         let v = SKView()
         v.layer.cornerRadius = 20
@@ -16,6 +14,7 @@ class GameView: UIView {
     }()
     
     private var timeLabel:UILabel = EndgameView.newLabel(sizeFont: 40, w: .semibold)
+    private var pauseButton: UIButton = Buttons.getPauseButton()
     
     
     init() {
@@ -62,6 +61,19 @@ class GameView: UIView {
         self.gameScene.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -space).isActive = true
         self.gameScene.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -space-3).isActive = true
         self.gameScene.topAnchor.constraint(equalTo: self.timeLabel.bottomAnchor, constant: space-3).isActive = true
+        
+        /*
+        // Auto Layout - Tamanho da bolinha + velocidade
+        let actualArea:CGFloat = self.gameScene.bounds.height * self.gameScene.bounds.height
+        if (actualArea > 0) {
+            print(actualArea)
+            let iPhone12Area:CGFloat = 527076
+            print((7 * actualArea)/iPhone12Area)
+            UserDefaults.standard.set((7 * actualArea)/iPhone12Area, forKey: "radius")
+            UserDefaults.standard.set((0.9 * actualArea)/iPhone12Area, forKey: "speed")
+            self.layoutIfNeeded()
+        }
+        */
     }
     
     

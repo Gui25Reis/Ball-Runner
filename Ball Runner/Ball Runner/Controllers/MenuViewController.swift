@@ -4,8 +4,8 @@
 import UIKit
 
 
-class MenuViewController: UIViewController{
-    private let myView:MenuView = MenuView()
+class MenuViewController: UIViewController {
+    private let myView = MenuView()
     
     
     /* MARK: Ciclos de Vida */
@@ -31,7 +31,7 @@ class MenuViewController: UIViewController{
         self.myView.getAchievmentsButton().addTarget(self, action: #selector(self.achievementsAction), for: .touchDown)
         
         // Autenticando com o Game Center
-        ManegerGameCenter.authenticateUser(from: self)
+        ManegerGameCenter.authenticateUser(from: self, label: self.myView.getScoreLabel())
     }
     
     
@@ -54,7 +54,7 @@ class MenuViewController: UIViewController{
     
     /* MARK: Ações do botões */
     
-    @objc func tutorialAction() ->Void {
+    @objc func tutorialAction() -> Void {
         let vc = TutorialViewController(from: self)
         vc.modalTransitionStyle = .coverVertical
         

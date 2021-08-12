@@ -11,8 +11,8 @@ class EndgameView: UIView {
     private var bestTitleLabel:UILabel!
     private var bestLabel:UILabel!
     
-    private let restartButton = Buttons().getRestartButton()
-    private let shareButton = Buttons().getShareButton()
+    private let restartButton = Buttons.getRestartButton()
+    private let shareButton = Buttons.getShareButton()
     
     init() {
         super.init(frame: .zero)
@@ -37,7 +37,6 @@ class EndgameView: UIView {
         // Botões
         self.addSubview(self.restartButton)
         self.addSubview(self.shareButton)
-
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -97,7 +96,7 @@ class EndgameView: UIView {
     
     /* MARK: Funções de criação */
     
-    static func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel {
+    public static func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel {
         let lbl:UILabel = UILabel()
         lbl.font = .systemFont(ofSize: sizeFont, weight: w)
         lbl.textColor =  #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)

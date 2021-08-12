@@ -8,8 +8,9 @@
 import UIKit
 
 class TutorialViewController: UIViewController {
-    private let myView:TutorialView = TutorialView()
+    private let myView = TutorialView()
     private var willPresent:Bool!
+    private let duration:TimeInterval = 2
     
     private let subtitlesTexts:[String] = [
         "Objective".localized(), "Controls".localized(), "Specials".localized()
@@ -19,8 +20,6 @@ class TutorialViewController: UIViewController {
         "Swipe on any place at the screen to control your ball, the blue one.".localized(),
         "You have powers!! Catch them when appers on the screen.".localized()
     ]
-    
-    private let duration:TimeInterval = 2
     
     
     init(from:UIViewController) {
@@ -49,7 +48,7 @@ class TutorialViewController: UIViewController {
         self.myView.getObjectsToAnimate()[1][0].center.x += 150
     }
     
-    public override func viewWillAppear(_ animated: Bool) -> Void{
+    public override func viewWillAppear(_ animated: Bool) -> Void {
         super.viewWillAppear(animated)
         ManegerGameCenter.showAvatarGameCenter(isVisible: false)
     }
@@ -57,7 +56,7 @@ class TutorialViewController: UIViewController {
     
     /* MARK: Ação do botão */
     
-    @objc func exitAction(){
+    @objc func exitAction() -> Void {
         if (self.willPresent) {ManegerGameCenter.showAvatarGameCenter(isVisible: true)}
         self.dismiss(animated: true, completion: nil)
     }
