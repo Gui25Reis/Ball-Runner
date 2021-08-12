@@ -54,7 +54,7 @@ class ManegerGameCenter: GKGameCenterViewController, GKGameCenterControllerDeleg
     }
 
     
-    /* Delegate */
+    /* MARK: - Delegate */
 
     public func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) -> Void {
         gameCenterViewController.dismiss(animated: true, completion: nil)

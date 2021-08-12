@@ -48,7 +48,7 @@ class PauseView: UIView {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
-    /* MARK: Encapsulamento */
+    /* MARK: - Encapsulamento */
     
     public func getPlayButton() -> UIButton { return self.playButton }
     public func getHomeButton() -> UIButton { return self.homeButton }
@@ -59,7 +59,7 @@ class PauseView: UIView {
     public func setWarningLabel(text: String) { self.warningLabel.text = text }
     
     
-    /* MARK: Ciclo de Vida */
+    /* MARK: - Ciclo de Vida */
     
     public override func layoutSubviews() -> Void {
         super.layoutSubviews()

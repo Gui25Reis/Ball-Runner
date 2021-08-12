@@ -17,7 +17,7 @@ class GameViewController: UIViewController{
     private var countdown:Timer!
     
     
-    /* MARK: Ciclos de Vida */
+    /* MARK: - Ciclos de Vida */
     
     public override func viewWillAppear(_ animated: Bool) -> Void {
         super.viewWillAppear(animated)
@@ -71,7 +71,7 @@ class GameViewController: UIViewController{
     }
     
     
-    /* MARK: Drag & Drop */
+    /* MARK: - Drag & Drop */
     
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         if let touch = touches.first {
@@ -93,7 +93,7 @@ class GameViewController: UIViewController{
     }
     
     
-    /* MARK: Ações dos botões */
+    /* MARK: - Ações dos botões */
     
     /* View: Game */
     @objc func pauseAction() -> Void {
@@ -151,7 +151,7 @@ class GameViewController: UIViewController{
     }
     
     
-    /* MARK: Outros */
+    /* MARK: - Outros */
     
     private func addView() -> Void {
         let v = UIView()

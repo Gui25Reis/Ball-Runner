@@ -80,7 +80,7 @@ class TutorialView: UIView {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
-    /* MARK: Encapsulamento */
+    /* MARK: - Encapsulamento */
     
     public func setTitleLabel(text: String) -> Void { self.titleLabel.text = text }
     
@@ -93,7 +93,7 @@ class TutorialView: UIView {
     public func getObjectsToAnimate() -> [[UIView]] { return self.viewToAnimate }
     
         
-    /* MARK: Ciclo de vida */
+    /* MARK: - Ciclo de vida */
     
     public override func layoutSubviews() -> Void {
         super.layoutSubviews()
@@ -165,7 +165,7 @@ class TutorialView: UIView {
     }
     
     
-    /* MARK: Funções de criação */
+    /* MARK: - Funções de criação */
     
     static func particle(color: Int) -> UIView {
         let v = UIView(frame: .zero)

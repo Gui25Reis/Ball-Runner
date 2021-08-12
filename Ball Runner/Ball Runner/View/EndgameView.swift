@@ -42,7 +42,7 @@ class EndgameView: UIView {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
-    /* MARK: Encapsulamento */
+    /* MARK: - Encapsulamento */
     
     public func getRestartButton() -> UIButton { return self.restartButton }
     public func getShareButton() -> UIButton { return self.shareButton }
@@ -56,7 +56,7 @@ class EndgameView: UIView {
     }
     
     
-    /* MARK: Ciclo de Vida */
+    /* MARK: - Ciclo de Vida */
     
     public override func layoutSubviews() -> Void {
         let safeArea:CGFloat = 114      // Popup game center
@@ -94,7 +94,7 @@ class EndgameView: UIView {
     }
     
     
-    /* MARK: Funções de criação */
+    /* MARK: - Funções de criação */
     
     public static func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel {
         let lbl:UILabel = UILabel()

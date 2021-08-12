@@ -30,7 +30,7 @@ class GameView: UIView {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     
-    /* MARK: Encapsulamento */
+    /* MARK: - Encapsulamento */
     
     public func getPauseButton() -> UIButton { return self.pauseButton }
     
@@ -39,7 +39,7 @@ class GameView: UIView {
     public func setScene(scene: SKScene) -> Void { self.gameScene.presentScene(scene) }
     
     
-    /* MARK: Cicloe de Vida */
+    /* MARK: - Cicloe de Vida */
     
     public override func layoutSubviews() -> Void {
         super.layoutSubviews()
@@ -77,7 +77,7 @@ class GameView: UIView {
     }
     
     
-    /* MARK: Outros */
+    /* MARK: - Outros */
     
     public func showInformations(is_: Bool) -> Void {
         self.gameScene.showsFPS = is_           // Mostra o fps

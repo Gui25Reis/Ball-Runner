@@ -21,7 +21,7 @@ class EndgameViewController: UIViewController {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
-    /* MARK: Ciclos de Vida */
+    /* MARK: - Ciclos de Vida */
     
     public override func viewDidLoad() -> Void {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class EndgameViewController: UIViewController {
     }
     
 
-    /* MARK: Ações do botões */
+    /* MARK: - Ações do botões */
     
     @objc func restartAction() -> Void {
         self.dismiss(animated: false, completion: nil)

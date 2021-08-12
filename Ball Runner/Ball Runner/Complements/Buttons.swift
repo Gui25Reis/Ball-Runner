@@ -31,7 +31,7 @@ class Buttons {
     }
     
     
-    /* SFSymbols */
+    /* MARK: - SFSymbols */
     
     public static func getHomeButton() -> UIButton {
         return self.getButtun(icon: "house.circle.fill")
@@ -62,7 +62,7 @@ class Buttons {
     }
     
     
-    /* Assets */
+    /* MARK: - Assets */
     
     public static func getShareButton() -> UIButton {
         return self.getButtun(icon: "ShareButton", false, 25, 40)

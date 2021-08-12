@@ -8,7 +8,7 @@ class MenuViewController: UIViewController {
     private let myView = MenuView()
     
     
-    /* MARK: Ciclos de Vida */
+    /* MARK: - Ciclos de Vida */
     
     public override func viewDidLayoutSubviews() -> Void {
         super.viewDidLayoutSubviews()
@@ -52,7 +52,7 @@ class MenuViewController: UIViewController {
     }
 
     
-    /* MARK: Ações do botões */
+    /* MARK: - Ações do botões */
     
     @objc func tutorialAction() -> Void {
         let vc = TutorialViewController(from: self)
@@ -83,7 +83,7 @@ class MenuViewController: UIViewController {
     }
     
     
-    /* MARK: Outros */
+    /* MARK: - Outros */
     
     private func showWarningLabel() -> Void {
         self.myView.setWarningLabel(text: "Game center not connected.".localized())

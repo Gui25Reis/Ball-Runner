@@ -32,7 +32,7 @@ class TutorialViewController: UIViewController {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
-    /* MARK: Ciclos de Vida */
+    /* MARK: - Ciclos de Vida */
     
     public override func viewDidLoad() -> Void {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class TutorialViewController: UIViewController {
     }
     
     
-    /* MARK: Ação do botão */
+    /* MARK: - Ação do botão */
     
     @objc func exitAction() -> Void {
         if (self.willPresent) {ManegerGameCenter.showAvatarGameCenter(isVisible: true)}
