@@ -38,7 +38,7 @@ class ManegerGameCenter: GKGameCenterViewController, GKGameCenterControllerDeleg
                 leaderboards?[0].loadEntries(for: [GKLocalPlayer.local], timeScope: .allTime) {
                     player, _, _ in
                     UserDefaults.standard.set(player?.score, forKey: "score")
-                    label.text = "Best".localized() + " " + String(player!.score) // String(UserDefaults.standard.integer(forKey: "score"))
+                    label.text = "Best".localized() + " " +  String(UserDefaults.standard.integer(forKey: "score"))
                 }
             }
         }
