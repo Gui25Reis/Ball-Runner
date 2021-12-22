@@ -6,19 +6,17 @@ import UIKit
 
 class MenuViewController: UIViewController {
     private let myView = MenuView()
+    private let warningView = WarningView()
     
     
     /* MARK: - Ciclos de Vida */
     
-    public override func viewDidLayoutSubviews() -> Void {
-        super.viewDidLayoutSubviews()
-        
-        self.view = self.myView
-    }
-        
     public override func viewDidLoad() -> Void {
         super.viewDidLoad()
-            
+        self.view = self.myView
+        
+        let warningCount = UserDefaults.standard.integer(forKey: "warning")
+
         self.myView.setTitleLabel(text: "Ball Runner")
         
         // Definindo as ações dos botões
@@ -32,6 +30,20 @@ class MenuViewController: UIViewController {
         
         // Autenticando com o Game Center
         ManegerGameCenter.authenticateUser(from: self, label: self.myView.getScoreLabel())
+        
+        let bt = self.warningView.getExitButton()
+        if (warningCount == 0) {
+            let warningText = "warning text".localized()
+            
+            self.warningView.setDescriptionLabel(text: warningText)
+            self.warningView.setTitleLabel(text: "Warning".localized())
+        } else {
+            self.showEventWarning()
+        }
+        
+        bt.setTitle("Ok!", for: .normal)
+        bt.addTarget(self, action: #selector(self.exitAction), for: .touchDown)
+        self.view.addSubview(self.warningView)
     }
     
     
@@ -82,10 +94,27 @@ class MenuViewController: UIViewController {
         }
     }
     
+    @objc func exitAction() -> Void {
+        if UserDefaults.standard.integer(forKey: "warning") == 0 {
+            UserDefaults.standard.set(1, forKey: "warning")
+            self.showEventWarning()
+            ManegerGameCenter.authenticateUser(from: self, label: self.myView.getScoreLabel())
+        } else {
+            self.warningView.removeFromSuperview()
+        }
+    }
+    
     
     /* MARK: - Outros */
     
     private func showWarningLabel() -> Void {
         self.myView.setWarningLabel(text: "Game center not connected.".localized())
+    }
+    
+    private func showEventWarning() -> Void {
+        let warningText = "event text".localized()
+        
+        self.warningView.setDescriptionLabel(text: warningText)
+        self.warningView.setTitleLabel(text: "Event".localized())
     }
 }

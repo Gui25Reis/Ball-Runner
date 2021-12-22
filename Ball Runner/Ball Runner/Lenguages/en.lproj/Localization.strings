@@ -1,1 +1,25 @@
 /* A linguaguem padrão do app eh inglês, então não precisa criar um dicionário pra ela */
+"event text" = "
+The event is still going on!
+        
+Whoever finishes first until 8/22/2021 (Sunday) will win a personalized BELGIAN chocolate by Maria Cacau.**
+
+All information is on insta: @kings_25g
+
+THOUGH IT'S STILL TIME!
+
+** Event only in Brazil.
+Note: You must be logged in to Game Center
+";
+
+
+
+"warning text" = "
+The game score has been fixed for some players to score correctly! To get the latest version of the app and secure your previous score:
+            
+01: Uninstall this version of the game
+02: Install the latest version on Testflight
+
+If you have already done this and there was no problem, please disregard this message!
+Any questions or errors contact: ballrunner.contact@gmail.com
+";

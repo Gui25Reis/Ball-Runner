@@ -28,6 +28,7 @@ class ManegerGameCenter: GKGameCenterViewController, GKGameCenterControllerDeleg
     
     static func setHighScore(score:Int) -> Void {
         if (GKLocalPlayer.local.isAuthenticated) {
+            UserDefaults.standard.set(score, forKey: "score")
             GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: ["lbHighScore"], completionHandler: {error in} )
         }
     }
@@ -37,7 +38,12 @@ class ManegerGameCenter: GKGameCenterViewController, GKGameCenterControllerDeleg
             GKLeaderboard.loadLeaderboards(IDs: ["lbHighScore"]) { leaderboards, _ in
                 leaderboards?[0].loadEntries(for: [GKLocalPlayer.local], timeScope: .allTime) {
                     player, _, _ in
-                    UserDefaults.standard.set(player?.score, forKey: "score")
+                    
+                    //if (player?.score == nil) {return}
+                        
+                    if (player?.score != nil && UserDefaults.standard.integer(forKey: "score") < (player?.score)!) {
+                        UserDefaults.standard.set(player?.score, forKey: "score")
+                    }
                     label.text = "Best".localized() + " " +  String(UserDefaults.standard.integer(forKey: "score"))
                 }
             }

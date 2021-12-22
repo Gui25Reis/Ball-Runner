@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		220A8B8326B4B97E007D0EA6 /* EndgameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220A8B8226B4B97E007D0EA6 /* EndgameViewController.swift */; };
 		220A8B8526B4B98A007D0EA6 /* EndgameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220A8B8426B4B98A007D0EA6 /* EndgameView.swift */; };
+		2216376626CEB8F200B37B2A /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216376526CEB8F200B37B2A /* WarningView.swift */; };
 		22359F0126AA0FCA00126268 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22359F0026AA0FCA00126268 /* TutorialViewController.swift */; };
 		22359F0326AF4F3800126268 /* TutorialVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22359F0226AF4F3800126268 /* TutorialVIew.swift */; };
 		2254787426A768FD001BEB72 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254787326A768FD001BEB72 /* Buttons.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		220A8B8226B4B97E007D0EA6 /* EndgameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndgameViewController.swift; sourceTree = "<group>"; };
 		220A8B8426B4B98A007D0EA6 /* EndgameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndgameView.swift; sourceTree = "<group>"; };
+		2216376526CEB8F200B37B2A /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
 		22359F0026AA0FCA00126268 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		22359F0226AF4F3800126268 /* TutorialVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVIew.swift; sourceTree = "<group>"; };
 		2254787326A768FD001BEB72 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				22AE1AC926A95D080031350D /* PauseView.swift */,
 				22359F0226AF4F3800126268 /* TutorialVIew.swift */,
 				220A8B8426B4B98A007D0EA6 /* EndgameView.swift */,
+				2216376526CEB8F200B37B2A /* WarningView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				22FADC3926BA66E800903717 /* ManegerGameCenter.swift in Sources */,
 				22AE1ACA26A95D080031350D /* PauseView.swift in Sources */,
 				2254787426A768FD001BEB72 /* Buttons.swift in Sources */,
+				2216376626CEB8F200B37B2A /* WarningView.swift in Sources */,
 				22FADC3B26BC5DE700903717 /* String+Localized.swift in Sources */,
 				220A8B8326B4B97E007D0EA6 /* EndgameViewController.swift in Sources */,
 				22F48DAD26A7661500AD2418 /* GameScene.swift in Sources */,
@@ -435,7 +439,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Ball Runner/Ball Runner.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 534V229RMK;
 				INFOPLIST_FILE = System/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -457,7 +461,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Ball Runner/Ball Runner.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 534V229RMK;
 				INFOPLIST_FILE = System/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

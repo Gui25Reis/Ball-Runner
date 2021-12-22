@@ -17,3 +17,34 @@
 
 // Warning
 "Game center not connected." = "Game center não conectado.";
+
+"Warning" = "Atenção";
+
+"Event" = "Evento";
+
+"warning text" = "
+O placar do jogo foi arrumado para a pontuação correta de alguns jogadores! Para ter e versão mais recente do aplicativo e garantir a sua pontuação anterior:
+            
+01: Desinstale essa versão do jogo
+02: Instale a versão mais atual no Testflight
+
+Caso você já tenha feito isso e não houve nenhum problema desconsidere essa mensagem!
+Qualquer dúvida ou erro contate: ballrunner.contact@gmail.com
+";
+
+
+"event text" = "
+O evento ainda está rolando!
+        
+Quem ficar em primeiro até o dia 22/08/2021 (domingo) vai ganhar um chocolate BELGA personalizado da Maria Cacau.**
+
+Todas as informações estão no insta: @kings_25g
+
+BORA QUE AINDA DÁ TEMPO!
+
+** Evento apenas no Brasil.
+obs: Precisa estar conectado no Game Center
+";
+
+
+
