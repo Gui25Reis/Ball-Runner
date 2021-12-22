@@ -1,0 +1,50 @@
+// Tela: Tutorial
+"Objective" = "Objetivo";
+"Controls" = "Controle";
+"Specials" = "Especiais";
+"Don't let the red balls catch you!! Survive as long as you can." = "Não deixe as bolinhas vermelhas te pegarem. Sobreviva o máximo que conseguir.";
+"Swipe on any place at the screen to control your ball, the blue one." = "Deslize em qualquer lugar da tela para controlar a bolinha.";
+"You have powers!! Catch them when appers on the screen." = "Você tem poderes!! Pegue eles quando aparecerem na tela.";
+
+// Tela: Endgame
+"Game Over" = "Fim de Jogo";
+"Score" = "Pontuação";
+
+
+// Tela: Endgame + Menu
+"Best" = "Melhor";
+
+
+// Warning
+"Game center not connected." = "Game center não conectado.";
+
+"Warning" = "Atenção";
+
+"Event" = "Evento";
+
+"warning text" = "
+O placar do jogo foi arrumado para a pontuação correta de alguns jogadores! Para ter e versão mais recente do aplicativo e garantir a sua pontuação anterior:
+            
+01: Desinstale essa versão do jogo
+02: Instale a versão mais atual no Testflight
+
+Caso você já tenha feito isso e não houve nenhum problema desconsidere essa mensagem!
+Qualquer dúvida ou erro contate: ballrunner.contact@gmail.com
+";
+
+
+"event text" = "
+O evento ainda está rolando!
+        
+Quem ficar em primeiro até o dia 22/08/2021 (domingo) vai ganhar um chocolate BELGA personalizado da Maria Cacau.**
+
+Todas as informações estão no insta: @kings_25g
+
+BORA QUE AINDA DÁ TEMPO!
+
+** Evento apenas no Brasil.
+obs: Precisa estar conectado no Game Center
+";
+
+
+
