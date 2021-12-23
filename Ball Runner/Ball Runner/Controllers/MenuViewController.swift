@@ -37,9 +37,10 @@ class MenuViewController: UIViewController {
             
             self.warningView.setDescriptionLabel(text: warningText)
             self.warningView.setTitleLabel(text: "Warning".localized())
-        } else {
-            self.showEventWarning()
         }
+//        } else {
+//            self.showEventWarning()
+//        }
         
         bt.setTitle("Ok!", for: .normal)
         bt.addTarget(self, action: #selector(self.exitAction), for: .touchDown)
@@ -97,7 +98,7 @@ class MenuViewController: UIViewController {
     @objc func exitAction() -> Void {
         if UserDefaults.standard.integer(forKey: "warning") == 0 {
             UserDefaults.standard.set(1, forKey: "warning")
-            self.showEventWarning()
+//            self.showEventWarning()
             ManegerGameCenter.authenticateUser(from: self, label: self.myView.getScoreLabel())
         } else {
             self.warningView.removeFromSuperview()
@@ -111,10 +112,10 @@ class MenuViewController: UIViewController {
         self.myView.setWarningLabel(text: "Game center not connected.".localized())
     }
     
-    private func showEventWarning() -> Void {
-        let warningText = "event text".localized()
-        
-        self.warningView.setDescriptionLabel(text: warningText)
-        self.warningView.setTitleLabel(text: "Event".localized())
-    }
+//    private func showEventWarning() -> Void {
+//        let warningText = "event text".localized()
+//
+//        self.warningView.setDescriptionLabel(text: warningText)
+//        self.warningView.setTitleLabel(text: "Event".localized())
+//    }
 }
