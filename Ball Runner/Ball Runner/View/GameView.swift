@@ -38,6 +38,10 @@ class GameView: UIView {
     
     public func setScene(scene: SKScene) -> Void { self.gameScene.presentScene(scene) }
     
+    public func getScene() -> SKScene? {
+        return self.gameScene.scene
+    }
+    
     
     /* MARK: - Cicloe de Vida */
     

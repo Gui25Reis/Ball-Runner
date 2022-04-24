@@ -5,53 +5,41 @@ import SpriteKit
 
 
 class GameViewController: UIViewController{
-    public override var preferredScreenEdgesDeferringSystemGestures:UIRectEdge {
-        return UIRectEdge.bottom
-    }       // Barra embaixo de saída do app: puxa duas vezes pra sair
-
-    private var scene:GameScene!
-    private lazy var gameView = GameView()
+    
+    /* MARK: - Atributos */
+    private let scene = GameScene()
     private lazy var pauseView = PauseView()
-    private lazy var gamePause:Bool = false
-    private lazy var timer:Int = 0
-    private var countdown:Timer!
+    private lazy var gamePause: Bool = false
+    private lazy var timer: Int = 0
+    private var countdown: Timer!
+    private var timeWhenPaused = Date()
+    
+    // Barra embaixo de saída do app: puxa duas vezes pra sair
+    public override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
+        return UIRectEdge.bottom
+    }
     
     
     /* MARK: - Ciclos de Vida */
     
-    public override func viewWillAppear(_ animated: Bool) -> Void {
-        super.viewWillAppear(animated)
+    public override func loadView() {
+        super.loadView()
         
-        ManegerGameCenter.showAvatarGameCenter(isVisible: false)
+        let myView = GameView()
+        myView.setScene(scene: self.scene)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.pauseAction), name: UIApplication.willResignActiveNotification, object: nil)
+        self.view = myView
     }
     
-    public override func viewWillDisappear(_ animated: Bool) -> Void {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        
-        // ManegerGameCenter.showAvatarGameCenter(isVisible: true)
-    }
     
-    public override func viewDidLayoutSubviews() -> Void {
-        super.viewDidLayoutSubviews()
-        self.view = self.gameView
-    }
-    
-
     public override func viewDidLoad() -> Void {
         super.viewDidLoad()
         
-        // GameView
-        self.scene = GameScene()
-        self.gameView.setScene(scene: self.scene)
+        guard let view = self.view as? GameView else {return}
         
-        self.gameView.showInformations(is_: false)
-        
-        self.gameView.setTimeLabel(text: "0")
-        
-        self.gameView.getPauseButton().addTarget(self, action: #selector(self.pauseAction), for: .touchDown)
+        view.showInformations(is_: false)
+        view.setTimeLabel(text: "0")
+        view.getPauseButton().addTarget(self, action: #selector(self.pauseAction), for: .touchDown)
         
         
         // PauseView
@@ -68,6 +56,38 @@ class GameViewController: UIViewController{
         
         // Timer
         self.countdown = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        
+        // Segundo Plano
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(self.didLeaveFromBackgound),
+            name: UIApplication.didBecomeActiveNotification, object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(self.didEnterOnBackground),
+            name: UIApplication.willResignActiveNotification, object: nil
+        )
+    }
+    
+    /// Quando entra no app (sai do segundo plano)
+    @objc func didLeaveFromBackgound() {
+        let dateNow = Date()
+        let diference = Calendar.current.dateComponents([.second], from: self.timeWhenPaused, to: dateNow)
+        
+        if let seconds = diference.second {
+            if seconds > 20 {
+                self.endgameAction()
+                return
+            }
+        }
+        self.gamePause = true
+    }
+    
+    /// Quando sai do app (entra em segundo plano)
+    @objc func didEnterOnBackground() {
+        self.timeWhenPaused = Date()
+        self.pauseAction()
     }
     
     
@@ -76,14 +96,14 @@ class GameViewController: UIViewController{
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         if let touch = touches.first {
             let location = touch.location(in: self.scene)
-            self.scene.startDrag([location.x, location.y])
+            self.scene.startDrag(at: location)
         }
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         if let touch = touches.first {
             let location = touch.location(in: self.scene)
-            self.scene.drag([location.x, location.y])
+            self.scene.drag(at: location)
         }
     }
     
@@ -98,7 +118,7 @@ class GameViewController: UIViewController{
     /* View: Game */
     @objc func pauseAction() -> Void {
         self.gamePause = true
-        self.scene.setStatuGame(is_: false)
+        self.scene.setStatuGame(to: false)
         self.view.addSubview(self.pauseView)
     }
     
@@ -109,8 +129,10 @@ class GameViewController: UIViewController{
             self.endgameAction()
         }
         else if (!self.scene.isGameStart() && !self.gamePause){
+            guard let view = self.view as? GameView else {return}
+            
             self.timer += 1
-            self.gameView.setTimeLabel(text: String(self.timer))
+            view.setTimeLabel(text: String(self.timer))
             self.scene.updadePerSecond(gameTime: self.timer)
         }
     }
@@ -128,26 +150,28 @@ class GameViewController: UIViewController{
     @objc func playAction() -> Void {
         self.pauseView.setWarningLabel(text: "")
         self.pauseView.removeFromSuperview()
-        if (timer != 0){self.scene.setStatuGame(is_: true)}
+        if (timer != 0) {
+            self.scene.setStatuGame(to: true)
+        }
         self.gamePause = false
     }
     
     @objc func tutorialAction() -> Void {
-        let vc = TutorialViewController(from: self)
+        let vc = TutorialViewController()
         vc.modalTransitionStyle = .coverVertical
         
         self.present(vc, animated: true, completion: nil)
     }
     
     @objc func homeAction() -> Void {
-        ManegerGameCenter.showAvatarGameCenter(isVisible: true)
+        //ManegerGameCenter.showAvatarGameCenter(isVisible: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func achievementsAction() -> Void {
-        if (!ManegerGameCenter().toSpecificPage(from: self, to: .achievements)) {
-            self.pauseView.setWarningLabel(text: "Game center not connected.".localized())
-        }
+//        if (!ManegerGameCenter().toSpecificPage(from: self, to: .achievements)) {
+//            self.pauseView.setWarningLabel(text: "Game center not connected.".localized())
+//        }
     }
     
     

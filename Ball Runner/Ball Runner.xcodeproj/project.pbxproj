@@ -15,6 +15,11 @@
 		2254787426A768FD001BEB72 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254787326A768FD001BEB72 /* Buttons.swift */; };
 		22AE1AC826A8E9230031350D /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE1AC726A8E9230031350D /* GameView.swift */; };
 		22AE1ACA26A95D080031350D /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE1AC926A95D080031350D /* PauseView.swift */; };
+		22BABED22814F7FF0016D2B6 /* GameCenterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABED12814F7FF0016D2B6 /* GameCenterDelegate.swift */; };
+		22BABED42814F90B0016D2B6 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABED32814F90B0016D2B6 /* ErrorHandler.swift */; };
+		22BABED72814FA340016D2B6 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABED62814FA340016D2B6 /* UserDefaultsKeys.swift */; };
+		22BABED92814FAF90016D2B6 /* UserDefaults+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABED82814FAF90016D2B6 /* UserDefaults+Actions.swift */; };
+		22BABEDB28151A420016D2B6 /* ParticleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABEDA28151A420016D2B6 /* ParticleType.swift */; };
 		22C93A3526A7610F00838E44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C93A3426A7610F00838E44 /* AppDelegate.swift */; };
 		22C93A3726A7610F00838E44 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C93A3626A7610F00838E44 /* SceneDelegate.swift */; };
 		22C93A3926A7610F00838E44 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C93A3826A7610F00838E44 /* GameViewController.swift */; };
@@ -40,6 +45,11 @@
 		2254787326A768FD001BEB72 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		22AE1AC726A8E9230031350D /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		22AE1AC926A95D080031350D /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
+		22BABED12814F7FF0016D2B6 /* GameCenterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterDelegate.swift; sourceTree = "<group>"; };
+		22BABED32814F90B0016D2B6 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		22BABED62814FA340016D2B6 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
+		22BABED82814FAF90016D2B6 /* UserDefaults+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Actions.swift"; sourceTree = "<group>"; };
+		22BABEDA28151A420016D2B6 /* ParticleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleType.swift; sourceTree = "<group>"; };
 		22C93A3126A7610F00838E44 /* Ball Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ball Runner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C93A3426A7610F00838E44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22C93A3626A7610F00838E44 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				22FADC3826BA66E800903717 /* ManegerGameCenter.swift */,
+				22BABED32814F90B0016D2B6 /* ErrorHandler.swift */,
 			);
 			path = "Game Center";
 			sourceTree = "<group>";
@@ -83,9 +94,27 @@
 		22AE1AC626A8E9060031350D /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				22BABED52814FA260016D2B6 /* Enum */,
 				22F48DAC26A7661500AD2418 /* GameScene.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		22BABED02814F7EB0016D2B6 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				22BABED12814F7FF0016D2B6 /* GameCenterDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		22BABED52814FA260016D2B6 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				22BABED62814FA340016D2B6 /* UserDefaultsKeys.swift */,
+				22BABEDA28151A420016D2B6 /* ParticleType.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		22C93A2826A7610F00838E44 = {
@@ -110,6 +139,7 @@
 		22C93A3326A7610F00838E44 /* Ball Runner */ = {
 			isa = PBXGroup;
 			children = (
+				22BABED02814F7EB0016D2B6 /* Delegate */,
 				22FADC3426BA3F8900903717 /* Ball Runner.entitlements */,
 				229BA19526BC9DF200E3B593 /* Game Center */,
 				22F48DB026A7663A00AD2418 /* Controllers */,
@@ -187,6 +217,7 @@
 			children = (
 				22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */,
 				22FADC3A26BC5DE700903717 /* String+Localized.swift */,
+				22BABED82814FAF90016D2B6 /* UserDefaults+Actions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -270,6 +301,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22BABED22814F7FF0016D2B6 /* GameCenterDelegate.swift in Sources */,
+				22BABED72814FA340016D2B6 /* UserDefaultsKeys.swift in Sources */,
 				22C93A3926A7610F00838E44 /* GameViewController.swift in Sources */,
 				22C9F94526B40B2E00264CCC /* MenuView.swift in Sources */,
 				22F48DB226A7667F00AD2418 /* Particle.swift in Sources */,
@@ -278,13 +311,16 @@
 				22C9F94326B40B1B00264CCC /* MenuViewController.swift in Sources */,
 				220A8B8526B4B98A007D0EA6 /* EndgameView.swift in Sources */,
 				22FADC3726BA63D800903717 /* UIActivityViewController+ShowAvatar.swift in Sources */,
+				22BABED42814F90B0016D2B6 /* ErrorHandler.swift in Sources */,
 				22FADC3926BA66E800903717 /* ManegerGameCenter.swift in Sources */,
 				22AE1ACA26A95D080031350D /* PauseView.swift in Sources */,
+				22BABEDB28151A420016D2B6 /* ParticleType.swift in Sources */,
 				2254787426A768FD001BEB72 /* Buttons.swift in Sources */,
 				2216376626CEB8F200B37B2A /* WarningView.swift in Sources */,
 				22FADC3B26BC5DE700903717 /* String+Localized.swift in Sources */,
 				220A8B8326B4B97E007D0EA6 /* EndgameViewController.swift in Sources */,
 				22F48DAD26A7661500AD2418 /* GameScene.swift in Sources */,
+				22BABED92814FAF90016D2B6 /* UserDefaults+Actions.swift in Sources */,
 				22C93A3726A7610F00838E44 /* SceneDelegate.swift in Sources */,
 				22AE1AC826A8E9230031350D /* GameView.swift in Sources */,
 				22359F0126AA0FCA00126268 /* TutorialViewController.swift in Sources */,

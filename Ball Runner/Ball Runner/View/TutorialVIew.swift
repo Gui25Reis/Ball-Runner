@@ -5,25 +5,20 @@ import UIKit
 
 
 class TutorialView: UIView {
-    private let lineView:UIView = {
-        let view = UIView(frame: .zero)
-        view.layer.cornerRadius = 4
-        view.backgroundColor = #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
-        
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     
-    private var titleLabel:UILabel!
-    private var viewGroups:[UIView] = []
-    private var subTitlelabels:[UILabel] = []
-    private var descriptionLabels:[UILabel] = []
+    /* MARK: - Atributos */
+    
+    private var titleLabel: UILabel!
+    private var viewGroups: [UIView] = []
+    private var subTitlelabels: [UILabel] = []
+    private var descriptionLabels: [UILabel] = []
     
     private var viewToAnimate:[[UIView]] = []
-    private var powerSimbol:UIImageView!
     
-    private let exitButton:UIButton = Buttons.getExitButton()
+    private let exitButton: UIButton = Buttons.getExitButton()
     
+    
+    /* MARK: - Construtor */
     
     init() {
         super.init(frame: .zero)
@@ -31,30 +26,25 @@ class TutorialView: UIView {
         self.clipsToBounds = true
         self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
         
-        self.addSubview(self.lineView)
-        
         self.titleLabel = self.newLabel(sizeFont: 40, w: .bold)
-        self.addSubview(self.titleLabel)
         
+        self.addSubview(self.titleLabel)
         self.addSubview(self.exitButton)
         
         
         for x in 0..<3{
-            let v = UIView(frame: .zero)
-            v.translatesAutoresizingMaskIntoConstraints = false
-        
-            self.addSubview(v)
-            
+            let view = UIView(frame: .zero)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(view)
             
             // Labels
             self.subTitlelabels.append(self.newLabel(sizeFont: 30, w: .semibold))
-            v.addSubview(self.subTitlelabels[x])
+            view.addSubview(self.subTitlelabels[x])
             
             self.descriptionLabels.append(self.newLabel(sizeFont: 25, w: .regular))
-            v.addSubview(self.descriptionLabels[x])
+            view.addSubview(self.descriptionLabels[x])
             
-            self.viewGroups.append(v)
-            
+            /* TODO: Animar */
             
             // Views com animações
             var list:[UIView] = []
@@ -69,11 +59,13 @@ class TutorialView: UIView {
             default:
                 list.append(TutorialView.particle(color: 1))
                 list.append(TutorialView.particle(color: 2))
-                //list.append(self.newImageView(icon: "power06.svg", isSFSymbol: false))
             }
             
-            for y in list {self.viewGroups[x].addSubview(y)}
+            for v in list {
+                view.addSubview(v)
+            }
             self.viewToAnimate.append(list)
+            self.viewGroups.append(view)
         }
     }
         
@@ -82,15 +74,18 @@ class TutorialView: UIView {
     
     /* MARK: - Encapsulamento */
     
-    public func setTitleLabel(text: String) -> Void { self.titleLabel.text = text }
+    public func setTitleText(with text: String) -> Void { self.titleLabel.text = text }
     
-    public func setSubTitleLabels(list: [String]) -> Void {for x in 0..<3 { self.subTitlelabels[x].text = list[x]} }
+    public func setTexts(subtitle: [String], description: [String]) -> Void {
+        for x in 0..<3 {
+            self.subTitlelabels[x].text = subtitle[x]
+            self.descriptionLabels[x].text = description[x]
+        }
+    }
     
-    public func setDescriptionLabels(list: [String]) -> Void { for x in 0..<3 {self.descriptionLabels[x].text = list[x]} }
-    
-    public func getExitButton() -> UIButton { return self.exitButton }
-    
-    public func getObjectsToAnimate() -> [[UIView]] { return self.viewToAnimate }
+    public func setExitAction(target: UIViewController, action: Selector) -> Void {
+        self.exitButton.addTarget(target, action: action, for: .touchDown)
+    }
     
         
     /* MARK: - Ciclo de vida */
@@ -98,16 +93,10 @@ class TutorialView: UIView {
     public override func layoutSubviews() -> Void {
         super.layoutSubviews()
         
-        let border:CGFloat = 15
+        let border: CGFloat = 15
         
         /* Parte de cima */
-        self.lineView.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
-        self.lineView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.lineView.heightAnchor.constraint(equalToConstant: 5).isActive = true
-        self.lineView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        
-        self.titleLabel.topAnchor.constraint(equalTo: self.lineView.topAnchor, constant: 25).isActive = true
+        self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
         self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: border).isActive = true
         self.titleLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
@@ -125,7 +114,7 @@ class TutorialView: UIView {
 
             if (x-1 < 0) {
                 self.viewGroups[x].topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 15).isActive = true
-            }else{
+            } else {
                 self.viewGroups[x].topAnchor.constraint(equalTo: self.viewGroups[x-1].bottomAnchor, constant: 15).isActive = true
             }
             
@@ -141,9 +130,8 @@ class TutorialView: UIView {
             
             
             if x < 2 {
-                var space:CGFloat!
+                var space: CGFloat = -40
                 if x == 0 {space = 20}
-                else {space = -40}
                 
                 list[0].centerXAnchor.constraint(equalTo: self.viewGroups[x].centerXAnchor, constant: space).isActive = true
                 list[0].topAnchor.constraint(equalTo: self.descriptionLabels[x].bottomAnchor, constant: abs(space)).isActive = true
@@ -181,8 +169,8 @@ class TutorialView: UIView {
         return v
     }
     
-    private func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel {
-        let lbl:UILabel = EndgameView.newLabel(sizeFont: sizeFont, w: w)
+    private func newLabel(sizeFont: CGFloat, w: UIFont.Weight) -> UILabel {
+        let lbl: UILabel = EndgameView.newLabel(sizeFont: sizeFont, w: w)
         lbl.textAlignment = .left
         lbl.sizeToFit()
         lbl.numberOfLines = 0
@@ -190,12 +178,12 @@ class TutorialView: UIView {
     }
     
     private func newImageView(icon: String, isSFSymbol: Bool) -> UIImageView {
-        var img:UIImage!
+        var img: UIImage!
         
         if (isSFSymbol) {
             let configIcon = UIImage.SymbolConfiguration(pointSize: 30, weight: .bold, scale: .medium)
             img = UIImage(systemName: icon, withConfiguration: configIcon)?.withRenderingMode(.alwaysTemplate)
-        }else{
+        } else {
             img = UIImage(named: icon)?.withRenderingMode(.alwaysTemplate)
         }
         

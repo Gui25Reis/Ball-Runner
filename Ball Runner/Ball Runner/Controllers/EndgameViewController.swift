@@ -32,7 +32,7 @@ class EndgameViewController: UIViewController {
         let defaults = UserDefaults.standard
         
         if (self.score > defaults.integer(forKey: "score")) {
-            ManegerGameCenter.setHighScore(score: self.score)
+            // ManegerGameCenter.setHighScore(score: self.score)
         }
         
         self.myView.setBestLabel(text: String(defaults.integer(forKey: "score")))

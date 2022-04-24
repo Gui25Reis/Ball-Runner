@@ -5,77 +5,46 @@ import UIKit
 
 
 class MenuViewController: UIViewController {
-    private let myView = MenuView()
-    private let warningView = WarningView()
-    
     
     /* MARK: - Ciclos de Vida */
     
+    public override func loadView() -> Void {
+        super.loadView()
+        
+        let myView = MenuView()
+        self.view = myView
+        
+        GameCenterService.shared.setController(self)
+    }
+    
+    
     public override func viewDidLoad() -> Void {
         super.viewDidLoad()
-        self.view = self.myView
         
-        let warningCount = UserDefaults.standard.integer(forKey: "warning")
+        guard let view = self.view as? MenuView else {return}
 
-        self.myView.setTitleLabel(text: "Ball Runner")
+        view.setTitleText(with: "Ball Runner")
         
         // Definindo as ações dos botões
-        self.myView.getTutorialButton().addTarget(self, action: #selector(self.tutorialAction), for: .touchDown)
+        view.setTutorialAction(target: self, action: #selector(self.tutorialAction))
+        view.setPlayAction(target: self, action: #selector(self.playAction))
+        view.setLeaderboardAction(target: self, action: #selector(self.leaderboardAction))
+        view.setAchievmentsAction(target: self, action: #selector(self.achievementsAction))
         
-        self.myView.getPlayButton().addTarget(self, action: #selector(self.playAction), for: .touchDown)
-        
-        self.myView.getLeaderboardButton().addTarget(self, action: #selector(self.leaderboardAction), for: .touchDown)
-        
-        self.myView.getAchievmentsButton().addTarget(self, action: #selector(self.achievementsAction), for: .touchDown)
-        
-        // Autenticando com o Game Center
-        ManegerGameCenter.authenticateUser(from: self, label: self.myView.getScoreLabel())
-        
-        let bt = self.warningView.getExitButton()
-        if (warningCount == 0) {
-            let warningText = "warning text".localized()
-            
-            self.warningView.setDescriptionLabel(text: warningText)
-            self.warningView.setTitleLabel(text: "Warning".localized())
-        }
-//        } else {
-//            self.showEventWarning()
-//        }
-        
-        bt.setTitle("Ok!", for: .normal)
-        bt.addTarget(self, action: #selector(self.exitAction), for: .touchDown)
-        self.view.addSubview(self.warningView)
+        self.gameCenterAutentication()
     }
     
-    
-    public override func viewWillDisappear(_ animated: Bool) -> Void {
-        super.viewWillDisappear(animated)
-        
-        self.myView.setWarningLabel(text: "")
-    }
-    
-    
-    public override func viewWillAppear(_ animated: Bool) -> Void {
-        super.viewWillAppear(animated)
-        
-        let text = "Best".localized() + " " + String(UserDefaults.standard.integer(forKey: "score"))
-        self.myView.setScoreLabel(text: text)
-        
-        ManegerGameCenter.showAvatarGameCenter(isVisible: true)
-    }
-
     
     /* MARK: - Ações do botões */
     
     @objc func tutorialAction() -> Void {
-        let vc = TutorialViewController(from: self)
+        let vc = TutorialViewController()
         vc.modalTransitionStyle = .coverVertical
         
         self.present(vc, animated: true, completion: nil)
     }
     
     @objc func playAction() -> Void {
-        ManegerGameCenter.showAvatarGameCenter(isVisible: false)
         let vc = GameViewController()
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
@@ -84,38 +53,35 @@ class MenuViewController: UIViewController {
     }
     
     @objc func leaderboardAction() -> Void {
-        if (!ManegerGameCenter().toSpecificPage(from: self, to: .leaderboards)) {
-            self.showWarningLabel()
-        }
+        GameCenterService.shared.showGameCenterPage(.leaderboards)
     }
     
     @objc func achievementsAction() -> Void {
-        if (!ManegerGameCenter().toSpecificPage(from: self, to: .achievements)) {
-            self.showWarningLabel()
-        }
-    }
-    
-    @objc func exitAction() -> Void {
-        if UserDefaults.standard.integer(forKey: "warning") == 0 {
-            UserDefaults.standard.set(1, forKey: "warning")
-//            self.showEventWarning()
-            ManegerGameCenter.authenticateUser(from: self, label: self.myView.getScoreLabel())
-        } else {
-            self.warningView.removeFromSuperview()
-        }
+        GameCenterService.shared.showGameCenterPage(.achievements)
     }
     
     
     /* MARK: - Outros */
     
-    private func showWarningLabel() -> Void {
-        self.myView.setWarningLabel(text: "Game center not connected.".localized())
+    /// Fazendo a autenticação com o Game Center
+    func gameCenterAutentication() {
+        guard let view = self.view as? MenuView else {return}
+        
+        GameCenterService.shared.autenticateUser {vc, score, error in
+            if error != nil {
+                view.setWarningText(with: error?.description ?? "Erro")
+                return
+            }
+            
+            if let vc = vc {
+                self.present(vc, animated: true)
+                return
+            }
+            
+            if let score = score {
+                view.setScore(with: score)
+                view.setWarningText(with: "")
+            }
+        }
     }
-    
-//    private func showEventWarning() -> Void {
-//        let warningText = "event text".localized()
-//
-//        self.warningView.setDescriptionLabel(text: warningText)
-//        self.warningView.setTitleLabel(text: "Event".localized())
-//    }
 }
