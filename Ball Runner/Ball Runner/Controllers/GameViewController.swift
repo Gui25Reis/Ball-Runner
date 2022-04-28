@@ -4,7 +4,7 @@
 import SpriteKit
 
 
-class GameViewController: UIViewController{
+class GameViewController: UIViewController {
     
     /* MARK: - Atributos */
     private let scene = GameScene()
@@ -38,36 +38,24 @@ class GameViewController: UIViewController{
         guard let view = self.view as? GameView else {return}
         
         view.showInformations(is_: false)
-        view.setTimeLabel(text: "0")
-        view.getPauseButton().addTarget(self, action: #selector(self.pauseAction), for: .touchDown)
+        view.setScore(with: 0)
+        view.setPauseAction(target: self, action: #selector(self.pauseAction))
         
         
         // PauseView
-        self.pauseView.setTitleLabel(text: "Pause")
+        self.pauseView.setTitleText(with: "Pause")
         
-        self.pauseView.getPlayButton().addTarget(self, action: #selector(self.playAction), for: .touchDown)
+        self.pauseView.setPlayAction(target: self, action: #selector(self.playAction))
         
-        self.pauseView.getTutorialButton().addTarget(self, action: #selector(self.tutorialAction), for: .touchDown)
+        self.pauseView.setTutorialAction(target: self, action: #selector(self.tutorialAction))
         
-        self.pauseView.getHomeButton().addTarget(self, action: #selector(self.homeAction), for: .touchDown)
+        self.pauseView.setHomeAction(target: self, action: #selector(self.homeAction))
         
-        self.pauseView.getAchievmentsButton().addTarget(self, action: #selector(self.achievementsAction), for: .touchDown)
+        self.pauseView.setAchievmentsAction(target: self, action: #selector(self.achievementsAction))
         
         
         // Timer
         self.countdown = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-        
-        
-        // Segundo Plano
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(self.didLeaveFromBackgound),
-            name: UIApplication.didBecomeActiveNotification, object: nil
-        )
-        
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(self.didEnterOnBackground),
-            name: UIApplication.willResignActiveNotification, object: nil
-        )
     }
     
     /// Quando entra no app (sai do segundo plano)
@@ -106,7 +94,6 @@ class GameViewController: UIViewController{
             self.scene.drag(at: location)
         }
     }
-    
 
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         self.scene.drop()
@@ -132,7 +119,7 @@ class GameViewController: UIViewController{
             guard let view = self.view as? GameView else {return}
             
             self.timer += 1
-            view.setTimeLabel(text: String(self.timer))
+            view.setScore(with: self.timer)
             self.scene.updadePerSecond(gameTime: self.timer)
         }
     }
@@ -141,14 +128,14 @@ class GameViewController: UIViewController{
         let vc = EndgameViewController(parentVC: self, score: self.timer)
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
-
-        self.present(vc, animated: true, completion: nil)
+    
+        self.present(vc, animated: true)
     }
     
     
     /* View: Pause */
     @objc func playAction() -> Void {
-        self.pauseView.setWarningLabel(text: "")
+        self.pauseView.setWarningText(with: "")
         self.pauseView.removeFromSuperview()
         if (timer != 0) {
             self.scene.setStatuGame(to: true)
@@ -164,14 +151,13 @@ class GameViewController: UIViewController{
     }
     
     @objc func homeAction() -> Void {
-        //ManegerGameCenter.showAvatarGameCenter(isVisible: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func achievementsAction() -> Void {
-//        if (!ManegerGameCenter().toSpecificPage(from: self, to: .achievements)) {
-//            self.pauseView.setWarningLabel(text: "Game center not connected.".localized())
-//        }
+        if let vc = GameCenterService.shared.showGameCenterPage(.achievements) {
+            self.present(vc, animated: true)
+        }
     }
     
     
@@ -182,5 +168,18 @@ class GameViewController: UIViewController{
         v.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
         self.view.addSubview(v)
         v.frame = (v.superview?.bounds)!
+    }
+    
+    /// Configura o que acontece quando o app entre em segundo plano
+    private func setupBackgroundState() -> Void {
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(self.didLeaveFromBackgound),
+            name: UIApplication.didBecomeActiveNotification, object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(self.didEnterOnBackground),
+            name: UIApplication.willResignActiveNotification, object: nil
+        )
     }
 }

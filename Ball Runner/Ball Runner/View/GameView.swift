@@ -32,9 +32,11 @@ class GameView: UIView {
     
     /* MARK: - Encapsulamento */
     
-    public func getPauseButton() -> UIButton { return self.pauseButton }
+    public func setPauseAction(target: UIViewController, action: Selector) -> Void {
+        self.pauseButton.addTarget(target, action: action, for: .touchDown)
+    }
     
-    public func setTimeLabel(text: String) -> Void { self.timeLabel.text = text }
+    public func setScore(with score: Int) -> Void { self.timeLabel.text = "\(score)" }
     
     public func setScene(scene: SKScene) -> Void { self.gameScene.presentScene(scene) }
     
@@ -43,7 +45,7 @@ class GameView: UIView {
     }
     
     
-    /* MARK: - Cicloe de Vida */
+    /* MARK: - Ciclo de Vida */
     
     public override func layoutSubviews() -> Void {
         super.layoutSubviews()
@@ -52,32 +54,21 @@ class GameView: UIView {
         
         let space: CGFloat = 15
         
-        self.timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant:40).isActive = true
-        self.timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        
-        
-        self.pauseButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: space-5).isActive = true
-        self.pauseButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 40).isActive = true
-        
-        
-        self.gameScene.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: space).isActive = true
-        self.gameScene.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -space).isActive = true
-        self.gameScene.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -space-3).isActive = true
-        self.gameScene.topAnchor.constraint(equalTo: self.timeLabel.bottomAnchor, constant: space-3).isActive = true
-        
-        /*
-        // Auto Layout - Tamanho da bolinha + velocidade
-        let actualArea:CGFloat = self.gameScene.bounds.height * self.gameScene.bounds.height
-        if (actualArea > 0) {
-            print(actualArea)
-            let iPhone12Area:CGFloat = 527076
-            print((7 * actualArea)/iPhone12Area)
-            UserDefaults.standard.set((7 * actualArea)/iPhone12Area, forKey: "radius")
-            UserDefaults.standard.set((0.9 * actualArea)/iPhone12Area, forKey: "speed")
-            self.layoutIfNeeded()
-        }
-        */
+        NSLayoutConstraint.activate([
+            self.timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
+            self.timeLabel.widthAnchor.constraint(equalToConstant: 100),
+            
+            
+            self.pauseButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: space-5),
+            self.pauseButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 40),
+            
+            
+            self.gameScene.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: space),
+            self.gameScene.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -space),
+            self.gameScene.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -space-3),
+            self.gameScene.topAnchor.constraint(equalTo: self.timeLabel.bottomAnchor, constant: space-3)
+        ])
     }
     
     

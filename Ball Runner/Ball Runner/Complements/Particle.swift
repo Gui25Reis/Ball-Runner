@@ -1,46 +1,54 @@
 /* Gui Reis     -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
-//import class SpriteKit.SKShapeNode
-//import struct SpriteKit.CGFloat
-import SpriteKit
+import class SpriteKit.SKShapeNode
+import struct SpriteKit.CGFloat
+import struct SpriteKit.CGPoint
 
 
-public class Particle: SKShapeNode {
-    
+public class Particle {
+        
     /* MARK: - Atributos */
+    private var node: SKShapeNode!
     private var radius: CGFloat = 7
     private var initialTime: Int = 0
     private var lifeTime: Int = 0
     private var specialNode: Bool = false
     private var scale: CGFloat = 0.5
+    private var index: Int = -1
+    private var ready: Bool = false
     
     
     /* MARK: - Construtor */
     
-    override init() {
-        super.init()
-        let diameter = self.radius * 2
-        self.path = CGPath(ellipseIn: CGRect(origin: CGPoint.zero, size: CGSize(width: diameter, height: diameter)), transform: nil)
-        self.lineWidth = 0
+    init() {
+        self.node = SKShapeNode(circleOfRadius: self.radius)
+        self.node.lineWidth = 0
         self.setColor(by: .enemy)
-        self.setScale(self.scale)
+        self.node.setScale(self.scale)
     }
     
-    required init?(coder aDecoder: NSCoder) {fatalError("init(coder:) has not been implemented")}
-        
-
+    deinit {
+        self.erase()
+    }
+    
+    public func erase() -> Void {
+        self.node.removeFromParent()
+    }
+    
+    public func getNode() -> SKShapeNode {return self.node}
+    
     public func setPosition(x: CGFloat, y: CGFloat) -> Void {
-        self.position = CGPoint(x: x, y: y)
+        self.node.position = CGPoint(x: x, y: y)
     }
     
     
-    public func getPosition() -> CGPoint {return self.position}
+    public func getPosition() -> CGPoint {return self.node.position}
     
     
     private func setupSpecialNode() -> Void {
         self.specialNode = true
-        self.setScale(1)
+        self.node.setScale(1)
     }
     
 
@@ -49,12 +57,12 @@ public class Particle: SKShapeNode {
     internal func setColor(by type: ParticleType) -> Void {
         switch type {
         case .enemy:
-            self.fillColor = #colorLiteral(red: 0.8296997547, green: 0.2501699328, blue: 0.2907564044, alpha: 1)
+            self.node.fillColor = #colorLiteral(red: 0.8296997547, green: 0.2501699328, blue: 0.2907564044, alpha: 1)
         case .user:
-            self.fillColor = #colorLiteral(red: 0, green: 0.9089414477, blue: 0.4565228224, alpha: 1)
+            self.node.fillColor = #colorLiteral(red: 0, green: 0.9089414477, blue: 0.4565228224, alpha: 1)
             self.setupSpecialNode()
         case .power:
-            self.fillColor = #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
+            self.node.fillColor = #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
             self.setupSpecialNode()
         }
     }
@@ -68,17 +76,28 @@ public class Particle: SKShapeNode {
     public func getRadius() -> CGFloat {return self.radius}
     
     public func setLifeTime(at time: Int) -> Void {self.lifeTime += time}
-    public func getLifeTime() -> Int {return self.lifeTime}
+    public func getLifeTime() -> Int {return self.lifeTime - self.initialTime}
+    
+    public func setIndex(at index: Int) -> Void {self.index = index}
+    public func getIndex() -> Int {return self.index}
     
     public func getScale() -> CGFloat {return self.scale}
     public func updateScale(with scale: CGFloat) -> Void {
         self.scale = scale
-        self.setScale(self.scale)
-        self.alpha = self.scale
+        self.node.setScale(self.scale)
+        self.node.alpha = self.scale
+        
+        if self.scale >= 1 {
+            self.ready = true
+        }
     }
     
     public func isReady() -> Bool {
-        if (self.getLifeTime() > self.getInitialTime()+1 && self.scale >= 1) {
+        return self.ready
+    }
+    
+    public func isDying() -> Bool {
+        if (self.lifeTime - self.initialTime) >= 10  {
             return true
         }
         return false

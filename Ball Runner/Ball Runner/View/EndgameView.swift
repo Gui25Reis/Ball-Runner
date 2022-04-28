@@ -5,33 +5,31 @@ import UIKit
 
 
 class EndgameView: UIView {
-    private var titleLabel:UILabel!
-    private var scoreTitleLabel:UILabel!
-    private var scoreLabel:UILabel!
-    private var bestTitleLabel:UILabel!
-    private var bestLabel:UILabel!
+    
+    /* MARK: - Atributos */
+    
+    private var titleLabel: UILabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
+    private var scoreTitleLabel: UILabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
+    private var scoreLabel: UILabel = EndgameView.newLabel(sizeFont: 30, w: .semibold)
+    private var bestTitleLabel: UILabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
+    private var bestLabel: UILabel = EndgameView.newLabel(sizeFont: 30, w: .semibold)
     
     private let restartButton = Buttons.getRestartButton()
     private let shareButton = Buttons.getShareButton()
+    
+    
+    
+    /* MARK: - Construtor */
     
     init() {
         super.init(frame: .zero)
         self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
         
         // Labels
-        self.titleLabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
         self.addSubview(self.titleLabel)
-        
-        self.scoreTitleLabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
         self.addSubview(self.scoreTitleLabel)
-        
-        self.scoreLabel = EndgameView.newLabel(sizeFont: 30, w: .semibold)
         self.addSubview(self.scoreLabel)
-        
-        self.bestTitleLabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
         self.addSubview(self.bestTitleLabel)
-        
-        self.bestLabel = EndgameView.newLabel(sizeFont: 30, w: .semibold)
         self.addSubview(self.bestLabel)
 
         // Botões
@@ -44,11 +42,17 @@ class EndgameView: UIView {
     
     /* MARK: - Encapsulamento */
     
-    public func getRestartButton() -> UIButton { return self.restartButton }
-    public func getShareButton() -> UIButton { return self.shareButton }
+    public func setRestartAction(target: UIViewController, action: Selector) -> Void {
+        self.restartButton.addTarget(target, action: action, for: .touchDown)
+    }
     
-    public func setScoreLabel(text: String) -> Void { self.scoreLabel.text = text }
-    public func setBestLabel(text: String) -> Void { self.bestLabel.text = text }
+    public func setShareAction(target: UIViewController, action: Selector) -> Void {
+        self.shareButton.addTarget(target, action: action, for: .touchDown)
+    }
+
+    
+    public func setScore(with score: Int) -> Void { self.scoreLabel.text = "\(score)" }
+    public func setBestScore(with score: Int) -> Void { self.bestLabel.text = "\(score)" }
     public func setTitleLabels(list: [String]) -> Void {
         self.titleLabel.text = list[0]
         self.scoreTitleLabel.text = list[1]
@@ -59,44 +63,49 @@ class EndgameView: UIView {
     /* MARK: - Ciclo de Vida */
     
     public override func layoutSubviews() -> Void {
-        let safeArea:CGFloat = 114      // Popup game center
+        super.layoutSubviews()
         
-        self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: safeArea+20).isActive = true
-        self.titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        
-        
-        self.scoreTitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 50).isActive = true
-        self.scoreTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.scoreTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(self.bounds.width/2)).isActive = true
+        let safeArea: CGFloat = 114      // Popup game center
         
         
-        self.scoreLabel.topAnchor.constraint(equalTo: self.scoreTitleLabel.bottomAnchor, constant: 10).isActive = true
-        self.scoreLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        self.scoreLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(self.bounds.width/2)).isActive = true
-        
-        
-        self.bestTitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 50).isActive = true
-        self.bestTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.bounds.width/2).isActive = true
-        self.bestTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-        
-        self.bestLabel.topAnchor.constraint(equalTo: self.bestTitleLabel.bottomAnchor, constant: 10).isActive = true
-        self.bestLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.bounds.width/2).isActive = true
-        self.bestLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-        
-        self.restartButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.restartButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
-        
-        self.shareButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.shareButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea-20).isActive = true
+        NSLayoutConstraint.activate([
+            self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: safeArea+20),
+            self.titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            
+            self.scoreTitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 50),
+            self.scoreTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.scoreTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(self.bounds.width/2)),
+            
+            
+            self.scoreLabel.topAnchor.constraint(equalTo: self.scoreTitleLabel.bottomAnchor, constant: 10),
+            self.scoreLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.scoreLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -(self.bounds.width/2)),
+            
+            
+            self.bestTitleLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 50),
+            self.bestTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.bounds.width/2),
+            self.bestTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
+            
+            self.bestLabel.topAnchor.constraint(equalTo: self.bestTitleLabel.bottomAnchor, constant: 10),
+            self.bestLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: self.bounds.width/2),
+            self.bestLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
+            
+            self.restartButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.restartButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            
+            
+            self.shareButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.shareButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea-20)
+        ])
     }
     
     
     /* MARK: - Funções de criação */
     
-    public static func newLabel(sizeFont:CGFloat, w:UIFont.Weight) -> UILabel {
+    public static func newLabel(sizeFont: CGFloat, w: UIFont.Weight) -> UILabel {
         let lbl:UILabel = UILabel()
         lbl.font = .systemFont(ofSize: sizeFont, weight: w)
         lbl.textColor =  #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)

@@ -13,8 +13,6 @@ class MenuViewController: UIViewController {
         
         let myView = MenuView()
         self.view = myView
-        
-        GameCenterService.shared.setController(self)
     }
     
     
@@ -53,11 +51,15 @@ class MenuViewController: UIViewController {
     }
     
     @objc func leaderboardAction() -> Void {
-        GameCenterService.shared.showGameCenterPage(.leaderboards)
+        if let vc = GameCenterService.shared.showGameCenterPage(.leaderboards) {
+            self.present(vc, animated: true)
+        }
     }
     
     @objc func achievementsAction() -> Void {
-        GameCenterService.shared.showGameCenterPage(.achievements)
+        if let vc = GameCenterService.shared.showGameCenterPage(.achievements) {
+            self.present(vc, animated: true)
+        }
     }
     
     
@@ -66,6 +68,8 @@ class MenuViewController: UIViewController {
     /// Fazendo a autenticação com o Game Center
     func gameCenterAutentication() {
         guard let view = self.view as? MenuView else {return}
+        
+        view.setScore(with: UserDefaults.getIntValue(with: .highScore))
         
         GameCenterService.shared.autenticateUser {vc, score, error in
             if error != nil {

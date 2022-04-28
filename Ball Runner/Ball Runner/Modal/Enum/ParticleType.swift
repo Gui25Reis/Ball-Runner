@@ -1,9 +1,4 @@
-//
-//  ParticleType.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 24/04/22.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
 enum ParticleType {
     case enemy

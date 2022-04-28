@@ -12,8 +12,6 @@ class GameCenterService: GKGameCenterViewController {
     
     static let leaderboardID = "lbHighScore"
     
-    private var controller: UIViewController?
-    
     private var gameCenterProtocol = GameCenterDelegate()
     
     /* MARK: - Métodos */
@@ -88,7 +86,7 @@ class GameCenterService: GKGameCenterViewController {
     public func submitHighScore(score: Int, _ completionHandler: @escaping (_ error: ErrorHandler?) -> Void ) {
         if (GKLocalPlayer.local.isAuthenticated) {
             // Define no highscore
-            //UserDefaults.standard.set(score, forKey: GameCenterService.highscoreKey)
+            UserDefaults.updateValue(in: .highScore, with: score)
             
             // Manda pro Game Center
             GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: [GameCenterService.leaderboardID]) {error in
@@ -104,26 +102,12 @@ class GameCenterService: GKGameCenterViewController {
     }
     
     /// Abre a página do game center
-    public func showGameCenterPage(_ state: GKGameCenterViewControllerState = .leaderboards) {
+    public func showGameCenterPage(_ state: GKGameCenterViewControllerState = .leaderboards) -> GKGameCenterViewController? {
         if (GKLocalPlayer.local.isAuthenticated) {
             let vc = GKGameCenterViewController(state: state)
             vc.gameCenterDelegate = self.gameCenterProtocol
-            
-            self.controller?.present(vc, animated: true)
+            return vc
         }
-    }
-    
-    /// Mostra o avatar do Game Center
-    public func showAvatar(isVisible: Bool) -> Void {
-        if (GKLocalPlayer.local.isAuthenticated) {
-            GKAccessPoint.shared.location = .topLeading
-            GKAccessPoint.shared.showHighlights = false
-            GKAccessPoint.shared.isActive = isVisible
-        }
-    }
-    
-    /// Define a ViewController que vai mostrar as telas
-    public func setController(_ vc: UIViewController) {
-        self.controller = vc
+        return nil
     }
 }

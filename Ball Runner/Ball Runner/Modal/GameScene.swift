@@ -9,6 +9,7 @@ class GameScene: SKScene {
     /* MARK: - Atributos */
     
     private var allParticles: [Particle] = []
+    private var particlesDying: [Particle] = []
     private var specialParticles: [Particle] = []
     private var userNode = Particle()
     private var gameOn: Bool = false
@@ -34,7 +35,7 @@ class GameScene: SKScene {
         
         self.userNode.setColor(by: .user)
         
-        self.addChild(self.userNode)
+        self.addChild(self.userNode.getNode())
     }
     
     /**
@@ -90,7 +91,23 @@ class GameScene: SKScene {
             }
             self.specialTime += 4
         }
-        for p in self.allParticles {p.setLifeTime(at: 1)}
+        
+        
+        for p in particlesDying {
+            self.allParticles.remove(at: p.getIndex())
+            p.erase()
+        }
+        
+        self.particlesDying = []
+        
+        for p in 0..<self.allParticles.count {
+            self.allParticles[p].setLifeTime(at: 1)
+            
+            if self.allParticles[p].isDying() {
+                self.allParticles[p].setIndex(at: p)
+                self.particlesDying.append(self.allParticles[p])
+            }
+        }
     }
     
     
@@ -111,7 +128,7 @@ class GameScene: SKScene {
         
         node.setInitialTime(at: self.timer)
     
-        self.addChild(node)
+        self.addChild(node.getNode())
         
         switch isSpecial {
         case true:
@@ -138,13 +155,7 @@ class GameScene: SKScene {
             pos = self.specialParticles[s].getPosition()
             
             if (self.getDistance(pos, userPos)-radius < radius) {
-                
-                self.specialParticles[s].removeFromParent()
                 self.specialParticles.remove(at: s)
-                
-                for node in self.allParticles {
-                    node.removeFromParent()
-                }
                 self.allParticles = []
                 return
             }
@@ -155,6 +166,7 @@ class GameScene: SKScene {
         var y: CGFloat
         
         let gap = radius-5
+        
         // Movimentação das bolinhas
         for p in self.allParticles {
             if (p.isReady()) {                      // Perseguindo
@@ -184,6 +196,10 @@ class GameScene: SKScene {
                     p.updateScale(with: p.getScale()+0.01)
                 }
             }
+        }
+        
+        for p in self.particlesDying {
+            p.updateScale(with: p.getScale()-0.01)
         }
     }
         
@@ -230,22 +246,15 @@ class GameScene: SKScene {
             
             let posX = self.userPosition.x + dist * cos(angle) * speed
             let posY = self.userPosition.y + dist * sin(angle) * speed
-            
-            if (posX > self.size.width-50 && posY > self.size.height-50) {
-                self.userNode.setPosition(x: self.size.width, y: self.size.height)
-                return
-            }
-            
+                        
             if (posX < 0 && posY < 0) {                 // 3º Quadrante (x e y são negativos)
                 self.userNode.setPosition(x: 0, y: 0)
             } else if (posX < 0) {                      // Canto esquerdo
-                print("X: \(posX) Tela: \(self.size.width)")
                 if posY > self.size.height{
                     self.userNode.setPosition(x: 0, y: self.size.height-10)
                 }else{
                     self.userNode.setPosition(x: 0, y: posY)
                 }
-                print("User: \(self.userNode.getPosition())\n")
             } else if (posY < 0) {                      // Canto de baixo
                 if posX > self.size.width{
                     self.userNode.setPosition(x: self.size.width, y: 0)
@@ -253,13 +262,11 @@ class GameScene: SKScene {
                     self.userNode.setPosition(x: posX, y: 0)
                 }
             } else if (posX > self.size.width) {        // Canto direito
-                print("X: \(posX) Tela: \(self.size.width)")
                 if posY > self.size.height{
                     self.userNode.setPosition(x: self.size.width, y: self.size.height)
                 }else{
                     self.userNode.setPosition(x: self.size.width, y: posY)
                 }
-                print("User: \(self.userNode.getPosition())\n")
             } else if (posY > self.size.height) {       // Canto de cima
                 if posX > self.size.width{
                     self.userNode.setPosition(x: self.size.width, y: self.size.height)

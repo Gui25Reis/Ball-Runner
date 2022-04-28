@@ -5,17 +5,15 @@ import UIKit
 
 
 class EndgameViewController: UIViewController {
-    private let myView = EndgameView()
-    private var parentVC:UIViewController!
-    private var score:Int!
+    private var parentVC: UIViewController
+    private var score: Int
     
     
-    init(parentVC:UIViewController, score:Int) {
-        super.init(nibName: nil, bundle: nil)
+    init(parentVC: UIViewController, score: Int) {
         self.score = score
         self.parentVC = parentVC
-        
-        // ManegerGameCenter.showAvatarGameCenter(isVisible: true)
+
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -23,25 +21,35 @@ class EndgameViewController: UIViewController {
     
     /* MARK: - Ciclos de Vida */
     
+    override func loadView() {
+        super.loadView()
+        
+        let myView = EndgameView()
+        self.view = myView
+    }
+    
     public override func viewDidLoad() -> Void {
         super.viewDidLoad()
         
-        let texts:[String] = ["Game Over".localized(), "Score".localized(), "Best".localized()]
-        self.myView.setTitleLabels(list: texts)
+        guard let view = self.view as? EndgameView else {return}
+        
+        let texts: [String] = ["Game Over".localized(), "Score".localized(), "Best".localized()]
+        view.setTitleLabels(list: texts)
                 
-        let defaults = UserDefaults.standard
+        view.setBestScore(with: UserDefaults.getIntValue(with: .highScore))
+        view.setScore(with: self.score)
         
-        if (self.score > defaults.integer(forKey: "score")) {
-            // ManegerGameCenter.setHighScore(score: self.score)
+        view.setRestartAction(target: self, action: #selector(self.restartAction))
+        view.setShareAction(target: self, action: #selector(self.shareAction))
+        
+        
+        if self.score > UserDefaults.getIntValue(with: .highScore) {
+            GameCenterService.shared.submitHighScore(score: self.score) {error in
+                if let error = error {
+                    print(error.description)
+                }
+            }
         }
-        
-        self.myView.setBestLabel(text: String(defaults.integer(forKey: "score")))
-        self.myView.setScoreLabel(text: String(self.score))
-        
-        self.myView.getRestartButton().addTarget(self, action: #selector(self.restartAction), for: .touchDown)
-        
-        self.myView.getShareButton().addTarget(self, action: #selector(self.shareAction), for: .touchDown)
-        self.view = self.myView
     }
     
 
@@ -51,6 +59,7 @@ class EndgameViewController: UIViewController {
         self.dismiss(animated: false, completion: nil)
         self.parentVC.dismiss(animated: false, completion: nil)
     }
+    
     
     @objc func shareAction() -> Void {
         // Cria o print

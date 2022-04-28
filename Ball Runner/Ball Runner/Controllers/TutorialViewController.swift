@@ -1,25 +1,9 @@
-//
-//  TutorialViewController.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 22/07/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import UIKit
 
 class TutorialViewController: UIViewController {
-    
-    /* MARK: - Atributos */
-    private let duration: TimeInterval = 2
-        
-    /* MARK: - Construtor */
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
-    
     
     /* MARK: - Ciclos de Vida */
     
@@ -50,8 +34,6 @@ class TutorialViewController: UIViewController {
         view.setTexts(subtitle: subtitlesTexts, description: descriptionTexts)
         
         view.setExitAction(target: self, action: #selector(self.exitAction))
-                
-        // view.getObjectsToAnimate()[1][0].center.x += 150
     }
     
     
