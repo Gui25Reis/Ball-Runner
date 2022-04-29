@@ -10,7 +10,7 @@ class GameCenterService: GKGameCenterViewController {
     
     static let shared = GameCenterService()
     
-    static let leaderboardID = "lbHighScore"
+    static let leaderboardID = "lbHighScoreAppStore"
     
     private var gameCenterProtocol = GameCenterDelegate()
         
