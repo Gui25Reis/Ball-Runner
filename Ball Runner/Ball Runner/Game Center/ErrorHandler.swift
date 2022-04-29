@@ -20,11 +20,11 @@ enum ErrorHandler: Error, CustomStringConvertible {
     var localizedDescription: String {
         switch self {
         case .noAuthenticaded:
-            return "Game Center não autenticado"
+            return "Game Center not authenticated".localized()
         case .authenticationError:
-            return "Game Center desligado"
+            return "Game Center off".localized()
         case .scoreNotFound, .badCommunication, .scoreNotSubmited:
-            return "Erro com o Game Center"
+            return "Game Center: Communication error".localized()
         }
     }
 
