@@ -9,12 +9,19 @@
 /* Begin PBXBuildFile section */
 		220A8B8326B4B97E007D0EA6 /* EndgameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220A8B8226B4B97E007D0EA6 /* EndgameViewController.swift */; };
 		220A8B8526B4B98A007D0EA6 /* EndgameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220A8B8426B4B98A007D0EA6 /* EndgameView.swift */; };
-		2216376626CEB8F200B37B2A /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2216376526CEB8F200B37B2A /* WarningView.swift */; };
+		222967A6281C52F600E36A28 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222967A5281C52F600E36A28 /* Buttons.swift */; };
+		222967A8281C572500E36A28 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222967A7281C572500E36A28 /* Colors.swift */; };
+		222967AA281C57BF00E36A28 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222967A9281C57BF00E36A28 /* UIColor+Colors.swift */; };
 		22359F0126AA0FCA00126268 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22359F0026AA0FCA00126268 /* TutorialViewController.swift */; };
 		22359F0326AF4F3800126268 /* TutorialVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22359F0226AF4F3800126268 /* TutorialVIew.swift */; };
-		2254787426A768FD001BEB72 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254787326A768FD001BEB72 /* Buttons.swift */; };
+		2254787426A768FD001BEB72 /* CostumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254787326A768FD001BEB72 /* CostumView.swift */; };
 		22AE1AC826A8E9230031350D /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE1AC726A8E9230031350D /* GameView.swift */; };
 		22AE1ACA26A95D080031350D /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE1AC926A95D080031350D /* PauseView.swift */; };
+		22BABED22814F7FF0016D2B6 /* GameCenterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABED12814F7FF0016D2B6 /* GameCenterDelegate.swift */; };
+		22BABED42814F90B0016D2B6 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABED32814F90B0016D2B6 /* ErrorHandler.swift */; };
+		22BABED72814FA340016D2B6 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABED62814FA340016D2B6 /* UserDefaultsKeys.swift */; };
+		22BABED92814FAF90016D2B6 /* UserDefaults+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABED82814FAF90016D2B6 /* UserDefaults+Actions.swift */; };
+		22BABEDB28151A420016D2B6 /* ParticleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BABEDA28151A420016D2B6 /* ParticleType.swift */; };
 		22C93A3526A7610F00838E44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C93A3426A7610F00838E44 /* AppDelegate.swift */; };
 		22C93A3726A7610F00838E44 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C93A3626A7610F00838E44 /* SceneDelegate.swift */; };
 		22C93A3926A7610F00838E44 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C93A3826A7610F00838E44 /* GameViewController.swift */; };
@@ -25,7 +32,6 @@
 		22F48DAD26A7661500AD2418 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F48DAC26A7661500AD2418 /* GameScene.swift */; };
 		22F48DB226A7667F00AD2418 /* Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F48DB126A7667F00AD2418 /* Particle.swift */; };
 		22FADC3326B9CED600903717 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FADC3226B9CED600903717 /* GameKit.framework */; };
-		22FADC3726BA63D800903717 /* UIActivityViewController+ShowAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */; };
 		22FADC3926BA66E800903717 /* ManegerGameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3826BA66E800903717 /* ManegerGameCenter.swift */; };
 		22FADC3B26BC5DE700903717 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FADC3A26BC5DE700903717 /* String+Localized.swift */; };
 		22FADC3F26BC616F00903717 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22FADC4126BC616F00903717 /* Localization.strings */; };
@@ -34,12 +40,19 @@
 /* Begin PBXFileReference section */
 		220A8B8226B4B97E007D0EA6 /* EndgameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndgameViewController.swift; sourceTree = "<group>"; };
 		220A8B8426B4B98A007D0EA6 /* EndgameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndgameView.swift; sourceTree = "<group>"; };
-		2216376526CEB8F200B37B2A /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
+		222967A5281C52F600E36A28 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		222967A7281C572500E36A28 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		222967A9281C57BF00E36A28 /* UIColor+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
 		22359F0026AA0FCA00126268 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		22359F0226AF4F3800126268 /* TutorialVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVIew.swift; sourceTree = "<group>"; };
-		2254787326A768FD001BEB72 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		2254787326A768FD001BEB72 /* CostumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostumView.swift; sourceTree = "<group>"; };
 		22AE1AC726A8E9230031350D /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		22AE1AC926A95D080031350D /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
+		22BABED12814F7FF0016D2B6 /* GameCenterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterDelegate.swift; sourceTree = "<group>"; };
+		22BABED32814F90B0016D2B6 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		22BABED62814FA340016D2B6 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
+		22BABED82814FAF90016D2B6 /* UserDefaults+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Actions.swift"; sourceTree = "<group>"; };
+		22BABEDA28151A420016D2B6 /* ParticleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleType.swift; sourceTree = "<group>"; };
 		22C93A3126A7610F00838E44 /* Ball Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ball Runner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C93A3426A7610F00838E44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22C93A3626A7610F00838E44 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,7 +66,6 @@
 		22F48DB126A7667F00AD2418 /* Particle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Particle.swift; sourceTree = "<group>"; };
 		22FADC3226B9CED600903717 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		22FADC3426BA3F8900903717 /* Ball Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Ball Runner.entitlements"; sourceTree = "<group>"; };
-		22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityViewController+ShowAvatar.swift"; sourceTree = "<group>"; };
 		22FADC3826BA66E800903717 /* ManegerGameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManegerGameCenter.swift; sourceTree = "<group>"; };
 		22FADC3A26BC5DE700903717 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		22FADC4026BC616F00903717 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
@@ -76,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				22FADC3826BA66E800903717 /* ManegerGameCenter.swift */,
+				22BABED32814F90B0016D2B6 /* ErrorHandler.swift */,
 			);
 			path = "Game Center";
 			sourceTree = "<group>";
@@ -83,16 +96,46 @@
 		22AE1AC626A8E9060031350D /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				22BABED52814FA260016D2B6 /* Enum */,
 				22F48DAC26A7661500AD2418 /* GameScene.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
 		};
+		22BABED02814F7EB0016D2B6 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				22BABEDC281B58610016D2B6 /* System */,
+				22BABED12814F7FF0016D2B6 /* GameCenterDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		22BABED52814FA260016D2B6 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				22BABED62814FA340016D2B6 /* UserDefaultsKeys.swift */,
+				22BABEDA28151A420016D2B6 /* ParticleType.swift */,
+				222967A5281C52F600E36A28 /* Buttons.swift */,
+				222967A7281C572500E36A28 /* Colors.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		22BABEDC281B58610016D2B6 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				22C93A3426A7610F00838E44 /* AppDelegate.swift */,
+				22C93A3626A7610F00838E44 /* SceneDelegate.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
 		22C93A2826A7610F00838E44 = {
 			isa = PBXGroup;
 			children = (
-				22C93A3326A7610F00838E44 /* Ball Runner */,
 				22C93A6526A761D900838E44 /* Assets */,
+				22C93A3326A7610F00838E44 /* Ball Runner */,
 				22C93A6426A761C400838E44 /* System */,
 				22C93A3226A7610F00838E44 /* Products */,
 				22FADC3126B9CED600903717 /* Frameworks */,
@@ -111,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				22FADC3426BA3F8900903717 /* Ball Runner.entitlements */,
+				22BABED02814F7EB0016D2B6 /* Delegate */,
 				229BA19526BC9DF200E3B593 /* Game Center */,
 				22F48DB026A7663A00AD2418 /* Controllers */,
 				22F48DAF26A7663400AD2418 /* View */,
@@ -125,10 +169,7 @@
 		22C93A6426A761C400838E44 /* System */ = {
 			isa = PBXGroup;
 			children = (
-				22C93A3426A7610F00838E44 /* AppDelegate.swift */,
-				22C93A3626A7610F00838E44 /* SceneDelegate.swift */,
 				22C93A4226A7611100838E44 /* Info.plist */,
-				22C93A3F26A7611100838E44 /* LaunchScreen.storyboard */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -145,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				22F48DB126A7667F00AD2418 /* Particle.swift */,
-				2254787326A768FD001BEB72 /* Buttons.swift */,
+				2254787326A768FD001BEB72 /* CostumView.swift */,
 			);
 			path = Complements;
 			sourceTree = "<group>";
@@ -153,12 +194,12 @@
 		22F48DAF26A7663400AD2418 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				22C93A3F26A7611100838E44 /* LaunchScreen.storyboard */,
 				22C9F94426B40B2E00264CCC /* MenuView.swift */,
 				22AE1AC726A8E9230031350D /* GameView.swift */,
 				22AE1AC926A95D080031350D /* PauseView.swift */,
 				22359F0226AF4F3800126268 /* TutorialVIew.swift */,
 				220A8B8426B4B98A007D0EA6 /* EndgameView.swift */,
-				2216376526CEB8F200B37B2A /* WarningView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,8 +226,9 @@
 		22FADC3526BA639500903717 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				22FADC3626BA63D800903717 /* UIActivityViewController+ShowAvatar.swift */,
 				22FADC3A26BC5DE700903717 /* String+Localized.swift */,
+				22BABED82814FAF90016D2B6 /* UserDefaults+Actions.swift */,
+				222967A9281C57BF00E36A28 /* UIColor+Colors.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -270,21 +312,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22BABED22814F7FF0016D2B6 /* GameCenterDelegate.swift in Sources */,
+				222967AA281C57BF00E36A28 /* UIColor+Colors.swift in Sources */,
+				22BABED72814FA340016D2B6 /* UserDefaultsKeys.swift in Sources */,
 				22C93A3926A7610F00838E44 /* GameViewController.swift in Sources */,
+				222967A6281C52F600E36A28 /* Buttons.swift in Sources */,
 				22C9F94526B40B2E00264CCC /* MenuView.swift in Sources */,
 				22F48DB226A7667F00AD2418 /* Particle.swift in Sources */,
 				22359F0326AF4F3800126268 /* TutorialVIew.swift in Sources */,
 				22C93A3526A7610F00838E44 /* AppDelegate.swift in Sources */,
 				22C9F94326B40B1B00264CCC /* MenuViewController.swift in Sources */,
 				220A8B8526B4B98A007D0EA6 /* EndgameView.swift in Sources */,
-				22FADC3726BA63D800903717 /* UIActivityViewController+ShowAvatar.swift in Sources */,
+				22BABED42814F90B0016D2B6 /* ErrorHandler.swift in Sources */,
 				22FADC3926BA66E800903717 /* ManegerGameCenter.swift in Sources */,
 				22AE1ACA26A95D080031350D /* PauseView.swift in Sources */,
-				2254787426A768FD001BEB72 /* Buttons.swift in Sources */,
-				2216376626CEB8F200B37B2A /* WarningView.swift in Sources */,
+				222967A8281C572500E36A28 /* Colors.swift in Sources */,
+				22BABEDB28151A420016D2B6 /* ParticleType.swift in Sources */,
+				2254787426A768FD001BEB72 /* CostumView.swift in Sources */,
 				22FADC3B26BC5DE700903717 /* String+Localized.swift in Sources */,
 				220A8B8326B4B97E007D0EA6 /* EndgameViewController.swift in Sources */,
 				22F48DAD26A7661500AD2418 /* GameScene.swift in Sources */,
+				22BABED92814FAF90016D2B6 /* UserDefaults+Actions.swift in Sources */,
 				22C93A3726A7610F00838E44 /* SceneDelegate.swift in Sources */,
 				22AE1AC826A8E9230031350D /* GameView.swift in Sources */,
 				22359F0126AA0FCA00126268 /* TutorialViewController.swift in Sources */,
@@ -366,7 +414,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +470,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -439,7 +487,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Ball Runner/Ball Runner.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 534V229RMK;
 				INFOPLIST_FILE = System/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -461,7 +509,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Ball Runner/Ball Runner.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 534V229RMK;
 				INFOPLIST_FILE = System/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -4,70 +4,82 @@
 import SpriteKit
 
 
-class GameViewController: UIViewController{
-    public override var preferredScreenEdgesDeferringSystemGestures:UIRectEdge {
-        return UIRectEdge.bottom
-    }       // Barra embaixo de saída do app: puxa duas vezes pra sair
-
-    private var scene:GameScene!
-    private lazy var gameView = GameView()
+class GameViewController: UIViewController {
+    
+    /* MARK: - Atributos */
+    
+    private let scene = GameScene()
     private lazy var pauseView = PauseView()
-    private lazy var gamePause:Bool = false
-    private lazy var timer:Int = 0
-    private var countdown:Timer!
+    private lazy var gamePause: Bool = false
+    private lazy var timer: Int = 0
+    private var countdown: Timer!
+    private var timeWhenPaused = Date()
+    
+    // Barra embaixo de saída do app: puxa duas vezes pra sair
+    public override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
+        return UIRectEdge.bottom
+    }
     
     
     /* MARK: - Ciclos de Vida */
     
-    public override func viewWillAppear(_ animated: Bool) -> Void {
-        super.viewWillAppear(animated)
+    public override func loadView() {
+        super.loadView()
         
-        ManegerGameCenter.showAvatarGameCenter(isVisible: false)
+        let myView = GameView()
+        myView.setScene(scene: self.scene)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.pauseAction), name: UIApplication.willResignActiveNotification, object: nil)
+        self.view = myView
     }
     
-    public override func viewWillDisappear(_ animated: Bool) -> Void {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        
-        // ManegerGameCenter.showAvatarGameCenter(isVisible: true)
-    }
     
-    public override func viewDidLayoutSubviews() -> Void {
-        super.viewDidLayoutSubviews()
-        self.view = self.gameView
-    }
-    
-
     public override func viewDidLoad() -> Void {
         super.viewDidLoad()
         
-        // GameView
-        self.scene = GameScene()
-        self.gameView.setScene(scene: self.scene)
+        guard let view = self.view as? GameView else {return}
         
-        self.gameView.showInformations(is_: false)
-        
-        self.gameView.setTimeLabel(text: "0")
-        
-        self.gameView.getPauseButton().addTarget(self, action: #selector(self.pauseAction), for: .touchDown)
+        view.showInformations(is_: false)
+        view.setScore(with: 0)
+        view.setPauseAction(target: self, action: #selector(self.pauseAction))
         
         
         // PauseView
-        self.pauseView.setTitleLabel(text: "Pause")
+        self.pauseView.setTitleText(with: "Pause")
         
-        self.pauseView.getPlayButton().addTarget(self, action: #selector(self.playAction), for: .touchDown)
+        self.pauseView.setPlayAction(target: self, action: #selector(self.playAction))
         
-        self.pauseView.getTutorialButton().addTarget(self, action: #selector(self.tutorialAction), for: .touchDown)
+        self.pauseView.setTutorialAction(target: self, action: #selector(self.tutorialAction))
         
-        self.pauseView.getHomeButton().addTarget(self, action: #selector(self.homeAction), for: .touchDown)
+        self.pauseView.setHomeAction(target: self, action: #selector(self.homeAction))
         
-        self.pauseView.getAchievmentsButton().addTarget(self, action: #selector(self.achievementsAction), for: .touchDown)
+        self.pauseView.setAchievmentsAction(target: self, action: #selector(self.achievementsAction))
         
         
         // Timer
         self.countdown = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        
+        self.setupBackgroundState()
+    }
+    
+    /// Quando entra no app (sai do segundo plano)
+    @objc func didLeaveFromBackgound() {
+        let dateNow = Date()
+        let diference = Calendar.current.dateComponents([.second], from: self.timeWhenPaused, to: dateNow)
+        
+        if let seconds = diference.second {
+            if seconds > 20 {
+                self.endgameAction()
+                return
+            }
+        }
+        self.gamePause = true
+    }
+    
+    /// Quando sai do app (entra em segundo plano)
+    @objc func didEnterOnBackground() {
+        self.timeWhenPaused = Date()
+        self.pauseAction()
     }
     
     
@@ -76,17 +88,16 @@ class GameViewController: UIViewController{
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         if let touch = touches.first {
             let location = touch.location(in: self.scene)
-            self.scene.startDrag([location.x, location.y])
+            self.scene.startDrag(at: location)
         }
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         if let touch = touches.first {
             let location = touch.location(in: self.scene)
-            self.scene.drag([location.x, location.y])
+            self.scene.drag(at: location)
         }
     }
-    
 
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         self.scene.drop()
@@ -98,7 +109,7 @@ class GameViewController: UIViewController{
     /* View: Game */
     @objc func pauseAction() -> Void {
         self.gamePause = true
-        self.scene.setStatuGame(is_: false)
+        self.scene.setStatuGame(to: false)
         self.view.addSubview(self.pauseView)
     }
     
@@ -109,8 +120,10 @@ class GameViewController: UIViewController{
             self.endgameAction()
         }
         else if (!self.scene.isGameStart() && !self.gamePause){
+            guard let view = self.view as? GameView else {return}
+            
             self.timer += 1
-            self.gameView.setTimeLabel(text: String(self.timer))
+            view.setScore(with: self.timer)
             self.scene.updadePerSecond(gameTime: self.timer)
         }
     }
@@ -119,34 +132,35 @@ class GameViewController: UIViewController{
         let vc = EndgameViewController(parentVC: self, score: self.timer)
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve
-
-        self.present(vc, animated: true, completion: nil)
+    
+        self.present(vc, animated: true)
     }
     
     
     /* View: Pause */
     @objc func playAction() -> Void {
-        self.pauseView.setWarningLabel(text: "")
+        self.pauseView.setWarningText(with: "")
         self.pauseView.removeFromSuperview()
-        if (timer != 0){self.scene.setStatuGame(is_: true)}
+        if (timer != 0) {
+            self.scene.setStatuGame(to: true)
+        }
         self.gamePause = false
     }
     
     @objc func tutorialAction() -> Void {
-        let vc = TutorialViewController(from: self)
+        let vc = TutorialViewController()
         vc.modalTransitionStyle = .coverVertical
         
         self.present(vc, animated: true, completion: nil)
     }
     
     @objc func homeAction() -> Void {
-        ManegerGameCenter.showAvatarGameCenter(isVisible: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func achievementsAction() -> Void {
-        if (!ManegerGameCenter().toSpecificPage(from: self, to: .achievements)) {
-            self.pauseView.setWarningLabel(text: "Game center not connected.".localized())
+        if let vc = GameCenterService.shared.showGameCenterPage(.achievements) {
+            self.present(vc, animated: true)
         }
     }
     
@@ -157,6 +171,19 @@ class GameViewController: UIViewController{
         let v = UIView()
         v.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
         self.view.addSubview(v)
-        v.frame = (v.superview?.bounds)!
+        v.frame = self.view.bounds
+    }
+    
+    /// Configura o que acontece quando o app entre em segundo plano
+    private func setupBackgroundState() -> Void {
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(self.didLeaveFromBackgound),
+            name: UIApplication.didBecomeActiveNotification, object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(self.didEnterOnBackground),
+            name: UIApplication.willResignActiveNotification, object: nil
+        )
     }
 }

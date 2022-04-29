@@ -5,13 +5,13 @@ import UIKit
 
 
 class PauseView: UIView {
-    private let playButton:UIButton = Buttons.getPlayButton(60)
-    private let homeButton:UIButton = Buttons.getHomeButton()
-    private let achievmentsButton:UIButton = Buttons.getAchievmentButton()
-    private let tutorialButton:UIButton = Buttons.getTutorialButton()
+    private let playButton: UIButton = CustumView.newButton(for: .play, 60)
+    private let homeButton: UIButton = CustumView.newButton(for: .home)
+    private let achievmentsButton: UIButton = CustumView.newButton(for: .achievments)
+    private let tutorialButton: UIButton = CustumView.newButton(for: .tutorial)
     
-    private var titleLabel:UILabel!
-    private var warningLabel:UILabel!
+    private var titleLabel: UILabel = CustumView.newLabel(sizeFont: 40, weight: .bold)
+    private var warningLabel: UILabel = CustumView.newLabel(sizeFont: 15, weight: .semibold)
     
     private let container: UIView = {
         let v = UIView()
@@ -28,14 +28,12 @@ class PauseView: UIView {
         self.clipsToBounds = true
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
         
+        self.warningLabel.textColor = .systemRed
+        
         self.addSubview(container)
         
         // Labels
-        self.titleLabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
         self.container.addSubview(self.titleLabel)
-        
-        self.warningLabel = EndgameView.newLabel(sizeFont: 15, w: .semibold)
-        self.warningLabel.textColor = .systemRed
         self.container.addSubview(self.warningLabel)
         
         // Botões
@@ -50,13 +48,26 @@ class PauseView: UIView {
     
     /* MARK: - Encapsulamento */
     
-    public func getPlayButton() -> UIButton { return self.playButton }
-    public func getHomeButton() -> UIButton { return self.homeButton }
-    public func getAchievmentsButton() -> UIButton { return self.achievmentsButton }
-    public func getTutorialButton() -> UIButton { return self.tutorialButton }
+    public func setHomeAction(target: UIViewController, action: Selector) -> Void {
+        self.homeButton.addTarget(target, action: action, for: .touchDown)
+    }
+
     
-    public func setTitleLabel(text: String) { self.titleLabel.text = text }
-    public func setWarningLabel(text: String) { self.warningLabel.text = text }
+    public func setTutorialAction(target: UIViewController, action: Selector) -> Void {
+        self.tutorialButton.addTarget(target, action: action, for: .touchDown)
+    }
+    
+    public func setPlayAction(target: UIViewController, action: Selector) -> Void {
+        self.playButton.addTarget(target, action: action, for: .touchDown)
+    }
+    
+    public func setAchievmentsAction(target: UIViewController, action: Selector) -> Void {
+        self.achievmentsButton.addTarget(target, action: action, for: .touchDown)
+    }
+    
+    
+    public func setTitleText(with text: String) { self.titleLabel.text = text }
+    public func setWarningText(with text: String) { self.warningLabel.text = text }
     
     
     /* MARK: - Ciclo de Vida */
@@ -66,40 +77,42 @@ class PauseView: UIView {
         
         self.frame = (self.superview?.bounds)!
         
-        // View em destaque
-        self.container.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        self.container.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.container.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8).isActive = true
-        self.container.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.35).isActive = true
-        
-        
-        // Title label
-        self.titleLabel.centerXAnchor.constraint(equalTo: self.container.centerXAnchor).isActive = true
-        self.titleLabel.bottomAnchor.constraint(equalTo: self.playButton.topAnchor, constant:-30).isActive = true
-        self.titleLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        self.titleLabel.leadingAnchor.constraint(equalTo: self.container.leadingAnchor).isActive = true
-        self.titleLabel.trailingAnchor.constraint(equalTo: self.container.trailingAnchor).isActive = true
-        
-        
-        // Botões
-        self.playButton.centerXAnchor.constraint(equalTo: self.container.centerXAnchor).isActive = true
-        self.playButton.centerYAnchor.constraint(equalTo: self.container.centerYAnchor).isActive = true
-        
-        
-        self.achievmentsButton.centerXAnchor.constraint(equalTo: self.container.centerXAnchor).isActive = true
-        self.achievmentsButton.topAnchor.constraint(equalTo: self.playButton.bottomAnchor, constant: 30).isActive = true
-        
-        
-        self.tutorialButton.topAnchor.constraint(equalTo: self.achievmentsButton.topAnchor, constant: -6).isActive = true
-        self.tutorialButton.leftAnchor.constraint(equalTo: self.achievmentsButton.rightAnchor, constant: 10).isActive = true
+        NSLayoutConstraint.activate([
+            // View em destaque
+            self.container.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.container.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.container.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.8),
+            self.container.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.35),
+            
+            
+            // Title label
+            self.titleLabel.centerXAnchor.constraint(equalTo: self.container.centerXAnchor),
+            self.titleLabel.bottomAnchor.constraint(equalTo: self.playButton.topAnchor, constant:-30),
+            self.titleLabel.heightAnchor.constraint(equalToConstant: 45),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.container.leadingAnchor),
+            self.titleLabel.trailingAnchor.constraint(equalTo: self.container.trailingAnchor),
+            
+            
+            // Botões
+            self.playButton.centerXAnchor.constraint(equalTo: self.container.centerXAnchor),
+            self.playButton.centerYAnchor.constraint(equalTo: self.container.centerYAnchor),
+            
+            
+            self.achievmentsButton.centerXAnchor.constraint(equalTo: self.container.centerXAnchor),
+            self.achievmentsButton.topAnchor.constraint(equalTo: self.playButton.bottomAnchor, constant: 30),
+            
+            
+            self.tutorialButton.topAnchor.constraint(equalTo: self.achievmentsButton.topAnchor, constant: -6),
+            self.tutorialButton.leftAnchor.constraint(equalTo: self.achievmentsButton.rightAnchor, constant: 10),
 
-        
-        self.homeButton.topAnchor.constraint(equalTo: self.achievmentsButton.topAnchor, constant: -6).isActive = true
-        self.homeButton.rightAnchor.constraint(equalTo: self.achievmentsButton.leftAnchor, constant: -10).isActive = true
-        
-        
-        // Warning label
-        self.warningLabel.bottomAnchor.constraint(equalTo: self.container.bottomAnchor, constant: -15).isActive = true
-        self.warningLabel.centerXAnchor.constraint(equalTo: self.container.centerXAnchor).isActive = true
+            
+            self.homeButton.topAnchor.constraint(equalTo: self.achievmentsButton.topAnchor, constant: -6),
+            self.homeButton.rightAnchor.constraint(equalTo: self.achievmentsButton.leftAnchor, constant: -10),
+            
+            
+            // Warning label
+            self.warningLabel.bottomAnchor.constraint(equalTo: self.container.bottomAnchor, constant: -15),
+            self.warningLabel.centerXAnchor.constraint(equalTo: self.container.centerXAnchor)
+        ])
     }
 }

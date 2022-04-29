@@ -4,28 +4,27 @@
 import UIKit
 
 
-class MenuView: UIView {
-    private var titleLabel:UILabel!
-    private var scoreLabel:UILabel!
-    private var warningLabel:UILabel!
-    private let playButton = Buttons.getPlayButton()
-    private let leaderboardButton = Buttons.getLeaderboardButton()
-    private let achievmentsButton = Buttons.getAchievmentButton()
-    private let tutorialButton = Buttons.getTutorialButton()
+class MenuView: CustumView {
+    
+    /* MARK: - Atributos */
+    
+    private var titleLabel = CustumView.newLabel(sizeFont: 40, weight: .bold)
+    private var scoreLabel = CustumView.newLabel(sizeFont: 20, weight: .medium)
+    private var warningLabel = CustumView.newLabel(sizeFont: 15, weight: .semibold)
+    private let playButton = CustumView.newButton(for: .play)
+    private let leaderboardButton = CustumView.newButton(for: .leaderboard)
+    private let achievmentsButton = CustumView.newButton(for: .achievments)
+    private let tutorialButton = CustumView.newButton(for: .tutorial)
     
     
-    init() {
-        super.init(frame: .zero)
-        self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
-        
-        self.warningLabel = EndgameView.newLabel(sizeFont: 15, w: .semibold)
+    /* MARK: - Construtor */
+    
+    override init() {
+        super.init()
         self.warningLabel.textColor = .systemRed
+        
         self.addSubview(self.warningLabel)
-        
-        self.titleLabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
         self.addSubview(self.titleLabel)
-        
-        self.scoreLabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
         self.addSubview(self.scoreLabel)
         
         self.addSubview(self.playButton)
@@ -34,64 +33,70 @@ class MenuView: UIView {
         self.addSubview(self.tutorialButton)
     }
     
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
     
     
     /* MARK: - Encapsulamento */
     
-    public func getPlayButton() -> UIButton { return self.playButton }
-    public func getLeaderboardButton() -> UIButton { return self.leaderboardButton }
-    public func getAchievmentsButton() -> UIButton { return self.achievmentsButton }
-    public func getTutorialButton() -> UIButton { return self.tutorialButton }
-
-    public func setTitleLabel(text: String) -> Void { self.titleLabel.text = text }
-    public func setWarningLabel(text: String) -> Void { self.warningLabel.text = text }
-    public func setScoreLabel(text: String) -> Void { self.scoreLabel.text = text }
-    public func getScoreLabel() -> UILabel { return self.scoreLabel }
+    /* Definindo as ações dos botões */
+    public func setPlayAction(target: UIViewController, action: Selector) -> Void {
+        self.playButton.addTarget(target, action: action, for: .touchDown)
+    }
+    
+    public func setLeaderboardAction(target: UIViewController, action: Selector) -> Void {
+        self.leaderboardButton.addTarget(target, action: action, for: .touchDown)
+    }
+    
+    public func setAchievmentsAction(target: UIViewController, action: Selector) -> Void {
+        self.achievmentsButton.addTarget(target, action: action, for: .touchDown)
+    }
+    
+    public func setTutorialAction(target: UIViewController, action: Selector) -> Void {
+        self.tutorialButton.addTarget(target, action: action, for: .touchDown)
+    }
+    
+    /* Definindo os textos */
+    public func setTitleText(with text: String) -> Void { self.titleLabel.text = text }
+    
+    public func setWarningText(with text: String) -> Void { self.warningLabel.text = text }
+    
+    public func setScore(with score: Int) -> Void {
+        self.scoreLabel.text = "Best".localized() + " \(score)"
+    }
         
         
     /* MARK: - Ciclo de Vida */
     
     public override func layoutSubviews() -> Void {
-        /*
-        // Auto Layout:
-        // print((self.superview?.bounds.height)!)
-        self.scoreLabel.font = .systemFont(ofSize: (self.superview?.bounds.height)! * 0.0236, weight: .medium)
-
-        self.titleLabel.font = .systemFont(ofSize: (self.superview?.bounds.height)! * 0.0473, weight: .bold)
-
-        self.warningLabel.font = .systemFont(ofSize: (self.superview?.bounds.height)! * 0.0473, weight: .bold)
-        */
+        let safeArea: CGFloat = 114
         
-        // Constraints
-        let safeArea:CGFloat = 114
-        
-        
-        self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: safeArea+0).isActive = true
-        self.titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        
-        
-        self.playButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.playButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
-        
-        self.achievmentsButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.achievmentsButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea-0).isActive = true
-        
-        
-        self.leaderboardButton.rightAnchor.constraint(equalTo: self.achievmentsButton.leftAnchor, constant: -25).isActive = true
-        self.leaderboardButton.bottomAnchor.constraint(equalTo: self.achievmentsButton.bottomAnchor).isActive = true
-        
-        
-        self.tutorialButton.leftAnchor.constraint(equalTo: self.achievmentsButton.rightAnchor, constant: 20).isActive = true
-        self.tutorialButton.bottomAnchor.constraint(equalTo: self.achievmentsButton.bottomAnchor, constant: 5).isActive = true
-        
-        
-        self.scoreLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.scoreLabel.bottomAnchor.constraint(equalTo: self.achievmentsButton.topAnchor, constant: -50).isActive = true
-                
-        
-        self.warningLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea/2).isActive = true
-        self.warningLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: safeArea+0),
+            self.titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            
+            self.playButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.playButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            
+            
+            self.achievmentsButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.achievmentsButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea-0),
+            
+            
+            self.leaderboardButton.rightAnchor.constraint(equalTo: self.achievmentsButton.leftAnchor, constant: -25),
+            self.leaderboardButton.bottomAnchor.constraint(equalTo: self.achievmentsButton.bottomAnchor),
+            
+            
+            self.tutorialButton.leftAnchor.constraint(equalTo: self.achievmentsButton.rightAnchor, constant: 20),
+            self.tutorialButton.bottomAnchor.constraint(equalTo: self.achievmentsButton.bottomAnchor, constant: 5),
+            
+            
+            self.scoreLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.scoreLabel.bottomAnchor.constraint(equalTo: self.achievmentsButton.topAnchor, constant: -50),
+                    
+            
+            self.warningLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea/2),
+            self.warningLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+        ])
     }
 }

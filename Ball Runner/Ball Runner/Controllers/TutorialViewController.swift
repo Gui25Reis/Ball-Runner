@@ -1,63 +1,45 @@
-//
-//  TutorialViewController.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 22/07/21.
-//
+/* Gui Reis     -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import UIKit
 
 class TutorialViewController: UIViewController {
-    private let myView = TutorialView()
-    private var willPresent:Bool!
-    private let duration:TimeInterval = 2
-    
-    private let subtitlesTexts:[String] = [
-        "Objective".localized(), "Controls".localized(), "Specials".localized()
-    ]
-    private let descriptionTexts:[String] = [
-        "Don't let the red balls catch you!! Survive as long as you can.".localized(),
-        "Swipe on any place at the screen to control your ball, the blue one.".localized(),
-        "You have powers!! Catch them when appers on the screen.".localized()
-    ]
-    
-    
-    init(from:UIViewController) {
-        super.init(nibName: nil, bundle: nil)
-        
-        if (from === MenuViewController.self) {self.willPresent = true}
-        else {self.willPresent = false}
-    }
-    
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
     
     /* MARK: - Ciclos de Vida */
+    
+    public override func loadView() -> Void {
+        super.loadView()
+        
+        let myView = TutorialView()
+        self.view = myView
+    }
     
     public override func viewDidLoad() -> Void {
         super.viewDidLoad()
         
-        self.myView.setTitleLabel(text: "Tutorial".localized())
-        self.myView.setDescriptionLabels(list: descriptionTexts)
-        self.myView.setSubTitleLabels(list: subtitlesTexts)
+        guard let view = self.view as? TutorialView else {return}
         
-        self.myView.getExitButton().addTarget(self, action: #selector(self.exitAction), for: .touchDown)
+        view.setTitleText(with: "Tutorial".localized())
         
-        self.view = self.myView
+        let subtitlesTexts: [String] = [
+            "Objective".localized(), "Controls".localized(), "Specials".localized()
+        ]
         
-        self.myView.getObjectsToAnimate()[1][0].center.x += 150
-    }
-    
-    public override func viewWillAppear(_ animated: Bool) -> Void {
-        super.viewWillAppear(animated)
-        ManegerGameCenter.showAvatarGameCenter(isVisible: false)
+        let descriptionTexts: [String] = [
+            "Don't let the red balls catch you!! Survive as long as you can.".localized(),
+            "Swipe on any place at the screen to control your ball, the blue one.".localized(),
+            "You have powers!! Catch them when appers on the screen.".localized()
+        ]
+        
+        view.setTexts(subtitle: subtitlesTexts, description: descriptionTexts)
+        
+        view.setExitAction(target: self, action: #selector(self.exitAction))
     }
     
     
     /* MARK: - Ação do botão */
     
     @objc func exitAction() -> Void {
-        if (self.willPresent) {ManegerGameCenter.showAvatarGameCenter(isVisible: true)}
         self.dismiss(animated: true, completion: nil)
     }
 }
