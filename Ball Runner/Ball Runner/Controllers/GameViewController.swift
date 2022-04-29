@@ -7,6 +7,7 @@ import SpriteKit
 class GameViewController: UIViewController {
     
     /* MARK: - Atributos */
+    
     private let scene = GameScene()
     private lazy var pauseView = PauseView()
     private lazy var gamePause: Bool = false
@@ -56,6 +57,9 @@ class GameViewController: UIViewController {
         
         // Timer
         self.countdown = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        
+        self.setupBackgroundState()
     }
     
     /// Quando entra no app (sai do segundo plano)
@@ -167,7 +171,7 @@ class GameViewController: UIViewController {
         let v = UIView()
         v.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
         self.view.addSubview(v)
-        v.frame = (v.superview?.bounds)!
+        v.frame = self.view.bounds
     }
     
     /// Configura o que acontece quando o app entre em segundo plano
