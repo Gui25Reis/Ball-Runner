@@ -4,30 +4,27 @@
 import UIKit
 
 
-class TutorialView: UIView {
+class TutorialView: CustumView {
     
     /* MARK: - Atributos */
     
-    private var titleLabel: UILabel!
+    private var titleLabel: UILabel = CustumView.newLabelToFit(sizeFont: 40, weight: .bold)
     private var viewGroups: [UIView] = []
     private var subTitlelabels: [UILabel] = []
     private var descriptionLabels: [UILabel] = []
     
     private var viewToAnimate:[[UIView]] = []
     
-    private let exitButton: UIButton = Buttons.getExitButton()
+    private let exitButton: UIButton = CustumView.newButton(for: .exit)
     
     
     /* MARK: - Construtor */
     
-    init() {
-        super.init(frame: .zero)
+    override init() {
+        super.init()
         
         self.clipsToBounds = true
-        self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
-        
-        self.titleLabel = self.newLabel(sizeFont: 40, w: .bold)
-        
+    
         self.addSubview(self.titleLabel)
         self.addSubview(self.exitButton)
         
@@ -38,10 +35,10 @@ class TutorialView: UIView {
             self.addSubview(view)
             
             // Labels
-            self.subTitlelabels.append(self.newLabel(sizeFont: 30, w: .semibold))
+            self.subTitlelabels.append(CustumView.newLabelToFit(sizeFont: 30, weight: .semibold))
             view.addSubview(self.subTitlelabels[x])
             
-            self.descriptionLabels.append(self.newLabel(sizeFont: 25, w: .regular))
+            self.descriptionLabels.append(CustumView.newLabelToFit(sizeFont: 25, weight: .regular))
             view.addSubview(self.descriptionLabels[x])
             
             /* TODO: Animar */
@@ -68,8 +65,8 @@ class TutorialView: UIView {
             self.viewGroups.append(view)
         }
     }
-        
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
     
     
     /* MARK: - Encapsulamento */
@@ -169,13 +166,6 @@ class TutorialView: UIView {
         return v
     }
     
-    private func newLabel(sizeFont: CGFloat, w: UIFont.Weight) -> UILabel {
-        let lbl: UILabel = EndgameView.newLabel(sizeFont: sizeFont, w: w)
-        lbl.textAlignment = .left
-        lbl.sizeToFit()
-        lbl.numberOfLines = 0
-        return lbl
-    }
     
     private func newImageView(icon: String, isSFSymbol: Bool) -> UIImageView {
         var img: UIImage!

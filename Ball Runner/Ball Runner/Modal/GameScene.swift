@@ -31,7 +31,7 @@ class GameScene: SKScene {
     */
     public override func didMove(to view: SKView) -> Void {
         super.didMove(to: view)
-        self.backgroundColor = #colorLiteral(red: 0.01540698763, green: 0.1682468057, blue: 0.2544359863, alpha: 1)
+        self.backgroundColor = UIColor(with: .game) ?? #colorLiteral(red: 0.01540698763, green: 0.1682468057, blue: 0.2544359863, alpha: 1)
         
         self.userNode.setColor(by: .user)
         

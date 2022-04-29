@@ -4,26 +4,26 @@
 import UIKit
 
 
-class EndgameView: UIView {
+class EndgameView: CustumView {
     
     /* MARK: - Atributos */
     
-    private var titleLabel: UILabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
-    private var scoreTitleLabel: UILabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
-    private var scoreLabel: UILabel = EndgameView.newLabel(sizeFont: 30, w: .semibold)
-    private var bestTitleLabel: UILabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
-    private var bestLabel: UILabel = EndgameView.newLabel(sizeFont: 30, w: .semibold)
+    private var titleLabel: UILabel = CustumView.newLabel(sizeFont: 40, weight: .bold)
+    private var scoreTitleLabel: UILabel = CustumView.newLabel(sizeFont: 20, weight: .medium)
+    private var scoreLabel: UILabel = CustumView.newLabel(sizeFont: 30, weight: .semibold)
+    private var bestTitleLabel: UILabel = CustumView.newLabel(sizeFont: 20, weight: .medium)
+    private var bestLabel: UILabel = CustumView.newLabel(sizeFont: 30, weight: .semibold)
+    private var warningLabel = CustumView.newLabel(sizeFont: 15, weight: .semibold)
     
-    private let restartButton = Buttons.getRestartButton()
-    private let shareButton = Buttons.getShareButton()
-    
+    private let restartButton = CustumView.newButton(for: .restart)
+    private let shareButton = CustumView.newButton(for: .share)
     
     
     /* MARK: - Construtor */
     
-    init() {
-        super.init(frame: .zero)
-        self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
+    override init() {
+        super.init()
+        self.warningLabel.textColor = .systemRed
         
         // Labels
         self.addSubview(self.titleLabel)
@@ -31,17 +31,19 @@ class EndgameView: UIView {
         self.addSubview(self.scoreLabel)
         self.addSubview(self.bestTitleLabel)
         self.addSubview(self.bestLabel)
+        self.addSubview(self.warningLabel)
 
         // Botões
         self.addSubview(self.restartButton)
         self.addSubview(self.shareButton)
     }
     
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
     
     
     /* MARK: - Encapsulamento */
     
+    /* Definindo as ações dos botões */
     public func setRestartAction(target: UIViewController, action: Selector) -> Void {
         self.restartButton.addTarget(target, action: action, for: .touchDown)
     }
@@ -51,8 +53,13 @@ class EndgameView: UIView {
     }
 
     
+    /* Definindo os textos */
+    public func setWarningText(with text: String) -> Void { self.warningLabel.text = text }
+    
     public func setScore(with score: Int) -> Void { self.scoreLabel.text = "\(score)" }
+    
     public func setBestScore(with score: Int) -> Void { self.bestLabel.text = "\(score)" }
+    
     public func setTitleLabels(list: [String]) -> Void {
         self.titleLabel.text = list[0]
         self.scoreTitleLabel.text = list[1]
@@ -98,19 +105,11 @@ class EndgameView: UIView {
             
             
             self.shareButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            self.shareButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea-20)
+            self.shareButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea-20),
+            
+            
+            self.warningLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea/2),
+            self.warningLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
-    }
-    
-    
-    /* MARK: - Funções de criação */
-    
-    public static func newLabel(sizeFont: CGFloat, w: UIFont.Weight) -> UILabel {
-        let lbl:UILabel = UILabel()
-        lbl.font = .systemFont(ofSize: sizeFont, weight: w)
-        lbl.textColor =  #colorLiteral(red: 0.9878974557, green: 0.9603099227, blue: 0.9356864095, alpha: 1)
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.textAlignment = .center
-        return lbl
     }
 }

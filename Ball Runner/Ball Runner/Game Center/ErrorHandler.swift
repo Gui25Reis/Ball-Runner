@@ -24,7 +24,7 @@ enum ErrorHandler: Error, CustomStringConvertible {
         case .authenticationError:
             return "Game Center desligado"
         case .scoreNotFound, .badCommunication, .scoreNotSubmited:
-            return "Houve um erro"
+            return "Erro com o Game Center"
         }
     }
 

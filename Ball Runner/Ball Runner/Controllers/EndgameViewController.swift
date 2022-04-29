@@ -46,7 +46,7 @@ class EndgameViewController: UIViewController {
         if self.score > UserDefaults.getIntValue(with: .highScore) {
             GameCenterService.shared.submitHighScore(score: self.score) {error in
                 if let error = error {
-                    print(error.description)
+                    view.setWarningText(with: error.localizedDescription)
                 }
             }
         }

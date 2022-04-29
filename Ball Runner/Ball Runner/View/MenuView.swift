@@ -4,25 +4,23 @@
 import UIKit
 
 
-class MenuView: UIView {
+class MenuView: CustumView {
     
     /* MARK: - Atributos */
     
-    private var titleLabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
-    private var scoreLabel = EndgameView.newLabel(sizeFont: 20, w: .medium)
-    private var warningLabel = EndgameView.newLabel(sizeFont: 15, w: .semibold)
-    private let playButton = Buttons.getPlayButton()
-    private let leaderboardButton = Buttons.getLeaderboardButton()
-    private let achievmentsButton = Buttons.getAchievmentButton()
-    private let tutorialButton = Buttons.getTutorialButton()
+    private var titleLabel = CustumView.newLabel(sizeFont: 40, weight: .bold)
+    private var scoreLabel = CustumView.newLabel(sizeFont: 20, weight: .medium)
+    private var warningLabel = CustumView.newLabel(sizeFont: 15, weight: .semibold)
+    private let playButton = CustumView.newButton(for: .play)
+    private let leaderboardButton = CustumView.newButton(for: .leaderboard)
+    private let achievmentsButton = CustumView.newButton(for: .achievments)
+    private let tutorialButton = CustumView.newButton(for: .tutorial)
     
     
     /* MARK: - Construtor */
     
-    init() {
-        super.init(frame: .zero)
-        self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
-        
+    override init() {
+        super.init()
         self.warningLabel.textColor = .systemRed
         
         self.addSubview(self.warningLabel)
@@ -35,7 +33,7 @@ class MenuView: UIView {
         self.addSubview(self.tutorialButton)
     }
     
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
     
     
     /* MARK: - Encapsulamento */
@@ -99,7 +97,6 @@ class MenuView: UIView {
             
             self.warningLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -safeArea/2),
             self.warningLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-        
         ])
     }
 }

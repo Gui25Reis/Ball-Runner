@@ -13,6 +13,7 @@ class GameCenterService: GKGameCenterViewController {
     static let leaderboardID = "lbHighScore"
     
     private var gameCenterProtocol = GameCenterDelegate()
+        
     
     /* MARK: - Métodos */
     
@@ -28,11 +29,11 @@ class GameCenterService: GKGameCenterViewController {
             
             // Caso não esteja autenticado (Devolve a ViewController reponsável para fazer o login)
             if let vc = vc {
-                completionHandler(vc, nil, nil)
+                completionHandler(vc, nil, .noAuthenticaded)
                 return
             }
             
-            // Pega o Score do GameCenter
+            // Pega o Score salvo no Game Center
             self.getHighScore { result in
                 switch result {
                 case .success(let score):
@@ -69,12 +70,20 @@ class GameCenterService: GKGameCenterViewController {
                         return
                     }
                     
-                    // Atualiza o user defaults caso necessário
-                    if UserDefaults.getIntValue(with: .highScore) < score {
+                    
+                    let localScore = UserDefaults.getIntValue(with: .highScore)
+                    
+                    if score > localScore {     // Conectou depois no Game Center
                         UserDefaults.updateValue(in: .highScore, with: score)
+                    } else {                    // Bateu record e estava sem internet
+                        self.submitHighScore(score: localScore) { error in
+                            if let error = error {
+                                completionHandler(.failure(error))
+                            }
+                        }
                     }
                     
-                    completionHandler(.success(score))
+                    completionHandler(.success(UserDefaults.getIntValue(with: .highScore)))
                     return
                 }
             }
@@ -84,10 +93,10 @@ class GameCenterService: GKGameCenterViewController {
     
     /// Define o score no Game Center
     public func submitHighScore(score: Int, _ completionHandler: @escaping (_ error: ErrorHandler?) -> Void ) {
+        // Define no highscore
+        UserDefaults.updateValue(in: .highScore, with: score)
+        
         if (GKLocalPlayer.local.isAuthenticated) {
-            // Define no highscore
-            UserDefaults.updateValue(in: .highScore, with: score)
-            
             // Manda pro Game Center
             GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: [GameCenterService.leaderboardID]) {error in
                 

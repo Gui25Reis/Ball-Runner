@@ -5,13 +5,13 @@ import UIKit
 
 
 class PauseView: UIView {
-    private let playButton: UIButton = Buttons.getPlayButton(60)
-    private let homeButton: UIButton = Buttons.getHomeButton()
-    private let achievmentsButton: UIButton = Buttons.getAchievmentButton()
-    private let tutorialButton: UIButton = Buttons.getTutorialButton()
+    private let playButton: UIButton = CustumView.newButton(for: .play, 60)
+    private let homeButton: UIButton = CustumView.newButton(for: .home)
+    private let achievmentsButton: UIButton = CustumView.newButton(for: .achievments)
+    private let tutorialButton: UIButton = CustumView.newButton(for: .tutorial)
     
-    private var titleLabel: UILabel = EndgameView.newLabel(sizeFont: 40, w: .bold)
-    private var warningLabel: UILabel = EndgameView.newLabel(sizeFont: 15, w: .semibold)
+    private var titleLabel: UILabel = CustumView.newLabel(sizeFont: 40, weight: .bold)
+    private var warningLabel: UILabel = CustumView.newLabel(sizeFont: 15, weight: .semibold)
     
     private let container: UIView = {
         let v = UIView()

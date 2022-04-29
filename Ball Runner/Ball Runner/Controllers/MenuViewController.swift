@@ -72,13 +72,12 @@ class MenuViewController: UIViewController {
         view.setScore(with: UserDefaults.getIntValue(with: .highScore))
         
         GameCenterService.shared.autenticateUser {vc, score, error in
-            if error != nil {
-                view.setWarningText(with: error?.description ?? "Erro")
-                return
-            }
-            
-            if let vc = vc {
-                self.present(vc, animated: true)
+            if let error = error {
+                view.setWarningText(with: error.localizedDescription)
+                
+                if let vc = vc {
+                    self.present(vc, animated: true)
+                }
                 return
             }
             

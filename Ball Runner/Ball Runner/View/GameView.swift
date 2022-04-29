@@ -4,7 +4,7 @@
 import SpriteKit
 
 
-class GameView: UIView {
+class GameView: CustumView {
     private var gameScene: SKView = {
         let v = SKView()
         v.layer.cornerRadius = 20
@@ -13,22 +13,20 @@ class GameView: UIView {
         return v
     }()
     
-    private var timeLabel:UILabel = EndgameView.newLabel(sizeFont: 40, w: .semibold)
-    private var pauseButton: UIButton = Buttons.getPauseButton()
+    private var timeLabel: UILabel = CustumView.newLabel(sizeFont: 40, weight: .semibold)
+    private var pauseButton: UIButton = CustumView.newButton(for: .pause)
     
     
-    init() {
-        super.init(frame: .zero)
-        
-        self.backgroundColor = #colorLiteral(red: 0, green: 0.1340581775, blue: 0.22262308, alpha: 1)
+    override init() {
+        super.init()
         
         self.addSubview(self.gameScene)
         self.addSubview(self.pauseButton)
         self.addSubview(self.timeLabel)
     }
     
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-
+    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
+    
     
     /* MARK: - Encapsulamento */
     
