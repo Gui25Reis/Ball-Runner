@@ -1,8 +1,9 @@
 # Ball Runner
-[![Version](https://img.shields.io/badge/version-0.1.0-orange)](https://github.com/Gui25Reis/Ball-Runner/releases/tag/v0.1)
-![Plataform](https://img.shields.io/badge/plataforma-IOS-lightgrey?logo=ios)
-[![Swift version](https://img.shields.io/badge/swift-v5.4-blue?logo=swift)](https://swift.org/download/#releases)
-[![License](https://img.shields.io/badge/licença-GNU%20v3.0-brightgreen?)](https://github.com/Gui25Reis/Ball-Runner/blob/main/LICENSE)
+[![Versão](https://img.shields.io/badge/versão-1.0.0-orange)](https://github.com/Gui25Reis/Ball-Runner/releases/tag/v1.0)
+![Tamanho](https://img.shields.io/badge/tamanho-1%20MB-blue)
+![Plataforma](https://img.shields.io/badge/plataforma-IOS-lightgrey?logo=ios)
+[![Swift Versão](https://img.shields.io/badge/swift-v5.4-blue?logo=swift)](https://swift.org/download/#releases)
+[![Licença](https://img.shields.io/badge/licença-GNU%20v3.0-brightgreen?)](https://github.com/Gui25Reis/Ball-Runner/blob/main/LICENSE)
 
 ![Capa](https://github.com/Gui25Reis/Ball-Runner/blob/main/Arquivos/Git-Capa.png)
 
@@ -10,19 +11,15 @@ Fuja das bolinha vermelhas e sobreviva o máximo que conseguir.
 
 1. [App Store](#app-store)
 2. [Código](#código)
-3. [Campeonato](#campeonato)
-4. [Documentação](#documentação)
-5. [Licença](#licença)
-6. [Autor](#author)
+3. [Documentação](#documentação)
+4. [Licença](#licença)
+5. [Autor](#author)
 
 ## App Store
-Em breve na App Store!
+Jogo já está disponível na App Store, [baixe já](https://apps.apple.com/us/app/ball-ruuner/id1579613903)
 
 ## Código
-Código se encontra [aqui](https://github.com/Gui25Reis/Ball-Runner/blob/main/Ball%20Runner/Ball%20Runner).
-
-## Campeonato
-Informações dos campeonatos estão nesse [link](https://kings-gui.notion.site/Act-38fbec26da1a46a191a9e7c2681fbe85) do Notion, com todas as informações.
+Código sé open source e está [aqui](https://github.com/Gui25Reis/Ball-Runner/blob/main/Ball%20Runner/Ball%20Runner).
 
 ## Documentação
 Documentação se encontra na [wiki](https://github.com/Gui25Reis/Ball-Runner/wiki) do projeto.
