@@ -16,7 +16,7 @@ Fuja das bolinha vermelhas e sobreviva o máximo que conseguir.
 5. [Autor](#author)
 
 ## App Store
-Jogo já está disponível na App Store, [baixe já](https://apps.apple.com/us/app/ball-ruuner/id1579613903)
+Jogo já está disponível na App Store, [baixe já](https://apps.apple.com/us/app/ball-ruuner/id1579613903).
 
 ## Código
 O projeto é open source, todo o código criado e utilizado está [aqui](https://github.com/Gui25Reis/Ball-Runner/blob/main/Ball%20Runner/Ball%20Runner).
