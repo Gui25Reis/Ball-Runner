@@ -1,0 +1,25 @@
+/* Gui Reis    -    gui.sreis25@gmail.com */
+
+
+// Tela: Tutorial
+"Objective" = "Objetivo";
+"Controls" = "Controle";
+"Specials" = "Especiais";
+"Objective-Description" = "Não deixe as bolinhas vermelhas te pegarem. Sobreviva o máximo que conseguir.";
+"Controls-Description" = "Deslize em qualquer lugar da tela para controlar a bolinha.";
+"Specials-Description" = "Você tem poderes!! Pegue eles quando aparecerem.";
+
+
+// Tela: Endgame
+"Game Over" = "Fim de Jogo";
+"Score" = "Pontuação";
+
+
+// Tela: Endgame + Menu
+"Best" = "Melhor";
+
+
+// Warning - Game Center
+"Game Center not authenticated" = "Game Center não autenticado";
+"Game Center off" = "Game Center desligado";
+"Game Center: Communication error" = "Game Center: sem comunicação";
