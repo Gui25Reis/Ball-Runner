@@ -1,7 +1,8 @@
-/* Gui Reis     -    gui.sreis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
+
 
 class TutorialViewController: UIViewController {
     
@@ -21,17 +22,11 @@ class TutorialViewController: UIViewController {
         
         view.setTitleText(with: "Tutorial".localized())
         
-        let subtitlesTexts: [String] = [
-            "Objective".localized(), "Controls".localized(), "Specials".localized()
-        ]
-        
-        let descriptionTexts: [String] = [
-            "Don't let the red balls catch you!! Survive as long as you can.".localized(),
-            "Swipe on any place at the screen to control your ball, the blue one.".localized(),
-            "You have powers!! Catch them when appers on the screen.".localized()
-        ]
-        
-        view.setTexts(subtitle: subtitlesTexts, description: descriptionTexts)
+        view.setTutorialTopics(with: [
+            TutorialTopic(for: "Objective"),
+            TutorialTopic(for: "Controls"),
+            TutorialTopic(for: "Specials")
+        ])
         
         view.setExitAction(target: self, action: #selector(self.exitAction))
     }
