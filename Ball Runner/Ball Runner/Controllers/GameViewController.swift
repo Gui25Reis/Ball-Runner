@@ -1,4 +1,4 @@
-/* Gui Reis     -    gui.sreis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import SpriteKit
@@ -23,7 +23,7 @@ class GameViewController: UIViewController {
     
     /* MARK: - Ciclos de Vida */
     
-    public override func loadView() {
+    public override func loadView() -> Void {
         super.loadView()
         
         let myView = GameView()

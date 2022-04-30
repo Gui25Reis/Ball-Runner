@@ -33,6 +33,15 @@ class MenuViewController: UIViewController {
     }
     
     
+    public override func viewWillAppear(_ animated: Bool) -> Void {
+        super.viewWillAppear(animated)
+        
+        guard let view = self.view as? MenuView else {return}
+        
+        view.setScore(with: UserDefaults.getIntValue(with: .highScore))
+    }
+    
+    
     /* MARK: - Ações do botões */
     
     @objc func tutorialAction() -> Void {
@@ -66,7 +75,7 @@ class MenuViewController: UIViewController {
     /* MARK: - Outros */
     
     /// Fazendo a autenticação com o Game Center
-    func gameCenterAutentication() {
+    private func gameCenterAutentication() -> Void {
         guard let view = self.view as? MenuView else {return}
         
         view.setScore(with: UserDefaults.getIntValue(with: .highScore))

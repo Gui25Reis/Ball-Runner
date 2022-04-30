@@ -1,4 +1,4 @@
-/* Gui Reis     -    gui.sreis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
@@ -64,6 +64,11 @@ class EndgameView: CustumView {
         self.titleLabel.text = list[0]
         self.scoreTitleLabel.text = list[1]
         self.bestTitleLabel.text = list[2]
+    }
+    
+    
+    public func setShareVisibility(for visibility: Bool) -> Void {
+        self.shareButton.isHidden = !visibility
     }
     
     

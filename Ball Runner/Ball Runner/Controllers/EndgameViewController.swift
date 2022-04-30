@@ -1,4 +1,4 @@
-/* Gui Reis     -    gui.sreis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
@@ -21,7 +21,7 @@ class EndgameViewController: UIViewController {
     
     /* MARK: - Ciclos de Vida */
     
-    override func loadView() {
+    public override func loadView() -> Void {
         super.loadView()
         
         let myView = EndgameView()
@@ -36,7 +36,6 @@ class EndgameViewController: UIViewController {
         let texts: [String] = ["Game Over".localized(), "Score".localized(), "Best".localized()]
         view.setTitleLabels(list: texts)
                 
-        view.setBestScore(with: UserDefaults.getIntValue(with: .highScore))
         view.setScore(with: self.score)
         
         view.setRestartAction(target: self, action: #selector(self.restartAction))
@@ -48,8 +47,12 @@ class EndgameViewController: UIViewController {
                 if let error = error {
                     view.setWarningText(with: error.localizedDescription)
                 }
+                
+                view.setBestScore(with: UserDefaults.getIntValue(with: .highScore))
             }
         }
+        
+        view.setBestScore(with: UserDefaults.getIntValue(with: .highScore))
     }
     
 
@@ -62,17 +65,21 @@ class EndgameViewController: UIViewController {
     
     
     @objc func shareAction() -> Void {
+        guard let view = self.view as? EndgameView else {return}
+        
+        view.setShareVisibility(for: false)         // Tira o botão de compartilhar
+        
         // Cria o print
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.layer.render(in: UIGraphicsGetCurrentContext()!)
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-
-        // UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)     // Salva no camera roll
         
         // Chama o botão de compartilhar
         let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem     // Ipad
         self.present(vc, animated: true)
+        
+        view.setShareVisibility(for: true)          // Volta o botão de compartilhar
     }
 }

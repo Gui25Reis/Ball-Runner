@@ -1,11 +1,8 @@
-//
-//  UIColor+Colors.swift
-//  Ball Runner
-//
-//  Created by Gui Reis on 29/04/22.
-//
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
+/* Bibliotecas necessárias: */
 import class UIKit.UIColor
+
 
 extension UIColor {
     

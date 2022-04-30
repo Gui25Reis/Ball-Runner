@@ -1,2 +1,9 @@
+/* Gui Reis    -    gui.sreis25@gmail.com */
+
+
 /* A linguaguem padrão do app eh inglês, então não precisa criar um dicionário pra ela */
 
+// Tela: Tutorial
+"Objective-Description" = "NDon't let the red balls catch you!! Survive as long as you can.";
+"Controls-Description" = "Swipe on any place at the screen to control your ball, the blue one.";
+"Specials-Description" = "You have powers!! Catch them when appers.";
