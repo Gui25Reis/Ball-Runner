@@ -1,4 +1,4 @@
-/* Gui Reis     -    gui.sreis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import UIKit
@@ -73,10 +73,10 @@ class TutorialView: CustumView {
     
     public func setTitleText(with text: String) -> Void { self.titleLabel.text = text }
     
-    public func setTexts(subtitle: [String], description: [String]) -> Void {
-        for x in 0..<3 {
-            self.subTitlelabels[x].text = subtitle[x]
-            self.descriptionLabels[x].text = description[x]
+    public func setTutorialTopics(with topics: [TutorialTopic]) -> Void {
+        for topic in 0..<topics.count {
+            self.subTitlelabels[topic].text = topics[topic].title
+            self.descriptionLabels[topic].text = topics[topic].description
         }
     }
     

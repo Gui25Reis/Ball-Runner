@@ -1,4 +1,4 @@
-/* Gui Reis     -    gui.sreis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import SpriteKit
@@ -17,7 +17,7 @@ class GameScene: SKScene {
     private var gameOver: Bool = false
     private var specialTime: Int = 4
     private var isDragging: Bool = false
-    private let speedNode: CGFloat = 0.9 // CGFloat(UserDefaults.standard.double(forKey: "speed"))
+    private let speedNode: CGFloat = 0.9
     private var touchPosition: CGPoint = CGPoint()
     private var userPosition: CGPoint = CGPoint()
     private var timer: Int = 0
@@ -157,6 +157,7 @@ class GameScene: SKScene {
             if (self.getDistance(pos, userPos)-radius < radius) {
                 self.specialParticles.remove(at: s)
                 self.allParticles = []
+                self.particlesDying = []
                 return
             }
         }

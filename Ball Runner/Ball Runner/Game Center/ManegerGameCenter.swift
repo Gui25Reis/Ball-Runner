@@ -1,4 +1,4 @@
-/* Gui Reis     -    gui.sreis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import GameKit
@@ -100,7 +100,7 @@ class GameCenterService: GKGameCenterViewController {
             // Manda pro Game Center
             GKLeaderboard.submitScore(score, context: 0, player: GKLocalPlayer.local, leaderboardIDs: [GameCenterService.leaderboardID]) {error in
                 
-                if let _ = error {
+                if error != nil {
                     completionHandler(.scoreNotSubmited)
                 }
                 completionHandler(nil)

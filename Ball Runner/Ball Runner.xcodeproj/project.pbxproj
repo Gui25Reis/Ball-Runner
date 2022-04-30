@@ -14,6 +14,7 @@
 		222967AA281C57BF00E36A28 /* UIColor+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222967A9281C57BF00E36A28 /* UIColor+Colors.swift */; };
 		22359F0126AA0FCA00126268 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22359F0026AA0FCA00126268 /* TutorialViewController.swift */; };
 		22359F0326AF4F3800126268 /* TutorialVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22359F0226AF4F3800126268 /* TutorialVIew.swift */; };
+		2242553B281D29A50028D1F7 /* TutorialTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242553A281D29A50028D1F7 /* TutorialTopic.swift */; };
 		2254787426A768FD001BEB72 /* CostumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254787326A768FD001BEB72 /* CostumView.swift */; };
 		22AE1AC826A8E9230031350D /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE1AC726A8E9230031350D /* GameView.swift */; };
 		22AE1ACA26A95D080031350D /* PauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AE1AC926A95D080031350D /* PauseView.swift */; };
@@ -45,6 +46,7 @@
 		222967A9281C57BF00E36A28 /* UIColor+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Colors.swift"; sourceTree = "<group>"; };
 		22359F0026AA0FCA00126268 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		22359F0226AF4F3800126268 /* TutorialVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVIew.swift; sourceTree = "<group>"; };
+		2242553A281D29A50028D1F7 /* TutorialTopic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialTopic.swift; sourceTree = "<group>"; };
 		2254787326A768FD001BEB72 /* CostumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostumView.swift; sourceTree = "<group>"; };
 		22AE1AC726A8E9230031350D /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		22AE1AC926A95D080031350D /* PauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseView.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				22BABEDA28151A420016D2B6 /* ParticleType.swift */,
 				222967A5281C52F600E36A28 /* Buttons.swift */,
 				222967A7281C572500E36A28 /* Colors.swift */,
+				2242553A281D29A50028D1F7 /* TutorialTopic.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				22BABEDB28151A420016D2B6 /* ParticleType.swift in Sources */,
 				2254787426A768FD001BEB72 /* CostumView.swift in Sources */,
 				22FADC3B26BC5DE700903717 /* String+Localized.swift in Sources */,
+				2242553B281D29A50028D1F7 /* TutorialTopic.swift in Sources */,
 				220A8B8326B4B97E007D0EA6 /* EndgameViewController.swift in Sources */,
 				22F48DAD26A7661500AD2418 /* GameScene.swift in Sources */,
 				22BABED92814FAF90016D2B6 /* UserDefaults+Actions.swift in Sources */,

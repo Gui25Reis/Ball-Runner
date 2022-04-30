@@ -1,7 +1,8 @@
-/* Gui Reis     -    gui.sreis25@gmail.com */
+/* Gui Reis    -    gui.sreis25@gmail.com */
 
 /* Bibliotecas necessárias: */
 import Foundation
+
 
 extension UserDefaults {
     
