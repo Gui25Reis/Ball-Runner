@@ -10,7 +10,6 @@ class GameViewController: UIViewController {
     
     private let scene = GameScene()
     private lazy var pauseView = PauseView()
-    private lazy var gamePause: Bool = false
     private lazy var timer: Int = 0
     private var countdown: Timer!
     private var timeWhenPaused = Date()
@@ -73,7 +72,6 @@ class GameViewController: UIViewController {
                 return
             }
         }
-        self.gamePause = true
     }
     
     /// Quando sai do app (entra em segundo plano)
@@ -108,23 +106,26 @@ class GameViewController: UIViewController {
     
     /* View: Game */
     @objc func pauseAction() -> Void {
-        self.gamePause = true
-        self.scene.setStatuGame(to: false)
+        self.scene.setStatuGame(to: .paused)
         self.view.addSubview(self.pauseView)
     }
     
+    
     @objc func updateTimer() -> Void {
-        if (self.scene.isGameOver()){
-            self.countdown.invalidate()
-            self.addView()
-            self.endgameAction()
-        }
-        else if (!self.scene.isGameStart() && !self.gamePause){
+        switch self.scene.getGameStatus() {
+        case .playing:
             guard let view = self.view as? GameView else {return}
             
             self.timer += 1
             view.setScore(with: self.timer)
             self.scene.updadePerSecond(gameTime: self.timer)
+            
+        case .over:
+            self.countdown.invalidate()
+            self.addView()
+            self.endgameAction()
+        
+        default: break
         }
     }
     
@@ -142,9 +143,10 @@ class GameViewController: UIViewController {
         self.pauseView.setWarningText(with: "")
         self.pauseView.removeFromSuperview()
         if (timer != 0) {
-            self.scene.setStatuGame(to: true)
+            self.scene.setStatuGame(to: .playing)
+        } else {
+            self.scene.setStatuGame(to: .notStarted)
         }
-        self.gamePause = false
     }
     
     @objc func tutorialAction() -> Void {
