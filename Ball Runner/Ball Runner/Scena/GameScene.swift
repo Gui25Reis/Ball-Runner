@@ -8,19 +8,22 @@ class GameScene: SKScene {
     
     /* MARK: - Atributos */
     
+    private var userNode = Particle()
     private var allParticles: [Particle] = []
     private var particlesDying: [Particle] = []
+    
     private var specialParticles: [Particle] = []
-    private var userNode = Particle()
-    private var gameOn: Bool = false
-    private var gameStart: Bool = true
-    private var gameOver: Bool = false
     private var specialTime: Int = 4
+    
+    private var gameStatus: GameStatus = .notStarted
     private var isDragging: Bool = false
+    private var timer: Int = 0
+    
     private let speedNode: CGFloat = 0.9
+    
     private var touchPosition: CGPoint = CGPoint()
     private var userPosition: CGPoint = CGPoint()
-    private var timer: Int = 0
+    
     
     
     /* MARK: - Ciclo de Vida */
@@ -52,28 +55,31 @@ class GameScene: SKScene {
         Ação de cada frame que acontece (fps).
     */
     public override func update(_ currentTime: TimeInterval) -> Void {
-        if (self.gameOn && !self.gameOver) {
-            self.moveParticles()
-        } else if (self.gameStart) {
-            let userPos: CGPoint = self.userNode.getPosition()
-            if (userPos.x != self.size.width/2) && (userPos.y != self.size.height/2) {
-                self.gameOn = true
-                self.gameStart = false
+        
+        switch self.gameStatus {
+        case .notStarted:
+            let center: CGPoint = CGPoint(x: self.size.width/2, y: self.size.height/2)
+            
+            // Verifica se a bolinha mexeu
+            if self.userNode.getPosition() != center {
+                self.gameStatus = .playing
             }
+        case .playing:
+            self.moveParticles()
+            
+        default: break
         }
     }
     
     /* MARK: - Encapsulamento */
     
-    public func setStatuGame(to status: Bool) -> Void {
-        if !self.gameOver {
-            self.gameOn = status
-        }
+    public func setStatuGame(to status: GameStatus) -> Void {
+        self.gameStatus = status
     }
-    
-    public func isGameOver() -> Bool{return self.gameOver}
-    
-    public func isGameStart() -> Bool{return self.gameStart}
+        
+    public func getGameStatus() -> GameStatus {
+        return self.gameStatus
+    }
     
     
     public func updadePerSecond(gameTime: Int) -> Void{
@@ -176,8 +182,7 @@ class GameScene: SKScene {
                 
                 // Parada do jogo
                 if dist-gap < radius {
-                    self.gameOn = false
-                    self.gameOver = true
+                    self.gameStatus = .over
                     return
                 }
                 
@@ -223,10 +228,12 @@ class GameScene: SKScene {
         Ação de quando clica na tela.
     */
     public func startDrag(at position: CGPoint) -> Void {
-        if (self.gameOn || self.gameStart && !gameOver) {
+        switch self.gameStatus {
+        case .notStarted, .playing:
             self.touchPosition = position
             self.userPosition = self.userNode.getPosition()
             self.isDragging = true
+        default: break
         }
     }
         
@@ -238,7 +245,7 @@ class GameScene: SKScene {
         `[CGFloat]` pos_: nova posição da bolinha do usuário.
     */
     public func drag(at pos: CGPoint) -> Void {
-        if ((self.gameOn && self.isDragging) || (self.gameStart)) {
+        if (self.gameStatus == .notStarted) || (self.gameStatus == .playing && self.isDragging) {
             
             let speed: CGFloat = self.speedNode + 0.6
             
