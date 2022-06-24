@@ -8,21 +8,21 @@
 
 ![Capa](https://github.com/Gui25Reis/Ball-Runner/blob/main/Arquivos/Git-Capa.png)
 
+<p align="center">
+    <a href="https://apps.apple.com/us/app/ball-ruuner/id1579613903">
+        <img src="https://github.com/Gui25Reis/Gui25Reis/blob/main/images/AppStore-Pt.png"/>
+    </a>
+</p>
+
 Fuja das bolinha vermelhas e sobreviva o máximo que conseguir.
 
-1. [App Store](#app-store)
-2. [Plataforma e Requerimentos](#plataforma-e-requerimentos)
-3. [Código](#código)
-4. [Frameworks Usados](#frameworks-usados)
-5. [Demonstração](#demonstração)
-6. [Idiomas](#idiomas-disponíveis)
-7. [Documentação](#documentação)
-8. [Licença](#licença)
-9. [Autor](#autor)
-
-
-## App Store
-Jogo já está disponível na App Store, [baixe já](https://apps.apple.com/us/app/ball-ruuner/id1579613903).
+1. [Plataforma e Requerimentos](#plataforma-e-requerimentos)
+2. [Frameworks Usados](#frameworks-usados)
+3. [Demonstração](#demonstração)
+4. [Idiomas](#idiomas-disponíveis)
+5. [Documentação](#documentação)
+6. [Licença](#licença)
+7. [Autor](#autor)
 
 
 ## Plataforma e requerimentos
@@ -31,15 +31,12 @@ Jogo já está disponível na App Store, [baixe já](https://apps.apple.com/us/a
 iPhone           | iOS 14.5+   | Geração 7+
 
 
-## Código
-A aplicação foi feito com swift 5.5 e todo código criado e utilizado está nesse repositório na pasta [Ball Runner](https://github.com/Gui25Reis/Ball-Runner/blob/main/Ball%20Runner/Ball%20Runner).
-
-
 ## Frameworks Usados
+A aplicação foi feito com swift 5.5 e todo código criado e utilizado está nesse repositório na pasta [Ball Runner](https://github.com/Gui25Reis/Ball-Runner/blob/main/Ball%20Runner/Ball%20Runner).
 
 | **Framework** |   **Uso**  
 |---------------|-----------
-UIKit           | Aplicação em si
+UIKit           | Aplicação com view code
 GameKit         | Game Center
 
 
